@@ -1,0 +1,29 @@
+/* Front End Draft 1 */
+.wrapper{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+.navBar{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 300px;
+    background-color: rgb(30, 30, 30);
+    margin-left: -10px;
+    margin-top: -10px;
+}
+.title{
+    text-align: center
+}
+.button{
+    margin-top: 35px;
+    width: 250px;
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    border: none;
+}
+.button:hover{
+    opacity: .7;
+}
