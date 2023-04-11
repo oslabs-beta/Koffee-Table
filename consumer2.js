@@ -18,6 +18,7 @@ async function run() {
       fromBeginning: true,
     });
     console.log('this is kafka', await kafka);
+
     await consumer.run({
       eachMessage: async (result) => {
         console.log(

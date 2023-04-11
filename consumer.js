@@ -7,6 +7,7 @@ async function run() {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
+
       brokers: ['MATT-XPS:9094'],
     });
 
@@ -18,6 +19,7 @@ async function run() {
       fromBeginning: true,
     });
     console.log('this is kafka', await kafka);
+
     await consumer.run({
       eachMessage: async (result) => {
         console.log(

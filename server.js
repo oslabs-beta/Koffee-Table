@@ -13,8 +13,8 @@ app.get("/", (req, res) =>
 
 app.use(express.static(path.resolve(__dirname, "someFrontEndStuff/js")));
 
-
 app.post("/", producerController.addMsg, (req, res) => {
+
   console.log('here')
   return res.sendStatus(200);
 });
