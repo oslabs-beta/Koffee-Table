@@ -7,10 +7,10 @@ import Navbar from './Navbar.jsx';
 
 
 function App(){
-    // const [connected, setConnected] = useState(false);
+    const [connected, setConnected] = useState(false);
     return(
         <Routes>
-            <Route path="/" element={<Main />}/>
+            <Route path="/" element={<Main connected={connected} setConnected={setConnected}/>}/>
             <Route path="/test" element={<Test />}/>
         </Routes>
         
