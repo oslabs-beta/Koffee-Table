@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const producerController = require('../kafka/producer');
+const adminController = require('./adminController');
 
 const app = express();
 app.use(express.json());
@@ -19,8 +20,8 @@ app.get('/*', (req, res) => {
   });
 });
 
-app.post('/getCluster', (req, res) => {
-  res.json('cluster Connected');
+app.post('/getCluster', adminController.connectAdmin, (req, res) => {
+  return res.status(200).json(res.locals.topics);
 });
 
 app.post('/', producerController.addMsg, (req, res) => {

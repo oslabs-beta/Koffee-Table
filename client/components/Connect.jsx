@@ -13,6 +13,7 @@ function Connect() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                //add clientId
                 hostname: hostName,
                 port: port
             })
