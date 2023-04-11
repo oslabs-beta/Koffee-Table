@@ -1,4 +1,4 @@
 # The-Kafka-Visualizer
 
 
-This branch contains all the backend code that will need to be merged into dev
+This branch contains the merged frontend UI and the backend server with middleware that can be containerized into a docker container using the Dockerfile
