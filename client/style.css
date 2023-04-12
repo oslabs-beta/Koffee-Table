@@ -12,7 +12,7 @@
   margin-left: -10px;
   margin-top: -10px;
 }
-.title {
+#title {
   text-align: center;
 }
 .link {
@@ -31,25 +31,41 @@
   border: none;
   width: 150px;
   height: 35px;
-
-
 }
+.btn:hover{
+  opacity: .7;
+}
+
 .connectCluster{
-    display: grid;
-
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px;
 }
+
+
 .input{
     width: 400px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 15px;
-    border: none;
+    border: solid 1px black;
     height: 50px;
 }
 .topics{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+#connectionStatus{
+  display: none;
+  color: red;
+}
+#connectionSuccess{
+  display: none;
+  color: green;
 }
 
 
