@@ -28,6 +28,9 @@ consumerController.readMessages = async (req, res, next) => {
         );
       },
     });
+
+    consumer.disconnect();
+    return next();
   } catch (err) {
     console.log('error', err);
   } finally {
