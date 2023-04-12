@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-function Connect() {
+function Connect(props) {
   const socket = io('http://localhost:3001');
   socket.on('connect', () => {
     console.log(`You connected with id: ${socket.id}`);
@@ -16,6 +16,8 @@ function Connect() {
     const hostName = document.querySelector('.hostName').value;
     const port = document.querySelector('.Port').value;
     const clientId = document.querySelector('.ClientId').value;
+    document.querySelector('#connectionStatus').style.display = 'none';
+    document.querySelector('#connectionSuccess').style.display = 'none';
 
     fetch('/getCluster', {
       method: 'POST',
@@ -31,7 +33,14 @@ function Connect() {
       .then((response) => response.json())
       .then((data) => {
         //do important stuff here
-        console.log('Here is the Cluster data: ', data);
+        //error name in obj maight be a problem
+        if (!data.err) {
+          document.querySelector('#connectionSuccess').style.display = 'block';
+          props.setMetaData(data);
+          props.setConnected(true);
+        } else {
+          document.querySelector('#connectionStatus').style.display = 'block';
+        }
       })
       .catch((err) => {
         console.log('err in sendClusterData', err);
@@ -46,6 +55,8 @@ function Connect() {
       <button className="btn sendClusterButton" onClick={sendClusterData}>
         Submit
       </button>
+      <p id="connectionStatus">Connection Failed</p>
+      <p id="connectionSuccess">Connected!</p>
     </div>
   );
 }

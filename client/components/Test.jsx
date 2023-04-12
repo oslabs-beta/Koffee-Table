@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
+
 function Test() {
+  const socket = io('http://localhost:3001');
+  socket.on('connect', () => {
+    console.log(`You connected with id: ${socket.id}`);
+    socket.emit('test-event', 'finally all g');
+  });
 
   let listen = false;
 
@@ -22,6 +29,11 @@ function Test() {
   const send = (input) => {
     const input2 = (Math.random(5)*(10**17)).toString(36);
     console.log(input2)
+
+    // socket.on('event', () => {
+    //   socket.emit('test-event', input2);
+    // });
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,6 +44,11 @@ function Test() {
   const send2 = (input) => {
     const input2 = (Math.random(5)*(10**17)).toString(36);
     console.log(input2)
+
+    // socket.on('event', () => {
+    //   socket.emit('test-event', input2);
+    // });
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
