@@ -2,6 +2,20 @@ const express = require('express');
 const path = require('path');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
+const consumerController = require('./consumerController');
+// const io = require('socket.io')(3001, {
+//   cors: {
+//     origin: ['http://localhost:8080'],
+//   },
+// });
+
+// io.on('connection', (socket) => {
+//   console.log('here is socket.id: ', socket.id);
+//   socket.on('test-event', (string) => {
+//     console.log('STRING RECEIVED ON SERVER');
+//     io.emit('broadcasting', string);
+//   });
+// });
 
 const app = express();
 app.use(express.json());
@@ -22,6 +36,10 @@ app.get('/*', (req, res) => {
 
 app.post('/getCluster', adminController.connectAdmin, (req, res) => {
   return res.status(200).json(res.locals.topics);
+});
+
+app.post('/readMessages', consumerController.readMessages, (req, res) => {
+  return res.status(200).json('EVERYTHING IS WORKING FINE');
 });
 
 app.post('/', producerController.addMsg, (req, res) => {
