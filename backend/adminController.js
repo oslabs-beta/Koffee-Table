@@ -1,8 +1,8 @@
 const { Kafka } = require('kafkajs');
 
-const admin = {};
+const adminController = {};
 
-admin.connectAdmin = async (req, res, next) => {
+adminController.connectAdmin = async (req, res, next) => {
   //recheck clientId and brokers
   const { clientId, port, hostName } = req.body;
   // console.log(clientId);
