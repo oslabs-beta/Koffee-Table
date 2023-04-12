@@ -32,7 +32,9 @@ function BasicClusterInfo(props) {
   };
 
 
-  return <div>{buildClusterInfo(props.object)}</div>;
+  return <div className="topics">
+    {buildClusterInfo(props.object)}
+    </div>;
 }
 
 export default BasicClusterInfo;

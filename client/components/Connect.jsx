@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 function Connect() {
     
     const sendClusterData = () => {
-        const hostName = document.querySelector('#hostName').value;
-        const port = document.querySelector('#Port').value;
+        const hostName = document.querySelector('.hostName').value;
+        const port = document.querySelector('.Port').value;
+        const clientId = document.querySelector('.ClientId').value;
 
         fetch('/getCluster', {
             method: 'POST',
@@ -13,8 +14,8 @@ function Connect() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                //add clientId
-                hostname: hostName,
+                clientId: clientId,
+                hostName: hostName,
                 port: port
             })
         })
@@ -30,6 +31,7 @@ function Connect() {
     
     return(
         <div className="connectCluster">
+            <input placeholder='Client ID' className=" input ClientId"></input>
             <input placeholder='Host Name' className=" input hostName"></input>
             <input placeholder='Port' className=" input Port"></input>
             <button className="btn sendClusterButton" onClick={sendClusterData}>Submit</button>
