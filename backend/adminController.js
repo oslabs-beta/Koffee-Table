@@ -12,14 +12,21 @@ adminController.connectAdmin = async (req, res, next) => {
     brokers: [`${hostName}:${port}`], // [Joes-Air:9092]
   });
   const admin = kafka.admin();
-  await admin.connect();
+  admin.connect()
+    .then(async () => {
+      const topics = await admin.fetchTopicMetadata();
+      res.locals.topics = topics;
 
-  const topics = await admin.fetchTopicMetadata();
-  res.locals.topics = topics;
-
-  await admin.disconnect();
+    await admin.disconnect();
 
   return next();
+    })
+    .catch((err) =>{
+      return next(err);
+    })
+
+
+  
 };
 
 adminController.getBrokers = async (req, res, next) => {

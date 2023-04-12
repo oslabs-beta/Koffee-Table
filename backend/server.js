@@ -44,16 +44,16 @@ app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
 });
 
-//global error handler
 app.use((err, req, res, next) => {
-  const defaultError = {
+  const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
-    status: 500,
-    message: { err: 'An error occured' },
+    status: 400,
+    message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign(defaultError, err);
+  const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
+
 
 app.listen(8080, () => console.log('listening to 8080'));
