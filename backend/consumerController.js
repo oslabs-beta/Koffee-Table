@@ -17,7 +17,6 @@ consumerController.readMessages = async (req, res, next) => {
       topic: 'Users',
       fromBeginning: true,
     });
-    console.log('this is kafka', await kafka);
     await consumer.run({
       eachMessage: async ({ message, topic, partition }) => {
         console.log(
@@ -29,7 +28,7 @@ consumerController.readMessages = async (req, res, next) => {
       },
     });
 
-    consumer.disconnect();
+    await consumer.disconnect();
     return next();
   } catch (err) {
     console.log('error', err);
