@@ -38,15 +38,26 @@ consumerController.readMessages = async () => {
     //   });
     // });
     // console.log('--------------');
-    await consumer.run({
+    let array = [];
+    const finalMessages = (message) => {
+      array.push(message);
+      return array;
+    };
+
+    const allMessages = {
       eachMessage: async (result) => {
+        finalMessages(result.message.value);
         console.log(
           `Recieved Msg ${result.message.value} on partition ${result.partition}`
         );
-        //save data as a variable and return that data
-        return result.message.value;
+        finalMessages(result.message.value);
+        // save data as a variable and return that data
+        // return result.message.value;
       },
-    });
+    };
+    await consumer.run(allMessages);
+    // return oneMessage;
+    return array;
     //
     // return next();
   } catch (err) {

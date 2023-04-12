@@ -5,7 +5,6 @@ const { Kafka } = require('kafkajs');
 const producerController = {};
 
 producerController.addMsg = (req, res, next) => {
-  console.log('BODY FROM TEST!!!!!!!', req.body.input);
   const input = JSON.stringify(req.body.input);
   run(input);
   return next();

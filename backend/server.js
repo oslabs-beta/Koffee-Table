@@ -15,10 +15,10 @@ io.on('connection', (socket) => {
     //declare a constant that is the invocation of running consumerController.readMessage
     const messages = await consumerController.readMessages();
     // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead
-
+    console.log('MESSAGES!!!', messages);
     console.log('STRING RECEIVED ON SERVER');
     //emit this constant back to front-end
-    io.emit('broadcasting', string);
+    io.emit('broadcasting', messages);
   });
 });
 
