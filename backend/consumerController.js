@@ -3,7 +3,7 @@ const { Kafka } = require('kafkajs');
 const consumerController = {};
 
 consumerController.readMessages = async (req, res, next) => {
-  const { clientId, port, hostName, groupId } = req.body;
+  const { clientId, port, hostName, groupId, topic } = req.body;
   try {
     const kafka = new Kafka({
       clientId: clientId,
@@ -14,7 +14,7 @@ consumerController.readMessages = async (req, res, next) => {
     await consumer.connect();
     console.log('connected');
     consumer.subscribe({
-      topic: 'Users',
+      topic: topic,
       fromBeginning: true,
     });
     await consumer.run({
@@ -27,7 +27,7 @@ consumerController.readMessages = async (req, res, next) => {
         );
       },
     });
-    
+
     return next();
   } catch (err) {
     console.log('error', err);
