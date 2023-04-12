@@ -4,7 +4,8 @@ import Navbar from './Navbar.jsx';
 function Main() {
   return (
     <div className='main'>
-      <Navbar />
+      <h1>Koffe Table</h1>
+      
     </div>
   );
 }
