@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
+const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
+const consumerController = require('./consumerController');
 
 const app = express();
 app.use(express.json());
@@ -20,8 +22,22 @@ app.get('/*', (req, res) => {
   });
 });
 
-app.post('/getCluster', adminController.connectAdmin, (req, res) => {
-  return res.status(200).json(res.locals.topics);
+//once we connect, save hostname and port as a cookie
+app.post(
+  '/getCluster',
+  adminController.connectAdmin,
+  cookieController.setCookie,
+  (req, res) => {
+    return res.status(200).json(res.locals.topics);
+  }
+);
+
+app.post('/readMessages', consumerController.readMessages, (req, res) => {
+  return res.sendStatus(200);
+});
+
+app.get('/getBrokers', adminController.getBrokers, (req, res) => {
+  return res.sendStatus(200);
 });
 
 app.post('/', producerController.addMsg, (req, res) => {

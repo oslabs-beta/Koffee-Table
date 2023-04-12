@@ -29,4 +29,35 @@ adminController.connectAdmin = async (req, res, next) => {
   
 };
 
+adminController.getBrokers = async (req, res, next) => {
+  // const kafka = new Kafka({
+  //   clientId: req.cookies.clientId,
+  //   brokers: [`${req.cookies.hostName}:${req.cookies.port}`],
+  // });
+  const { clientId, port, hostName } = req.body;
+  const kafka = new Kafka({
+    clientId: clientId,
+    brokers: [`${hostName}:${port}`],
+  });
+
+  const admin = kafka.admin();
+  await admin.connect();
+  const brokers = await admin.describeCluster();
+  console.log(brokers);
+  /*
+  {
+  brokers: [
+    { nodeId: 2, host: 'MATT-XPS', port: 9093 },
+    { nodeId: 3, host: 'MATT-XPS', port: 9094 },
+    { nodeId: 1, host: 'MATT-XPS', port: 9092 }
+  ],
+  controller: 1,
+  clusterId: '9uIFubJvRr-yz1ZqoXvVcA'
+  }
+  */
+
+  await admin.disconnect();
+  return next();
+};
+
 module.exports = adminController;
