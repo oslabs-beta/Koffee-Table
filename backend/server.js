@@ -32,13 +32,12 @@ app.post(
   }
 );
 
-app.post('/readMessages', consumerController.readMessages, (req, res) => {
-  return res.sendStatus(200);
-});
+
 
 app.get('/getBrokers', adminController.getBrokers, (req, res) => {
   return res.sendStatus(200);
 });
+
 
 app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
@@ -55,5 +54,4 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-
-app.listen(8080, () => console.log('listening to 8080'));
+app.listen(3000, () => console.log('listening to 3000'));

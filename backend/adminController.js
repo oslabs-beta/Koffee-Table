@@ -16,7 +16,6 @@ adminController.connectAdmin = async (req, res, next) => {
     .then(async () => {
       const topics = await admin.fetchTopicMetadata();
       res.locals.topics = topics;
-
     await admin.disconnect();
 
   return next();
