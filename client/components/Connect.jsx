@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 function Connect(props) {
-  const socket = io('http://localhost:3001');
+  const socket = io('http://localhost:3000');
   socket.on('connect', () => {
     console.log(`You connected with id: ${socket.id}`);
     socket.emit('test-event', 'finally all g');
@@ -48,15 +48,15 @@ function Connect(props) {
   };
 
   return (
-    <div className="connectCluster">
-      <input placeholder="Client ID" className=" input ClientId"></input>
-      <input placeholder="Host Name" className=" input hostName"></input>
-      <input placeholder="Port" className=" input Port"></input>
-      <button className="btn sendClusterButton" onClick={sendClusterData}>
+    <div className='connectCluster'>
+      <input placeholder='Client ID' className=' input ClientId'></input>
+      <input placeholder='Host Name' className=' input hostName'></input>
+      <input placeholder='Port' className=' input Port'></input>
+      <button className='btn sendClusterButton' onClick={sendClusterData}>
         Submit
       </button>
-      <p id="connectionStatus">Connection Failed</p>
-      <p id="connectionSuccess">Connected!</p>
+      <p id='connectionStatus'>Connection Failed</p>
+      <p id='connectionSuccess'>Connected!</p>
     </div>
   );
 }

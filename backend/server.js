@@ -3,24 +3,23 @@ const path = require('path');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-const io = require('socket.io')(3001, {
-  cors: {
-    origin: ['http://localhost:8080'],
-  },
-});
+// const io = require('socket.io')(3000, {
+//   cors: {
+//     origin: ['http://localhost:8080'],
+//   },
+// });
 
-io.on('connection', (socket) => {
-  console.log('here is socket.id: ', socket.id);
-  socket.on('test-event', async (string) => {
-    //declare a constant that is the invocation of running consumerController.readMessage
-    const messages = await consumerController.readMessages();
-    // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead
-    console.log('MESSAGES!!!', messages);
-    console.log('STRING RECEIVED ON SERVER');
-    //emit this constant back to front-end
-    io.emit('broadcasting', messages);
-  });
-});
+// io.on('connection', (socket) => {
+//   console.log('here is socket.id: ', socket.id);
+//   socket.on('test-event', async () => {
+//     //declare a constant that is the invocation of running consumerController.readMessage
+//     const messages = await consumerController.readMessages();
+//     // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead
+//     //emit this constant back to front-end
+//     console.log('message from server: ', messages);
+//     io.emit('broadcasting', messages);
+//   });
+// });
 
 const app = express();
 app.use(express.json());
