@@ -1,25 +1,9 @@
 const express = require('express');
 const path = require('path');
+const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-// const io = require('socket.io')(3000, {
-//   cors: {
-//     origin: ['http://localhost:8080'],
-//   },
-// });
-
-// io.on('connection', (socket) => {
-//   console.log('here is socket.id: ', socket.id);
-//   socket.on('test-event', async () => {
-//     //declare a constant that is the invocation of running consumerController.readMessage
-//     const messages = await consumerController.readMessages();
-//     // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead
-//     //emit this constant back to front-end
-//     console.log('message from server: ', messages);
-//     io.emit('broadcasting', messages);
-//   });
-// });
 
 const app = express();
 app.use(express.json());
@@ -38,13 +22,22 @@ app.get('/*', (req, res) => {
   });
 });
 
-app.post('/getCluster', adminController.connectAdmin, (req, res) => {
-  return res.status(200).json(res.locals.topics);
+//once we connect, save hostname and port as a cookie
+app.post(
+  '/getCluster',
+  adminController.connectAdmin,
+  cookieController.setCookie,
+  (req, res) => {
+    return res.status(200).json(res.locals.topics);
+  }
+);
+
+
+
+app.get('/getBrokers', adminController.getBrokers, (req, res) => {
+  return res.sendStatus(200);
 });
 
-app.post('/readMessages', consumerController.readMessages, (req, res) => {
-  return res.status(200).json('EVERYTHING IS WORKING FINE');
-});
 
 app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
