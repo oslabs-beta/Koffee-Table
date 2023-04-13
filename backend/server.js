@@ -26,9 +26,9 @@ app.get('/*', (req, res) => {
 app.post(
   '/getCluster',
   adminController.connectAdmin,
-  cookieController.setCookie,
+  //cookieController.setCookie
   (req, res) => {
-    return res.status(200).json(res.locals.topics);
+    return res.status(200).json({topics: res.locals.topics, consumer: res.locals.consumer});
   }
 );
 

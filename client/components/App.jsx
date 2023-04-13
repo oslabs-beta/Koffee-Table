@@ -6,25 +6,42 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
 import BasicClusterInfo from './BasicClusterInfo.jsx';
 import Test from './Test.jsx';
+import Messages from './Messages.jsx';
 
+function App() {
+  const [connected, setConnected] = useState(false);
+  const [metaData, setMetaData] = useState(null);
+  const [consumer, setConsumer] = useState({});
+  const [topicPartition, setTopicPartition] = useState([]);
+  const [messages, setMessages] = useState([]);
 
-
-function App(){
-    const [connected, setConnected] = useState(false);
-    const [metaData, setMetaData] = useState(null);
-    return(
-    <div id="main">
-        <Navbar />
-        <Routes>
-            <Route path="/" element={<Main />}/>
-            <Route path="/connectKafka" element={<Connect connected={connected} setConnected={setConnected} setMetaData={setMetaData}/>}/>
-            <Route path="/displayPartition" element={<BasicClusterInfo object={metaData} setMetaData={setMetaData}/>}/>
-            <Route path="/test" element={<Test />}/>
-        </Routes>
+  return (
+    <div id='main'>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route
+          path='/connectKafka'
+          element={
+            <Connect
+              setConsumer={setConsumer}
+              connected={connected}
+              setConnected={setConnected}
+              setMetaData={setMetaData}
+            />
+          }
+        />
+        <Route
+          path='/displayPartition'
+          element={
+            <BasicClusterInfo setTopicPartition={setTopicPartition} object={metaData} setMetaData={setMetaData} />
+          }
+        />
+        <Route path='/test' element={<Test />} />
+        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages}/>} />
+      </Routes>
     </div>
-    )
+  );
 }
-
-
 
 export default App;

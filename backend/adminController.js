@@ -16,6 +16,14 @@ adminController.connectAdmin = async (req, res, next) => {
     .then(async () => {
       const topics = await admin.fetchTopicMetadata();
       res.locals.topics = topics;
+
+    // const consumer = await kafka.consumer({ groupId: 'test' });
+    // await consumer.connect();
+    // console.log('this is consumer', consumer);
+    // console.log('consumer connected');
+    // res.locals.consumer = consumer;
+
+
     await admin.disconnect();
 
   return next();

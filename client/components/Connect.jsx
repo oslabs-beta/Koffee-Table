@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
 
 function Connect(props) {
-  const socket = io('http://localhost:3000');
-  socket.on('connect', () => {
-    console.log(`You connected with id: ${socket.id}`);
-    socket.emit('test-event', 'finally all g');
-  });
-
-  socket.on('broadcasting', (message) => {
-    console.log('MESSAGE RECEIVED BY CLIENT', message);
-  });
-
   const sendClusterData = () => {
     const hostName = document.querySelector('.hostName').value;
     const port = document.querySelector('.Port').value;
@@ -36,8 +25,9 @@ function Connect(props) {
         //error name in obj maight be a problem
         if (!data.err) {
           document.querySelector('#connectionSuccess').style.display = 'block';
-          props.setMetaData(data);
+          props.setMetaData(data.topics);
           props.setConnected(true);
+          // props.setConsumer(data.consumer);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
         }
