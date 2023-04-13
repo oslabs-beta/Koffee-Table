@@ -61,4 +61,4 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(8080, () => console.log('listening to 8080'));
+app.listen(3000, () => console.log('listening to 3000'));
