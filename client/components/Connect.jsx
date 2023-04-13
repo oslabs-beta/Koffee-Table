@@ -25,7 +25,7 @@ function Connect(props) {
         //error name in obj maight be a problem
         if (!data.err) {
           document.querySelector('#connectionSuccess').style.display = 'block';
-          props.setMetaData(data.topics);
+          props.setMetadata(data.topics);
           props.setConnected(true);
           // props.setConsumer(data.consumer);
         } else {
