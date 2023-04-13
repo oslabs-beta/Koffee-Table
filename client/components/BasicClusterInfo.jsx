@@ -9,62 +9,7 @@ function BasicClusterInfo(props) {
   const buildClusterInfo = (kafkaObject) => {
     if (kafkaObject === null){
 
-      kafkaObject = {
-          topics: [
-            {
-              name: 'Users',
-              partitions: [
-                {
-                  partitionErrorCode: 0,
-                  partitionId: 0,
-                  leader: 2,
-                  replicas: [2],
-                  isr: [2],
-                  offlineReplicas: [],
-                },
-                {
-                  partitionErrorCode: 0,
-                  partitionId: 1,
-                  leader: 3,
-                  replicas: [3],
-                  isr: [3],
-                  offlineReplicas: [],
-                },
-              ],
-            },
-            {
-              name: 'test-topic2',
-              partitions: [
-                {
-                  partitionErrorCode: 0,
-                  partitionId: 0,
-                  leader: 3,
-                  replicas: [3],
-                  isr: [3],
-                  offlineReplicas: [],
-                },
-                {
-                  partitionErrorCode: 0,
-                  partitionId: 2,
-                  leader: 2,
-                  replicas: [2],
-                  isr: [2],
-                  offlineReplicas: [],
-                },
-                {
-                  partitionErrorCode: 0,
-                  partitionId: 1,
-                  leader: 1,
-                  replicas: [1],
-                  isr: [1],
-                  offlineReplicas: [],
-                },
-              ],
-            },
-          ],
-        };
-
-      // return "not connected";
+      return "not connected";
     }
     const topicObject = {};
     for (let i = 0; i < kafkaObject.topics.length; i++) {
