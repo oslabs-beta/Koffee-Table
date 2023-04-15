@@ -1,17 +1,22 @@
 import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, LinearScale } from 'chart.js';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  LinearScale,
+} from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend, LinearScale);
 
-function PartitionGraph({ metadata }) {
-//   console.log(metadata);
+function PartitionGraph({ topic }) {
   const data = {
-    labels: metadata.topics.map((topic) => topic.name),
+    labels: topic.partitions.map((partition) => partition.partitionId),
     datasets: [
       {
         label: '# of Partitions',
-        data: metadata.topics.map((topic) => topic.partitions.length),
+        data: [1, 2, 3], //topic.partitions.map((partition) => partition.length),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

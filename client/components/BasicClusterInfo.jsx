@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
 function BasicClusterInfo(props) {
-  const getPartitionInfo = (topicId, partitionId) => {
-    props.setTopicPartition([topicId, partitionId]);
-    // [x] connect to Kafka cluster which will send back a consumer object wtih topics and parititons
-    // [x] when we click paritions on the partition page, we will open a new react component
-    // [x] the react component will have the socket that conects to the consumerController websocket and give it the topic and parition (that we get from state);
-    // [] websocket will pass back the messages back to the front end on that page
-    // [] front end will display those messages
-  };
+  const { metadata, setTopicPartition } = props;
+
+  // [x] connect to Kafka cluster which will send back a consumer object wtih topics and parititons
+  // [x] when we click paritions on the partition page, we will open a new react component
+  // [x] the react component will have the socket that conects to the consumerController websocket and give it the topic and parition (that we get from state);
+  // [] websocket will pass back the messages back to the front end on that page
+  // [] front end will display those messages
 
   const buildClusterInfo = (kafkaObject) => {
     if (kafkaObject === null) {
@@ -17,19 +16,24 @@ function BasicClusterInfo(props) {
     }
 
     const topicObject = {};
-    for (let i = 0; i < kafkaObject.topics.length; i++) {
-      if (kafkaObject.topics[i].name !== '__consumer_offsets') {
-        topicObject[kafkaObject.topics[i].name] = [];
-        for (let x = 0; x < kafkaObject.topics[i].partitions.length; x++) {
-          let partitionId = kafkaObject.topics[i].partitions[x].partitionId;
-          let topicId = kafkaObject.topics[i].name;
-          let topicPartitionId = kafkaObject.topics[i].name + '-' + partitionId;
 
-          topicObject[kafkaObject.topics[i].name].push(
+    // iterate through topics
+    for (let i = 0; i < kafkaObject.topics.length; i++) {
+      const topic = kafkaObject.topics[i];
+      if (topic.name !== '__consumer_offsets') {
+        topicObject[topic.name] = [];
+
+        // iterate through partitions
+        for (let x = 0; x < topic.partitions.length; x++) {
+          let partition = topic.partitions[x];
+          let partitionId = partition.partitionId;
+          let topicPartitionId = topic.name + '-' + partitionId;
+
+          topicObject[topic.name].push(
             <Link
-              className='partition'
-              to='/messages'
-              onClick={() => getPartitionInfo(topicId, partitionId)}
+              className="partition"
+              to="/messages"
+              onClick={() => setTopicPartition(topic.name, partitionId)}
               id={topicPartitionId}
             >
               {partitionId}
@@ -39,19 +43,30 @@ function BasicClusterInfo(props) {
       }
     }
 
-    const finalArr = [];
+    const topicPartitionData = [];
     for (let topic in topicObject) {
-      finalArr.push(
+      topicPartitionData.push(
         <div>
-          <div>Topic: {topic}</div>
+          <div>
+            Topic:{' '}
+            <Link
+              className="topic"
+              // to={`/displayPartion/${topic}`}
+              to="/displayPartition/Users"
+              // onClick={() => setTopicPartition(topic.name, partitionId)}
+              // id={topicPartitionId}
+            >
+              {topic}
+            </Link>
+          </div>
           <div>Partitions: {topicObject[topic]}</div>
         </div>
       );
     }
-    return finalArr;
+    return topicPartitionData;
   };
 
-  return <div className='topics'>{buildClusterInfo(props.object)}</div>;
+  return <div className="topics">{buildClusterInfo(metadata)}</div>;
 }
 
 export default BasicClusterInfo;
