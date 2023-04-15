@@ -8,6 +8,7 @@ import BasicClusterInfo from './BasicClusterInfo.jsx';
 import Test from './Test.jsx';
 import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
+import ClusterOverview from  './ClusterOverview.jsx'; 
 
 function App() {
 
@@ -95,6 +96,7 @@ function App() {
         <Route path='/test' element={<Test />} />
         <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages}/>} />
         <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
+        <Route path='/overview' element={<ClusterOverview metadata={metadata}/>} /> 
       </Routes>
     </div>
   );
