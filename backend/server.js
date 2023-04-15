@@ -4,6 +4,7 @@ const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
+const userController = require('./userController')
 
 const app = express();
 app.use(express.json());
@@ -14,12 +15,36 @@ app.get('/', (req, res) => {
 });
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
+
+app.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
+  return res.status(200).json(res.locals.data);
+});
+
+app.delete('/user', userController.deletUser, (req, res) => {
+  return res.status(200).json(res.locals.data);
+});
+
+app.patch('/user', userController.findAndUpdate, (req, res) => {
+  return res.status(200).json(res.locals.data);
+});
+
+app.post('/user', userController.creatUser, (req, res) => {
+  return res.status(200).json(res.locals.data);
+});
+
+app.get('/user', userController.readUser, (req, res) => {
+  return res.status(200).json(res.locals.data);
+});
+
+
+
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
-    if (err) {
-      console.log(err);
-    }
-  });
+  // res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  // });
+  return res.redirect('/')
 });
 
 //once we connect, save hostname and port as a cookie
@@ -31,7 +56,6 @@ app.post(
     return res.status(200).json({topics: res.locals.topics, consumer: res.locals.consumer});
   }
 );
-
 
 
 app.get('/getBrokers', adminController.getBrokers, (req, res) => {
