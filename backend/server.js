@@ -35,7 +35,7 @@ app.post(
   (req, res) => {
     return res
       .status(200)
-      .json({ topics: res.locals.topics, consumer: res.locals.consumer });
+      .json({ topics: res.locals.topics, consumer: res.locals.consumer, brokers: res.locals.brokers });
   }
 );
 
@@ -43,9 +43,9 @@ app.get('/getBrokers', adminController.getBrokers, (req, res) => {
   return res.sendStatus(200);
 });
 
-app.post('/', producerController.addMsg, (req, res) => {
-  return res.sendStatus(200);
-});
+// app.post('/', producerController.addMsg, (req, res) => {
+//   return res.sendStatus(200);
+// });
 
 app.use((err, req, res, next) => {
   const defaultErr = {
