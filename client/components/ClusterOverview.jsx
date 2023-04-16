@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ClusterOverview({ metadata }) {
   const { topics } = metadata;
@@ -69,7 +70,9 @@ export default function ClusterOverview({ metadata }) {
   const topicList = topics.map((topic) => {
     return (
       <tr>
-        <td> {topic.name}</td>
+        <td>
+          <Link to={`/graphs/${topic.name}`}>{topic.name}</Link>
+        </td>
         <td>
           <b>{topic.partitions.length}</b> (
           {Math.floor((topic.partitions.length / totalPartitions) * 100)}%)
@@ -99,8 +102,8 @@ export default function ClusterOverview({ metadata }) {
   return (
     <div>
       <h1> Overview </h1>
-      <div className='cluster-overview-table'>
-        <table className='cluster-overview-table'>
+      <div className="cluster-overview-table">
+        <table className="cluster-overview-table">
           <tbody>
             <tr>
               <td> Total Topics</td>
@@ -118,7 +121,7 @@ export default function ClusterOverview({ metadata }) {
         </table>
       </div>
       <h2>Brokers</h2>
-      <div className='cluster-overview-table'>
+      <div className="cluster-overview-table">
         <table>
           <thead>
             <tr>
@@ -141,7 +144,7 @@ export default function ClusterOverview({ metadata }) {
         </table>
       </div>
       <h2>Topics</h2>
-      <div className='cluster-overview-table'>
+      <div className="cluster-overview-table">
         <table>
           <thead>
             <th>Topic Name</th>

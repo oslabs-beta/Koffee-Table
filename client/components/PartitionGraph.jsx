@@ -1,46 +1,51 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
   Legend,
+  Title,
   LinearScale,
+  CategoryScale,
+  BarElement,
 } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Pie, Bar } from 'react-chartjs-2';
+import {
+  partitionReplicasData,
+  partitionReplicasOptions,
+} from '../chart-data/partitionReplicas';
+import {
+  partitionOffsetsData,
+  partitionOffsetsOptions,
+} from '../chart-data/partitionOffsets';
 
-ChartJS.register(ArcElement, Tooltip, Legend, LinearScale);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  LinearScale,
+  CategoryScale,
+  BarElement
+);
 
-function PartitionGraph({ topic }) {
-  const data = {
-    labels: topic.partitions.map((partition) => partition.partitionId),
-    datasets: [
-      {
-        label: '# of Partitions',
-        data: [1, 2, 3], //topic.partitions.map((partition) => partition.length),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 2,
-      },
-    ],
-  };
+function PartitionGraph({ metadata }) {
+  const { topicFromUrl } = useParams();
+  const topic = metadata.topics.filter((topic) => topic.name === 'Users')[0];
 
-  const options = { radius: '50%' };
-
-  return <Pie data={data} options={options} />;
+  return (
+    <div className="chart-layout">
+      <Pie
+        data={partitionReplicasData(topic)}
+        options={partitionReplicasOptions}
+      />
+      <Bar
+        data={partitionOffsetsData(topic)}
+        options={partitionOffsetsOptions}
+      />
+    </div>
+  );
 }
 
 export default PartitionGraph;

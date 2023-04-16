@@ -8,17 +8,21 @@ function Navbar() {
         Home
       </Link>
 
-        <Link className='link displayTransitTimeButton' to="/connectKafka">Connect to Kafka Cluster</Link>
+      <Link className="link displayTransitTimeButton" to="/connectKafka">
+        Connect to Kafka Cluster
+      </Link>
 
-        <Link className="link displayTransitTimeButton" to="/overview">Kafka Cluster Overview</Link>
+      <Link className="link displayTransitTimeButton" to="/overview">
+        Kafka Cluster Overview
+      </Link>
 
-      <Link className="link displayTransitTimeButton" to="/displayPartition">
+      {/* <Link className="link displayTransitTimeButton" to="/displayPartition">
         Partitions
       </Link>
 
       <Link className="link displayTransitTimeButton" to="/graphs">
         Graphs
-      </Link>
+      </Link> */}
     </div>
   );
 }
