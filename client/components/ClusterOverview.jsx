@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-export default function ClusterOverview({ metadata }) {
+export default function ClusterOverview({ metadata, brokers }) {
+  /*
+  {
+    "brokers": [
+                  {
+                    "nodeId":1,
+                    "host":"MATT-XPS",
+                    "port":9092
+                  }
+                ],
+    "controller":1,
+    "clusterId":"9uIFubJvRr-yz1ZqoXvVcA"        
+  }
+  */
+
   const { topics } = metadata;
   //   console.log(JSON.stringify(topics));
 
@@ -65,6 +79,35 @@ export default function ClusterOverview({ metadata }) {
     0
   );
 
+  //Brokers: brokers, id, host, port, Controller, Number of Paritions (%of total)
+  /*
+  {
+    "brokers": [
+                  {
+                    "nodeId":1,
+                    "host":"MATT-XPS",
+                    "port":9092
+                  }
+                ],
+    "controller":1,
+    "clusterId":"9uIFubJvRr-yz1ZqoXvVcA"        
+  }
+  */
+  const { controller } = brokers;
+  let brokersList;
+  if (brokers) {
+    brokersList = brokers.brokers.map((broker) => {
+      return (
+        <tr>
+          <td> {broker.nodeId} </td>
+          <td> {broker.host} </td>
+          <td> {broker.port} </td>
+          <td> {brokers.controller === controller ? 'Yes' : 'No'} </td>
+        </tr>
+      );
+    });
+  }
+
   //Topic: name, partitions, under-replicated paritions
   const topicList = topics.map((topic) => {
     return (
@@ -78,7 +121,6 @@ export default function ClusterOverview({ metadata }) {
       </tr>
     );
   });
-  console.log('topicList: ', topicList);
 
   //total brokers
   //total topics
@@ -126,18 +168,9 @@ export default function ClusterOverview({ metadata }) {
               <th>Host </th>
               <th>Port</th>
               <th>Controller</th>
-              <th>Number of Paritions (%of total)</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td> 0 </td>
-              <td> MATT-XPS </td>
-              <td> 9092 </td>
-              <td> Yes </td>
-              <td> 87 (100%) </td>
-            </tr>
-          </tbody>
+          <tbody>{brokersList}</tbody>
         </table>
       </div>
       <h2>Topics</h2>

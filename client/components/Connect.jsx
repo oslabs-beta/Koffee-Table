@@ -27,6 +27,7 @@ function Connect(props) {
           document.querySelector('#connectionSuccess').style.display = 'block';
           props.setMetadata(data.topics);
           props.setConnected(true);
+          props.setBrokers(data.brokers);
           // props.setConsumer(data.consumer);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
