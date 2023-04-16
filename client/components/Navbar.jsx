@@ -8,9 +8,9 @@ function Navbar() {
         Home
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/connectKafka">
-        Connect to Kafka Cluster
-      </Link>
+        <Link className='link displayTransitTimeButton' to="/connectKafka">Connect to Kafka Cluster</Link>
+
+        <Link className="link displayTransitTimeButton" to="/overview">Kafka Cluster Overview</Link>
 
       <Link className="link displayTransitTimeButton" to="/displayPartition">
         Partitions

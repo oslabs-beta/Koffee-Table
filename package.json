@@ -1,55 +1,55 @@
 {
-  "name": "kafka",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "homepage": "/http://localhost:8080/",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production nodemon backend/server.js",
-    "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack-dev-server --hot --progress --color & nodemon backend/server.js"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "build",
-      "client"
-    ]
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "chart.js": "^4.2.1",
-    "express": "^4.18.2",
-    "kafkajs": "^2.2.4",
-    "mobx-react": "^7.6.0",
-    "path": "^0.12.7",
-    "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0",
-    "socket.io": "^4.6.1",
-    "socket.io-client": "^4.6.1",
-    "webpack": "^5.78.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.21.3",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
-    "babel-loader": "^9.1.2",
-    "concurrently": "^6.0.2",
-    "cross-env": "^7.0.3",
-    "css-loader": "^6.7.3",
-    "file-loader": "^6.2.0",
-    "html-loader": "4.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "isomorphic-fetch": "^3.0.0",
-    "nodemon": "^2.0.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.10.0",
-    "style-loader": "^3.3.2",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.13.1"
-  }
+    "name": "kafka",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "NODE_ENV=production nodemon backend/server.js",
+        "build": "NODE_ENV=production webpack",
+        "dev": "NODE_ENV=development webpack serve --open & nodemon backend/server.js"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "build",
+            "client"
+        ]
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "chart.js": "^4.2.1",
+        "express": "^4.18.2",
+        "kafkajs": "^2.2.4",
+        "mobx-react": "^7.6.0",
+        "path": "^0.12.7",
+        "react": "^18.2.0",
+        "react-chartjs-2": "^5.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.10.0",
+        "socket.io": "^4.6.1",
+        "socket.io-client": "^4.6.1",
+        "webpack": "^5.78.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.3",
+        "@babel/preset-env": "^7.20.2",
+        "@babel/preset-react": "^7.18.6",
+        "babel-loader": "^9.1.2",
+        "concurrently": "^6.0.2",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.3",
+        "file-loader": "^6.2.0",
+        "html-loader": "4.2.0",
+        "html-webpack-plugin": "^5.5.0",
+        "isomorphic-fetch": "^3.0.0",
+        "nodemon": "^2.0.7",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.10.0",
+        "style-loader": "^3.3.2",
+        "webpack-cli": "^4.8.0",
+        "webpack-dev-server": "^4.13.1"
+    }
 }

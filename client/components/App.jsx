@@ -9,6 +9,7 @@ import Test from './Test.jsx';
 import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
 import PartitionGraph from './PartitionGraph.jsx';
+import ClusterOverview from  './ClusterOverview.jsx'; 
 
 function App() {
   const defaultMetadata = {
@@ -114,6 +115,7 @@ function App() {
           path="/displayPartition/Users"
           element={<PartitionGraph topic={metadata.topics[0]} />}
         />
+        <Route path='/overview' element={<ClusterOverview metadata={metadata}/>} /> 
       </Routes>
     </div>
   );

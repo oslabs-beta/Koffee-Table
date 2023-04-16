@@ -20,23 +20,22 @@
   margin-top: 40px;
   text-decoration: none;
   color: white;
-
 }
 
 .ConnectToCluster {
   text-align: center;
 }
-.btn{
+.btn {
   border-radius: 15px;
   border: none;
   width: 150px;
   height: 35px;
 }
-.btn:hover{
-  opacity: .7;
+.btn:hover {
+  opacity: 0.7;
 }
 
-.connectCluster{
+.connectCluster {
   margin-top: 25px;
   display: flex;
   flex-direction: column;
@@ -45,27 +44,31 @@
   gap: 10px;
 }
 
-
-.input{
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
-    border: solid 1px black;
-    height: 50px;
+.input {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  border: solid 1px black;
+  height: 50px;
 }
-.topics{
+.topics {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
-#connectionStatus{
+#connectionStatus {
   display: none;
   color: red;
 }
-#connectionSuccess{
+#connectionSuccess {
   display: none;
   color: green;
 }
 
-
+.cluster-overview-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
