@@ -108,7 +108,9 @@ function App() {
               setMetadata={setMetadata}
               setBrokers={setBrokers}
               setUserInfo={setUserInfo}
+
             />}/>
+
         <Route
           path='/displayPartition'
           element={
@@ -120,19 +122,9 @@ function App() {
           }
         />
         <Route path='/test' element={<Test />} />
-        <Route
-          path='/messages'
-          element={
-            <Messages
-              topicPartition={topicPartition}
-              connected={connected}
-              messages={messages}
-              setMessages={setMessages}
-              
-            />
-          }
-        />
-        <Route path='/graphs' element={<Graphs metadata={metadata} />} />
+
+        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
+        <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
         <Route
           path='/overview'
           element={<AllClusterOverview metadata={metadata} brokers={brokers} offsets={offsets} setOffsets={setOffsets}/>}
