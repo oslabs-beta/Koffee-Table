@@ -86,12 +86,19 @@ function App() {
   const [brokers, setBrokers] = useState(defaultBrokers);
   const [offsets, setOffsets] = useState([
     {
-      id: 0,
-      messages: 0,
+      partition: 0,
+      high: 5,
       offset: 0,
+      low: 0,
+    },
+    {
+      partition: 1,
+      high: 9,
+      offset: 0,
+      low: 0,
     },
   ]);
-  const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState([]);
 
   return (
     <div id="main">
@@ -107,6 +114,7 @@ function App() {
               connected={connected}
               setConnected={setConnected}
               setMetadata={setMetadata}
+              setUserInfo={setUserInfo}
             />
           }
         />
@@ -118,34 +126,41 @@ function App() {
               metadata={metadata}
               setBrokers={setBrokers}
               setUserInfo={setUserInfo}
-
             />
           }
         />
+
         <Route path="/test" element={<Test />} />
 
         <Route
           path="/messages"
           element={
-            <BasicClusterInfo
-              setTopicPartition={setTopicPartition}
-              object={metadata}
-              setMetadata={setMetadata}
+            <Messages
+              topicPartition={topicPartition}
+              connected={connected}
+              messages={messages}
+              setMessages={setMessages}
+              userInfo={userInfo}
             />
           }
         />
-        <Route path='/test' element={<Test />} />
-
-        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
         <Route
-          path='/overview'
-          element={<AllClusterOverview metadata={metadata} brokers={brokers} offsets={offsets} setOffsets={setOffsets}/>}
+          path="/overview"
+          element={
+            <AllClusterOverview
+              metadata={metadata}
+              brokers={brokers}
+              offsets={offsets}
+              setOffsets={setOffsets}
+              userInfo={userInfo}
+            />
+          }
+        />
+        <Route
+          path="/graphs/:topicFromURL"
+          element={<PartitionGraph metadata={metadata} offsets={offsets} />}
         />
       </Routes>
-      <Route
-          path="/graphs/:topic"
-          element={<PartitionGraph metadata={metadata} />}
-        />
     </div>
   );
 }

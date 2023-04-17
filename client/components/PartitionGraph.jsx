@@ -30,20 +30,27 @@ ChartJS.register(
   BarElement
 );
 
-function PartitionGraph({ metadata }) {
-  const { topicFromUrl } = useParams();
-  const topic = metadata.topics.filter((topic) => topic.name === 'Users')[0];
+function PartitionGraph({ metadata, offsets }) {
+  console.log(offsets);
+  const { topicFromURL } = useParams();
+  // console.log(topicFromUrl);
+  const topic = metadata.topics.filter(
+    (topic) => topic.name === topicFromURL
+  )[0];
 
   return (
-    <div className="chart-layout">
-      <Pie
-        data={partitionReplicasData(topic)}
-        options={partitionReplicasOptions}
-      />
-      <Bar
-        data={partitionOffsetsData(topic)}
-        options={partitionOffsetsOptions}
-      />
+    <div>
+      <h2>{topic.name}</h2>
+      <div className="chart-layout">
+        <Pie
+          data={partitionReplicasData(topic)}
+          options={partitionReplicasOptions}
+        />
+        <Bar
+          data={partitionOffsetsData(offsets)}
+          options={partitionOffsetsOptions}
+        />
+      </div>
     </div>
   );
 }

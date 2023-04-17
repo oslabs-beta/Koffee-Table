@@ -75,8 +75,9 @@
 
 .chart-layout {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-items: center;
+  /* justify-items: center; */
   gap: 50px;
   width: 30%;
 }

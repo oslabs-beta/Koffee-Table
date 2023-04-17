@@ -40,15 +40,15 @@ function Connect(props) {
   };
 
   return (
-    <div className='connectCluster'>
-      <input placeholder='Client ID' className=' input ClientId'></input>
-      <input placeholder='Host Name' className=' input hostName'></input>
-      <input placeholder='Port' className=' input Port'></input>
-      <button className='btn sendClusterButton' onClick={sendClusterData}>
+    <div className="connectCluster">
+      <input placeholder="Client ID" className=" input ClientId"></input>
+      <input placeholder="Host Name" className=" input hostName"></input>
+      <input placeholder="Port" className=" input Port"></input>
+      <button className="btn sendClusterButton" onClick={sendClusterData}>
         Submit
       </button>
-      <p id='connectionStatus'>Connection Failed</p>
-      <p id='connectionSuccess'>Connected!</p>
+      <p id="connectionStatus">Connection Failed</p>
+      <p id="connectionSuccess">Connected!</p>
     </div>
   );
 }

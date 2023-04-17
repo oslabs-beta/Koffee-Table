@@ -1,9 +1,9 @@
-export const partitionOffsetsData = (topic) => ({
-  labels: topic.partitions.map((partition) => partition.partitionId),
+export const partitionOffsetsData = (offsets) => ({
+  labels: offsets.map((partition) => partition.partition),
   datasets: [
     {
-      label: topic.partitions.map((partition) => partition.partitionId),
-      data: topic.partitions.map((partition) => partition.replicas[0]),
+      label: offsets.map((partition) => partition.partition),
+      data: offsets.map((partition) => partition.high),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -27,5 +27,24 @@ export const partitionOffsetsData = (topic) => ({
 
 export const partitionOffsetsOptions = {
   responsive: true,
-  plugins: { title: { display: true, text: 'Partition Offsets' } },
+  plugins: {
+    title: { display: true, text: 'Partition Offsets' },
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: '# of messages',
+      },
+    },
+    x: {
+      title: {
+        display: true,
+        text: 'Partition ID',
+      },
+    },
+  },
 };

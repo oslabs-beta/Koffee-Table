@@ -4,20 +4,16 @@ const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-const userController = require('./userController')
+const userController = require('./userController');
 
 const app = express();
 app.use(express.json());
 
-
 // //serve main page of application
 // app.get('/*', (req, res) => {
 //   // res.sendFile(path.resolve(__dirname, '../client/index.html'));
-//   res.redirect('/'); //delete this in production and revert to line above 
+//   res.redirect('/'); //delete this in production and revert to line above
 // });
-
-
-
 
 app.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
   return res.status(200).json(res.locals.data);
@@ -39,8 +35,6 @@ app.get('/user', userController.readUser, (req, res) => {
   return res.status(200).json(res.locals.data);
 });
 
-
-
 //once we connect, save hostname and port as a cookie
 app.post(
   '/getCluster',
@@ -49,7 +43,11 @@ app.post(
   (req, res) => {
     return res
       .status(200)
-      .json({ topics: res.locals.topics, consumer: res.locals.consumer, brokers: res.locals.brokers });
+      .json({
+        topics: res.locals.topics,
+        consumer: res.locals.consumer,
+        brokers: res.locals.brokers,
+      });
   }
 );
 
@@ -61,10 +59,9 @@ app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
 });
 
-
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../build')));
-  
+
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
       if (err) {
@@ -77,14 +74,8 @@ if (process.env.NODE_ENV === 'production') {
 //serve main page of application
 app.get('/*', (req, res) => {
   // res.sendFile(path.resolve(__dirname, '../client/index.html'));
-  res.redirect('/'); //delete this in production and revert to line above 
+  res.redirect('/'); //delete this in production and revert to line above
 });
-
-
-
-if (process.env.NODE_ENV === 'production') {
-  app.use('/build', express.static(path.resolve(__dirname, '../build')));
-}
 
 app.use((err, req, res, next) => {
   const defaultErr = {
