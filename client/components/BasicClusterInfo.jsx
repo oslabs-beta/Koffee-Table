@@ -33,7 +33,7 @@ function BasicClusterInfo(props) {
             <Link
               className="partition"
               to="/messages"
-              onClick={() => setTopicPartition(topic.name, partitionId)}
+              onClick={() => setTopicPartition([topic.name, partitionId])}
               id={topicPartitionId}
             >
               {partitionId}

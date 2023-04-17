@@ -16,11 +16,15 @@ function Navbar() {
         Kafka Cluster Overview
       </Link>
 
-      {/* <Link className="link displayTransitTimeButton" to="/displayPartition">
+      <Link className="link displayTransitTimeButton" to="/test">
+        Test
+      </Link>
+
+      <Link className="link displayTransitTimeButton" to="/displayPartition">
         Partitions
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/graphs">
+      {/* <Link className="link displayTransitTimeButton" to="/graphs">
         Graphs
       </Link> */}
     </div>
