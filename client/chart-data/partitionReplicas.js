@@ -2,7 +2,7 @@ export const partitionReplicasData = (topic) => ({
   labels: topic.partitions.map((partition) => partition.partitionId),
   datasets: [
     {
-      label: 'Partition Replicas',
+      label: topic.partitions.map((partition) => partition.partitionId),
       data: topic.partitions.map((partition) => partition.replicas[0]),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
