@@ -3,45 +3,35 @@ const { Kafka } = require('kafkajs');
 const adminController = {};
 
 adminController.connectAdmin = async (req, res, next) => {
-  //recheck clientId and brokers
-  const { clientId, port, hostName } = req.body;
-  // console.log(clientId);
-  // console.log(brokers);
+  const { clientId, port, hostName, groupId } = req.body;
   const kafka = new Kafka({
     clientId: clientId, // "my-app"
     brokers: [`${hostName}:${port}`], // [Joes-Air:9092]
   });
   const admin = kafka.admin();
-  admin.connect()
+  admin
+    .connect()
     .then(async () => {
       const topics = await admin.fetchTopicMetadata();
+      // const partitions = await admin.fetchOffsets({groupId})
+      // console.log('partitions: ', partitions)
+      const brokers = await admin.describeCluster({groupId: 'myapp'});
+      res.locals.brokers = brokers;
       res.locals.topics = topics;
-
-    // const consumer = await kafka.consumer({ groupId: 'test' });
-    // await consumer.connect();
-    // console.log('this is consumer', consumer);
-    // console.log('consumer connected');
-    // res.locals.consumer = consumer;
-
-
-    await admin.disconnect();
-
-  return next();
+      await admin.disconnect();
+      return next();
     })
-    .catch((err) =>{
+    .catch((err) => {
       return next(err);
-    })
-
-
-  
+    });
 };
 
-adminController.getBrokers = async (req, res, next) => {
+adminController.getOffsets = async (req, res, next) => {
   // const kafka = new Kafka({
   //   clientId: req.cookies.clientId,
   //   brokers: [`${req.cookies.hostName}:${req.cookies.port}`],
   // });
-  const { clientId, port, hostName } = req.body;
+  const { clientId, port, hostName, topic } = req.body;
   const kafka = new Kafka({
     clientId: clientId,
     brokers: [`${hostName}:${port}`],
@@ -49,20 +39,8 @@ adminController.getBrokers = async (req, res, next) => {
 
   const admin = kafka.admin();
   await admin.connect();
-  const brokers = await admin.describeCluster();
-  console.log(brokers);
-  /*
-  {
-  brokers: [
-    { nodeId: 2, host: 'MATT-XPS', port: 9093 },
-    { nodeId: 3, host: 'MATT-XPS', port: 9094 },
-    { nodeId: 1, host: 'MATT-XPS', port: 9092 }
-  ],
-  controller: 1,
-  clusterId: '9uIFubJvRr-yz1ZqoXvVcA'
-  }
-  */
-
+  const offsets = await admin.fetchTopicOffsets(topic)
+  res.locals.offsets = offsets
   await admin.disconnect();
   return next();
 };

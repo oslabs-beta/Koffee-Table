@@ -21,18 +21,17 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
     await consumer.connect();
     console.log('connected');
 
-
     await consumer.subscribe({
-      topic: topicPartition[0], 
+      topic: topicPartition[0],
       fromBeginning: true,
     });
     await consumer.run({
       eachMessage: async (result) => {
-        //topic parition contains an array as [topic, parition] 
-        console.log('this is partition', result.partition)
-        if (topicPartition[1] === result.partition){
-          console.log('i am broadcasting')
-          io.emit('broadcasting', result.message.value.toString()); 
+        //topic parition contains an array as [topic, parition]
+        console.log('this is partition', result.partition);
+        if (topicPartition[1] === result.partition) {
+          console.log('i am broadcasting');
+          io.emit('broadcasting', result.message.value.toString());
         }
       },
     });
@@ -51,7 +50,5 @@ io.on('connection', (socket) => {
     //emit this constant back to front-end
   });
 });
-
-
 
 module.exports = consumerController;

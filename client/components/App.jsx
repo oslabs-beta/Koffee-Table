@@ -8,69 +8,89 @@ import BasicClusterInfo from './BasicClusterInfo.jsx';
 import Test from './Test.jsx';
 import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
+import ClusterOverview from './ClusterOverview.jsx';
+import AllClusterOverview from './AllClusterOverview.jsx';
 
 function App() {
-
   const defaultMetadata = {
-      topics: [
+    topics: [
+      {
+        name: 'Test Topic 1',
+        partitions: [
           {
-          name: 'Users',
-          partitions: [
-              {
-              partitionErrorCode: 0,
-              partitionId: 0,
-              leader: 2,
-              replicas: [2],
-              isr: [2],
-              offlineReplicas: [],
-              },
-              {
-              partitionErrorCode: 0,
-              partitionId: 1,
-              leader: 3,
-              replicas: [3],
-              isr: [3],
-              offlineReplicas: [],
-              },
-          ],
+            partitionErrorCode: 0,
+            partitionId: 0,
+            leader: 2,
+            replicas: [2],
+            isr: [2],
+            offlineReplicas: [],
           },
           {
-          name: 'test-topic2',
-          partitions: [
-              {
-              partitionErrorCode: 0,
-              partitionId: 0,
-              leader: 3,
-              replicas: [3],
-              isr: [3],
-              offlineReplicas: [],
-              },
-              {
-              partitionErrorCode: 0,
-              partitionId: 2,
-              leader: 2,
-              replicas: [2],
-              isr: [2],
-              offlineReplicas: [],
-              },
-              {
-              partitionErrorCode: 0,
-              partitionId: 1,
-              leader: 1,
-              replicas: [1],
-              isr: [1],
-              offlineReplicas: [],
-              },
-          ],
+            partitionErrorCode: 0,
+            partitionId: 1,
+            leader: 3,
+            replicas: [3],
+            isr: [3],
+            offlineReplicas: [],
           },
-      ],
-}
-    
+        ],
+      },
+      {
+        name: 'Test Topic 2',
+        partitions: [
+          {
+            partitionErrorCode: 0,
+            partitionId: 0,
+            leader: 3,
+            replicas: [3],
+            isr: [3],
+            offlineReplicas: [],
+          },
+          {
+            partitionErrorCode: 0,
+            partitionId: 2,
+            leader: 2,
+            replicas: [2],
+            isr: [2],
+            offlineReplicas: [],
+          },
+          {
+            partitionErrorCode: 0,
+            partitionId: 1,
+            leader: 1,
+            replicas: [1],
+            isr: [1],
+            offlineReplicas: [],
+          },
+        ],
+      },
+    ],
+  };
+
+  const defaultBrokers = {
+    brokers: [
+      {
+        nodeId: 1,
+        host: 'Your host name',
+        port: 9092,
+      },
+    ],
+    controller: 1,
+  };
+
   const [connected, setConnected] = useState(false);
   const [metadata, setMetadata] = useState(defaultMetadata);
   const [consumer, setConsumer] = useState({});
   const [topicPartition, setTopicPartition] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [brokers, setBrokers] = useState(defaultBrokers);
+  const [offsets, setOffsets] = React.useState([
+    {
+      id: 0,
+      messages: 0,
+      offset: 0,
+    },
+  ]);
   const [userInfo, setUserInfo] = useState([])
 
   return (
@@ -86,17 +106,40 @@ function App() {
               connected={connected}
               setConnected={setConnected}
               setMetadata={setMetadata}
+              setBrokers={setBrokers}
               setUserInfo={setUserInfo}
-            />}/>
+            />
+          }
+        />
         <Route
           path='/displayPartition'
           element={
-            <BasicClusterInfo setTopicPartition={setTopicPartition} object={metadata} setMetadata={setMetadata} />
+            <BasicClusterInfo
+              setTopicPartition={setTopicPartition}
+              object={metadata}
+              setMetadata={setMetadata}
+            />
           }
         />
         <Route path='/test' element={<Test />} />
         <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
         <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
+        <Route
+          path='/messages'
+          element={
+            <Messages
+              topicPartition={topicPartition}
+              connected={connected}
+              messages={messages}
+              setMessages={setMessages}
+            />
+          }
+        />
+        <Route path='/graphs' element={<Graphs metadata={metadata} />} />
+        <Route
+          path='/overview'
+          element={<AllClusterOverview metadata={metadata} brokers={brokers} offsets={offsets} setOffsets={setOffsets}/>}
+        />
       </Routes>
     </div>
   );

@@ -8,19 +8,18 @@ const consumerController = require('./consumerController');
 const app = express();
 app.use(express.json());
 
-//serve main page of application
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/index.html'));
-});
-app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
-    if (err) {
-      console.log(err);
-    }
+if (process.env.NODE_ENV === 'production') {
+  app.use('/build', express.static(path.resolve(__dirname, '../build')));
+  
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   });
-});
+}
 
 //once we connect, save hostname and port as a cookie
 app.post(
@@ -28,19 +27,24 @@ app.post(
   adminController.connectAdmin,
   //cookieController.setCookie
   (req, res) => {
-    return res.status(200).json({topics: res.locals.topics, consumer: res.locals.consumer});
+    return res
+      .status(200)
+      .json({ topics: res.locals.topics, consumer: res.locals.consumer, brokers: res.locals.brokers });
   }
 );
 
-
-
-app.get('/getBrokers', adminController.getBrokers, (req, res) => {
-  return res.sendStatus(200);
+app.post('/getOffsets', adminController.getOffsets, (req, res) => {
+  return res.status(200).json(res.locals.offsets);
 });
 
+// app.post('/', producerController.addMsg, (req, res) => {
+//   return res.sendStatus(200);
+// });
 
-app.post('/', producerController.addMsg, (req, res) => {
-  return res.sendStatus(200);
+//serve main page of application
+app.get('/*', (req, res) => {
+  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
+  res.redirect('/'); //delete this in production and revert to line above 
 });
 
 app.use((err, req, res, next) => {

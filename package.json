@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "NODE_ENV=production nodemon backend/server.js",
         "build": "NODE_ENV=production webpack",
-        "dev": "NODE_ENV=development webpack serve & nodemon backend/server.js"
+        "dev": "NODE_ENV=development webpack serve --open & nodemon backend/server.js"
     },
     "nodemonConfig": {
         "ignore": [
@@ -19,6 +19,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.12.0",
         "chart.js": "^4.2.1",
         "express": "^4.18.2",
         "kafkajs": "^2.2.4",
