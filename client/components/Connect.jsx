@@ -7,6 +7,7 @@ function Connect(props) {
     const clientId = document.querySelector('.ClientId').value;
     document.querySelector('#connectionStatus').style.display = 'none';
     document.querySelector('#connectionSuccess').style.display = 'none';
+    props.setUserInfo([clientId, hostName, port]);
 
     fetch('/getCluster', {
       method: 'POST',
@@ -27,6 +28,7 @@ function Connect(props) {
           document.querySelector('#connectionSuccess').style.display = 'block';
           props.setMetadata(data.topics);
           props.setConnected(true);
+          props.setBrokers(data.brokers);
           // props.setConsumer(data.consumer);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';

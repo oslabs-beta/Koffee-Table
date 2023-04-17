@@ -9,13 +9,13 @@ import Test from './Test.jsx';
 import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
 import PartitionGraph from './PartitionGraph.jsx';
-import ClusterOverview from './ClusterOverview.jsx';
+import AllClusterOverview from './AllClusterOverview.jsx';
 
 function App() {
   const defaultMetadata = {
     topics: [
       {
-        name: 'Users',
+        name: 'Test Topic 1',
         partitions: [
           {
             partitionErrorCode: 0,
@@ -36,7 +36,7 @@ function App() {
         ],
       },
       {
-        name: 'test-topic2',
+        name: 'Test Topic 2',
         partitions: [
           {
             partitionErrorCode: 0,
@@ -67,11 +67,31 @@ function App() {
     ],
   };
 
+  const defaultBrokers = {
+    brokers: [
+      {
+        nodeId: 1,
+        host: 'Your host name',
+        port: 9092,
+      },
+    ],
+    controller: 1,
+  };
+
   const [connected, setConnected] = useState(false);
   const [metadata, setMetadata] = useState(defaultMetadata);
   const [consumer, setConsumer] = useState({});
   const [topicPartition, setTopicPartition] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [brokers, setBrokers] = useState(defaultBrokers);
+  const [offsets, setOffsets] = useState([
+    {
+      id: 0,
+      messages: 0,
+      offset: 0,
+    },
+  ]);
+  const [userInfo, setUserInfo] = useState([])
 
   return (
     <div id="main">
@@ -96,30 +116,36 @@ function App() {
             <BasicClusterInfo
               setTopicPartition={setTopicPartition}
               metadata={metadata}
+              setBrokers={setBrokers}
+              setUserInfo={setUserInfo}
+
             />
           }
         />
         <Route path="/test" element={<Test />} />
+
         <Route
           path="/messages"
           element={
-            <Messages
-              topicPartition={topicPartition}
-              connected={connected}
-              messages={messages}
-              setMessages={setMessages}
+            <BasicClusterInfo
+              setTopicPartition={setTopicPartition}
+              object={metadata}
+              setMetadata={setMetadata}
             />
           }
         />
+        <Route path='/test' element={<Test />} />
+
+        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
         <Route
+          path='/overview'
+          element={<AllClusterOverview metadata={metadata} brokers={brokers} offsets={offsets} setOffsets={setOffsets}/>}
+        />
+      </Routes>
+      <Route
           path="/graphs/:topic"
           element={<PartitionGraph metadata={metadata} />}
         />
-        <Route
-          path="/overview"
-          element={<ClusterOverview metadata={metadata} />}
-        />
-      </Routes>
     </div>
   );
 }
