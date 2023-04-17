@@ -71,6 +71,7 @@ function App() {
   const [consumer, setConsumer] = useState({});
   const [topicPartition, setTopicPartition] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [userInfo, setUserInfo] = useState([])
 
   return (
     <div id='main'>
@@ -85,6 +86,7 @@ function App() {
               connected={connected}
               setConnected={setConnected}
               setMetadata={setMetadata}
+              setUserInfo={setUserInfo}
             />}/>
         <Route
           path='/displayPartition'
@@ -93,7 +95,7 @@ function App() {
           }
         />
         <Route path='/test' element={<Test />} />
-        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages}/>} />
+        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
         <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
       </Routes>
     </div>
