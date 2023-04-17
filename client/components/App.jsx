@@ -84,7 +84,7 @@ function App() {
   const [topicPartition, setTopicPartition] = useState([]);
   const [messages, setMessages] = useState([]);
   const [brokers, setBrokers] = useState(defaultBrokers);
-  const [offsets, setOffsets] = React.useState([
+  const [offsets, setOffsets] = useState([
     {
       id: 0,
       messages: 0,
