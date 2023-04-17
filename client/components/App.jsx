@@ -91,6 +91,7 @@ function App() {
       offset: 0,
     },
   ]);
+  const [userInfo, setUserInfo] = useState([])
 
   return (
     <div id='main'>
@@ -106,6 +107,7 @@ function App() {
               setConnected={setConnected}
               setMetadata={setMetadata}
               setBrokers={setBrokers}
+              setUserInfo={setUserInfo}
             />
           }
         />
@@ -120,6 +122,8 @@ function App() {
           }
         />
         <Route path='/test' element={<Test />} />
+        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
+        <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
         <Route
           path='/messages'
           element={

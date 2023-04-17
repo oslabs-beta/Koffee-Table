@@ -7,6 +7,7 @@ function Connect(props) {
     const clientId = document.querySelector('.ClientId').value;
     document.querySelector('#connectionStatus').style.display = 'none';
     document.querySelector('#connectionSuccess').style.display = 'none';
+    props.setUserInfo([clientId, hostName, port]);
 
     fetch('/getCluster', {
       method: 'POST',
