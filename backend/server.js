@@ -37,9 +37,9 @@ app.post('/getOffsets', adminController.getOffsets, (req, res) => {
   return res.status(200).json(res.locals.offsets);
 });
 
-// app.post('/', producerController.addMsg, (req, res) => {
-//   return res.sendStatus(200);
-// });
+app.post('/', producerController.addMsg, (req, res) => {
+  return res.sendStatus(200);
+});
 
 //serve main page of application
 app.get('/*', (req, res) => {

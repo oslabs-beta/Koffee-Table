@@ -15,7 +15,7 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
       clientId: userInfo[0],
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
     });
-    console.log('here is your trauma: ', [`${userInfo.hostName}:${userInfo.port}`])
+  
 
     const consumer = await kafka.consumer({ groupId: 'test' });
     await consumer.connect();
