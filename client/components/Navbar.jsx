@@ -15,6 +15,8 @@ function Navbar() {
         <Link className='link displayTransitTimeButton' to="/displayPartition">Partitions</Link>
 
         <Link className="link displayTransitTimeButton" to="/graphs">Graphs</Link>
+
+        <Link className='link testPage' to="/test">Test-Tool</Link>
     </div>
   );
 }

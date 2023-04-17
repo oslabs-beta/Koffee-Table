@@ -61,7 +61,7 @@ app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
 });
 
-
+//runs for production mode
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../build')));
   
@@ -74,9 +74,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-//serve main page of application
+
+//serve main page of application for dev mode
 app.get('/*', (req, res) => {
-  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
   res.redirect('/'); //delete this in production and revert to line above 
 });
 

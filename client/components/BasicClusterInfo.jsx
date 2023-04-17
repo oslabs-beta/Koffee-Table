@@ -4,11 +4,6 @@ import { Outlet, Link } from 'react-router-dom';
 function BasicClusterInfo(props) {
   const getPartitionInfo = (topicId, partitionId) => {
     props.setTopicPartition([topicId, partitionId]);
-    // [x] connect to Kafka cluster which will send back a consumer object wtih topics and parititons
-    // [x] when we click paritions on the partition page, we will open a new react component
-    // [x] the react component will have the socket that conects to the consumerController websocket and give it the topic and parition (that we get from state);
-    // [] websocket will pass back the messages back to the front end on that page
-    // [] front end will display those messages
   };
 
   const buildClusterInfo = (kafkaObject) => {

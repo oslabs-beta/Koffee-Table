@@ -1,14 +1,13 @@
 const { Kafka } = require('kafkajs');
 const io = require('socket.io')(3001, {
   cors: {
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:8080'],
   },
 });
 
 const consumerController = {};
 
 consumerController.readMessages = async (topicPartition, userInfo) => {
-  console.log("this is user ", userInfo)
 
   try {
     const kafka = new Kafka({
@@ -28,11 +27,9 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
     await consumer.run({
       eachMessage: async (result) => {
         //topic parition contains an array as [topic, parition]
-        console.log('this is partition', result.partition);
-        if (topicPartition[1] === result.partition) {
+        console.log('this is result partition', result.partition)
           console.log('i am broadcasting');
-          io.emit('broadcasting', result.message.value.toString());
-        }
+          io.emit('broadcasting', result.message.value.toString(), result.partition);
       },
     });
     // return next();
@@ -44,6 +41,7 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
 io.on('connection', (socket) => {
   console.log('here is socket.id: ', socket.id);
   socket.on('messages', async (result) => {
+    console.log('this is current partition', result.topicPartition[1])
     //declare a constant that is the invocation of running consumerController.readMessage
     await consumerController.readMessages(result.topicPartition, result.userInfo);
     // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead

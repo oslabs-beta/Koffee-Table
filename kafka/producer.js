@@ -19,7 +19,6 @@ async function run(input) {
 
     const producer = kafka.producer();
     await producer.connect();
-    console.log('connected');
     let partition;
     if (input.toLowerCase() === input) {
       partition = 0;
@@ -41,8 +40,7 @@ async function run(input) {
     //         "numPartitions": 2
     //     }]
     // })
-    console.log('created sucessfully', JSON.stringify(result));
-    console.log('Here is producer.events: ', producer.events);
+
     await producer.disconnect();
   } catch (err) {
     console.log('error', err);

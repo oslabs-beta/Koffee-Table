@@ -35,7 +35,7 @@ function Row(props) {
                   body: JSON.stringify({
                     //need to dynamically change
                     clientId: 'myapp',
-                    hostName: 'MATT-XPS',
+                    hostName: 'Jonathans-Air',
                     port: 9092,
                     topic: row.name,
                   }),
