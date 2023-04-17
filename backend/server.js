@@ -21,12 +21,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-//serve main page of application
-app.get('/*', (req, res) => {
-  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
-  res.redirect('/'); //delete this in production and revert to line above 
-});
-
 //once we connect, save hostname and port as a cookie
 app.post(
   '/getCluster',
@@ -39,13 +33,19 @@ app.post(
   }
 );
 
-app.get('/getBrokers', adminController.getBrokers, (req, res) => {
-  return res.sendStatus(200);
+app.post('/getOffsets', adminController.getOffsets, (req, res) => {
+  return res.status(200).json(res.locals.offsets);
 });
 
 // app.post('/', producerController.addMsg, (req, res) => {
 //   return res.sendStatus(200);
 // });
+
+//serve main page of application
+app.get('/*', (req, res) => {
+  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
+  res.redirect('/'); //delete this in production and revert to line above 
+});
 
 app.use((err, req, res, next) => {
   const defaultErr = {
