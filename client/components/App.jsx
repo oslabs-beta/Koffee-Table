@@ -91,6 +91,7 @@ function App() {
       offset: 0,
     },
   ]);
+  const [userInfo, setUserInfo] = useState([])
 
   return (
     <div id='main'>
@@ -106,9 +107,8 @@ function App() {
               setConnected={setConnected}
               setMetadata={setMetadata}
               setBrokers={setBrokers}
-            />
-          }
-        />
+              setUserInfo={setUserInfo}
+            />}/>
         <Route
           path='/displayPartition'
           element={
@@ -128,6 +128,7 @@ function App() {
               connected={connected}
               messages={messages}
               setMessages={setMessages}
+              
             />
           }
         />
