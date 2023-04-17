@@ -12,8 +12,6 @@ function Navbar() {
 
         <Link className="link displayTransitTimeButton" to="/overview">Kafka Cluster Overview</Link>
 
-        <Link className="link displayTransitTimeButton" to="/MUIoverview">MUI Kafka Cluster Overview</Link>
-
         <Link className='link displayTransitTimeButton' to="/displayPartition">Partitions</Link>
 
         <Link className="link displayTransitTimeButton" to="/graphs">Graphs</Link>
