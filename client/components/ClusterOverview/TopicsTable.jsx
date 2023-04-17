@@ -25,32 +25,41 @@ function Row(props) {
             aria-label='expand row'
             size='small'
             //send a fetch request to get the topic offsets
-            onClick={async() => {
-              fetch('/getOffsets', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  //need to dynamically change
-                  clientId: 'myapp',
-                  hostName: 'MATT-XPS',
-                  port: 9092,
-                  topic: row.name,
-                }),
-              })
-                .then((res) => res.json())
-                .then((offsets) => {
-                  let offsetsList = offsets.map((offset) => {
-                    return {
-                      id: offset.partition,
-                      messages: offset.high,
-                      offset: offset.offset,
-                    };
+            onClick={async () => {
+              if (!open) {
+                fetch('/getOffsets', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    //need to dynamically change
+                    clientId: 'myapp',
+                    hostName: 'MATT-XPS',
+                    port: 9092,
+                    topic: row.name,
+                  }),
+                })
+                  .then((res) => res.json())
+                  .then((offsets) => {
+                    let offsetsList = offsets.map((offset) => {
+                      return {
+                        id: offset.partition,
+                        messages: offset.high,
+                        offset: offset.offset,
+                      };
+                    });
+                    setOffsets(offsetsList);
+                    console.log('offsets: ', offsets);
                   });
-                  setOffsets(offsetsList);
-                  console.log('offsets: ', offsets)
-                });
+              } else
+                setOffsets([
+                  {
+                    id: 0,
+                    messages: 0,
+                    offset: 0,
+                  },
+                ]);
               setOpen(!open);
             }}
           >
@@ -134,7 +143,6 @@ export default function TopicsTable({ metadata, offsets, setOffsets }) {
     0
   );
 
-
   //create an array of objects, each wit ha topic name, number of parititons, percent of total partitions, and number of under-replicated partitions
   const topicsList = topics.map((topic) => {
     return {
@@ -176,7 +184,7 @@ export default function TopicsTable({ metadata, offsets, setOffsets }) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} setOffsets={setOffsets}/>
+            <Row key={row.name} row={row} setOffsets={setOffsets} />
           ))}
         </TableBody>
       </Table>
