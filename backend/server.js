@@ -16,8 +16,7 @@ app.use(express.json());
 //   res.redirect('/'); //delete this in production and revert to line above 
 // });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/build', express.static(path.resolve(__dirname, '../build')));
+
 
 
 app.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
@@ -41,29 +40,6 @@ app.get('/user', userController.readUser, (req, res) => {
 });
 
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/build', express.static(path.resolve(__dirname, '../build')));
-  
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  });
-}
-
-
-
-
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  });
-}
 
 //once we connect, save hostname and port as a cookie
 app.post(
@@ -85,11 +61,26 @@ app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
 });
 
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/build', express.static(path.resolve(__dirname, '../build')));
+  
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
+}
+
 //serve main page of application
 app.get('/*', (req, res) => {
   // res.sendFile(path.resolve(__dirname, '../client/index.html'));
   res.redirect('/'); //delete this in production and revert to line above 
 });
+
+
 
 app.use((err, req, res, next) => {
   const defaultErr = {
