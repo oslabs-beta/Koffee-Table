@@ -72,3 +72,40 @@
   gap: 10px;
   padding: 10px;
 }
+
+/* loginPage Stuff */
+
+#loginPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10vh;
+}
+.login {
+  margin: 10px;
+  padding: 5px 10px;
+  margin: 8px;
+  height: 3vh;
+  width: 20vw;
+  border-radius: 1vw;
+}
+.signupUserData {
+  margin: 10px;
+  padding: 5px 10px;
+  margin: 3px;
+  height: 2vh;
+  width: 15vw;
+  border-radius: 1vw;
+}
+.feedback {
+  position: absolute;
+  left: 54%;
+  opacity: 0;
+}
+#success{
+  color: green;
+}
+#fail{
+  color: red;
+}
