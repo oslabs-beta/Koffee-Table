@@ -5,6 +5,7 @@ const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
 const userController = require('./userController')
+const userRouter = require('./userRouter')
 
 const app = express();
 app.use(express.json());
@@ -19,25 +20,7 @@ app.use(express.json());
 
 
 
-app.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.delete('/user', userController.deletUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.patch('/user', userController.findAndUpdate, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.post('/user', userController.creatUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.get('/user', userController.readUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
+app.use('/user', userRouter);
 
 
 

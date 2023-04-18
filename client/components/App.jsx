@@ -10,6 +10,8 @@ import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
 import ClusterOverview from './ClusterOverview.jsx';
 import AllClusterOverview from './AllClusterOverview.jsx';
+import Login from './userLogin/Login.jsx';
+import SignUp from './userLogin/signUp.jsx'
 import { io } from 'socket.io-client';
 
 function App() {
@@ -99,6 +101,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path='/login' element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
         <Route
           path='/connectKafka'
           element={
