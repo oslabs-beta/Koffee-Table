@@ -51,7 +51,7 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
           io.emit('broadcasting', result.message.value.toString(), result.partition);
           setInterval(() => {
             //take the average of all the numbers in lag
-            io.emit('message-received', messageList);
+            io.emit('message-received', 'messageList');
             //reset messageList
           }, 15000);
       },

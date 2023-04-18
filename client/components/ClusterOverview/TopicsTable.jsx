@@ -73,7 +73,7 @@ function Row({ userInfo, row, setOffsets }) {
                   }),
                 })
                   .then((res) => res.json())
-                  .then((offsets) => setOffsets(offsetsList));
+                  .then((offsets) => setOffsets(offsets));
               } else
                 setOffsets([
                   {
