@@ -47,18 +47,7 @@ function BasicClusterInfo(props) {
     for (let topic in topicObject) {
       topicPartitionData.push(
         <div>
-          <div>
-            Topic:{' '}
-            <Link
-              className="topic"
-              // to={`/displayPartion/${topic}`}
-              to="/displayPartition/Users"
-              // onClick={() => setTopicPartition(topic.name, partitionId)}
-              // id={topicPartitionId}
-            >
-              {topic}
-            </Link>
-          </div>
+          <div>Topic: {topic}</div>
           <div>Partitions: {topicObject[topic]}</div>
         </div>
       );
