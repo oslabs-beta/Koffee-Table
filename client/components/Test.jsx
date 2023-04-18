@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 function Test() {
-  const socket = io('http://localhost:3001');
-  socket.on('connect', () => {
-    console.log(`You connected with id: ${socket.id}`);
-    socket.emit('test-event', 'finally all g');
-  });
+  // const socket = io('http://localhost:3001');
+  // socket.on('connect', () => {
+  //   console.log(`You connected with id: ${socket.id}`);
+  //   socket.emit('test-event', 'finally all g');
+  // });
 
   let listen = false;
 

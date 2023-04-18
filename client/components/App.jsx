@@ -10,6 +10,7 @@ import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
 import PartitionGraph from './PartitionGraph.jsx';
 import AllClusterOverview from './AllClusterOverview.jsx';
+import { io } from 'socket.io-client';
 
 function App() {
   const defaultMetadata = {
@@ -82,7 +83,7 @@ function App() {
   const [metadata, setMetadata] = useState(defaultMetadata);
   const [consumer, setConsumer] = useState({});
   const [topicPartition, setTopicPartition] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   const [brokers, setBrokers] = useState(defaultBrokers);
   const [offsets, setOffsets] = useState([
     {
