@@ -14,11 +14,12 @@ async function run(input) {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
-      brokers: ['Jonathans-Air:9092'],
+      brokers: ['Joes-Air:9092'],
     });
 
     const producer = kafka.producer();
     await producer.connect();
+    console.log('producer connected');
     let partition;
     if (input.toLowerCase() === input) {
       partition = 0;

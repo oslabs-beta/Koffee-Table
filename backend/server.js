@@ -10,15 +10,11 @@ const userRouter = require('./userRouter')
 const app = express();
 app.use(express.json());
 
-
 // //serve main page of application
 // app.get('/*', (req, res) => {
 //   // res.sendFile(path.resolve(__dirname, '../client/index.html'));
-//   res.redirect('/'); //delete this in production and revert to line above 
+//   res.redirect('/'); //delete this in production and revert to line above
 // });
-
-
-
 
 app.use('/user', userRouter);
 
@@ -32,7 +28,11 @@ app.post(
   (req, res) => {
     return res
       .status(200)
-      .json({ topics: res.locals.topics, consumer: res.locals.consumer, brokers: res.locals.brokers });
+      .json({
+        topics: res.locals.topics,
+        consumer: res.locals.consumer,
+        brokers: res.locals.brokers,
+      });
   }
 );
 
@@ -44,10 +44,9 @@ app.post('/', producerController.addMsg, (req, res) => {
   return res.sendStatus(200);
 });
 
-//runs for production mode
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../build')));
-  
+
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build', 'index.html'), (err) => {
       if (err) {
@@ -60,10 +59,9 @@ if (process.env.NODE_ENV === 'production') {
 
 //serve main page of application for dev mode
 app.get('/*', (req, res) => {
-  res.redirect('/'); //delete this in production and revert to line above 
+  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
+  res.redirect('/'); //delete this in production and revert to line above
 });
-
-
 
 app.use((err, req, res, next) => {
   const defaultErr = {

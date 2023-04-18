@@ -1,41 +1,62 @@
 import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, LinearScale } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { useParams } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+} from 'chart.js';
+import { Pie, Bar } from 'react-chartjs-2';
+import {
+  partitionReplicasData,
+  partitionReplicasOptions,
+} from '../chart-data/partitionReplicas';
+import {
+  partitionOffsetsData,
+  partitionOffsetsOptions,
+} from '../chart-data/partitionOffsets';
 
-ChartJS.register(ArcElement, Tooltip, Legend, LinearScale);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  LinearScale,
+  CategoryScale,
+  BarElement
+);
 
-function PartitionGraph({ metadata }) {
-//   console.log(metadata);
-  const data = {
-    labels: metadata.topics.map((topic) => topic.name),
-    datasets: [
-      {
-        label: '# of Partitions',
-        data: metadata.topics.map((topic) => topic.partitions.length),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 2,
-      },
-    ],
-  };
+function PartitionGraph({ metadata, offsets }) {
+  console.log(offsets);
+  const { topicFromURL } = useParams();
+  // console.log(topicFromUrl);
+  const topic = metadata.topics.filter(
+    (topic) => topic.name === topicFromURL
+  )[0];
 
-  const options = { radius: '50%' };
-
-  return <Pie data={data} options={options} />;
+  return (
+    <div className="graph-page">
+      <h2>{topic.name}</h2>
+      <div className="chart-layout">
+        <div className="chart-wrapper">
+          <Pie
+            data={partitionReplicasData(topic)}
+            options={partitionReplicasOptions}
+          />
+        </div>
+        <div className="chart-wrapper">
+          <Bar
+            data={partitionOffsetsData(offsets)}
+            options={partitionOffsetsOptions}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default PartitionGraph;

@@ -8,7 +8,7 @@ import BasicClusterInfo from './BasicClusterInfo.jsx';
 import Test from './Test.jsx';
 import Messages from './Messages.jsx';
 import Graphs from './Graphs.jsx';
-import ClusterOverview from './ClusterOverview.jsx';
+import PartitionGraph from './PartitionGraph.jsx';
 import AllClusterOverview from './AllClusterOverview.jsx';
 import Login from './userLogin/Login.jsx';
 import SignUp from './userLogin/signUp.jsx'
@@ -89,50 +89,81 @@ function App() {
   const [brokers, setBrokers] = useState(defaultBrokers);
   const [offsets, setOffsets] = useState([
     {
-      id: 0,
-      messages: 0,
+      partition: 0,
+      high: 5,
       offset: 0,
+      low: 0,
+    },
+    {
+      partition: 1,
+      high: 9,
+      offset: 0,
+      low: 0,
     },
   ]);
-  const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState([]);
 
   return (
-    <div id='main'>
+    <div id="main">
       <Navbar />
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/login' element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
-          path='/connectKafka'
+          exact
+          path="/connectKafka"
           element={
             <Connect
               setConsumer={setConsumer}
               connected={connected}
               setConnected={setConnected}
               setMetadata={setMetadata}
-              setBrokers={setBrokers}
               setUserInfo={setUserInfo}
-
-            />}/>
-
-        <Route
-          path='/displayPartition'
-          element={
-            <BasicClusterInfo
-              setTopicPartition={setTopicPartition}
-              object={metadata}
-              setMetadata={setMetadata}
             />
           }
         />
-        <Route path='/test' element={<Test />} />
-
-        <Route path='/messages' element={<Messages topicPartition={topicPartition} connected={connected} messages={messages} setMessages={setMessages} userInfo={userInfo}/>} />
-        <Route path='/graphs' element={<Graphs metadata={metadata}/>} />
         <Route
-          path='/overview'
-          element={<AllClusterOverview metadata={metadata} brokers={brokers} offsets={offsets} setOffsets={setOffsets}/>}
+          path="/displayPartition"
+          element={
+            <BasicClusterInfo
+              setTopicPartition={setTopicPartition}
+              metadata={metadata}
+              setBrokers={setBrokers}
+              setUserInfo={setUserInfo}
+            />
+          }
+        />
+
+        <Route path="/test" element={<Test />} />
+
+        <Route
+          path="/messages"
+          element={
+            <Messages
+              topicPartition={topicPartition}
+              connected={connected}
+              messages={messages}
+              setMessages={setMessages}
+              userInfo={userInfo}
+            />
+          }
+        />
+        <Route
+          path="/overview"
+          element={
+            <AllClusterOverview
+              metadata={metadata}
+              brokers={brokers}
+              offsets={offsets}
+              setOffsets={setOffsets}
+              userInfo={userInfo}
+            />
+          }
+        />
+        <Route
+          path="/overview/:topicFromURL"
+          element={<PartitionGraph metadata={metadata} offsets={offsets} />}
         />
       </Routes>
     </div>
