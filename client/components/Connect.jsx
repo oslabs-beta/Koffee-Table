@@ -29,6 +29,16 @@ function Connect(props) {
           props.setMetadata(data.topics);
           props.setConnected(true);
           props.setBrokers(data.brokers);
+
+          //on successful connection userInfo is saved to the data base // not yet using user info
+          // fetch('/user?username=user1', {
+          //   method: 'PATCH',
+          //   headers: {'Content-Type': 'application/json'},
+          //   body: JSON.stringify({clusterInfo: [clientId, hostName, port]})
+          // })
+          // .then(()=> console.log('user-data saved!'))
+          // .catch((err)=> console.log('error in user-data-save fetch', err))
+
           // props.setConsumer(data.consumer);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';

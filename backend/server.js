@@ -4,7 +4,8 @@ const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-const userController = require('./userController');
+const userController = require('./userController')
+const userRouter = require('./userRouter')
 
 const app = express();
 app.use(express.json());
@@ -15,25 +16,9 @@ app.use(express.json());
 //   res.redirect('/'); //delete this in production and revert to line above
 // });
 
-app.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
+app.use('/user', userRouter);
 
-app.delete('/user', userController.deletUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
 
-app.patch('/user', userController.findAndUpdate, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.post('/user', userController.creatUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-app.get('/user', userController.readUser, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
 
 //once we connect, save hostname and port as a cookie
 app.post(

@@ -5,39 +5,42 @@ const User = require("./mongooseDB")
 
 const userController = {};
 
-userController.creatUser = (req, res, next) => {
+userController.creatUser = async (req, res, next) => {
+
   const { username, password, clientID, hostName, port } = req.body;
-  User.create({
-    username,
-    password, 
-    clientID, 
-    hostName, 
-    port
-  })
-  .then((data) => {
+
+  try{
+    const user = await User.findOne({username})
+    
+    if(user) {
+      console.log('user already exists')
+      res.locals.data = null;
+      return next()
+    }
+
+    const data = await User.create({
+      username,
+      password, 
+      clientID, 
+      hostName, 
+      port
+    })
     res.locals.data = data;
     console.log('User created')
     return next()
-  })
-  .catch(err => {
-    console.log(222)
+  }
+
+  catch(err){
     return next({
-        log: 'Error in userController.creatUser',
-        status: 418,
-        message: { err: 'Error in userController.creatUser' },
+      log: 'Error in userController.creatUser',
+      status: 418,
+      message: { err: 'Error in userController.creatUser' },
     })
-  })
+  }
+  
 };
 
 userController.readUser = (req, res, next) => {
-
-  //can be reached by http://localhost:8080/user?x=y id
-
-  // const key = Object.keys(req.query)[0]
-  // const value = req.query[key]
-  // const target = {};
-  // target[key] = value;
-  // console.log(target)
 
   if(!(Object.keys(req.query).length)) return next({
     log: 'no user defined',
@@ -124,6 +127,24 @@ userController.selfDestruct = (req, res, next) => {
   })
 };
 
+userController.login = (req, res, next) => {
+
+  console.log(req.query)
+
+  User.findOne(req.query)
+  .then((data) => {
+    res.locals.data = data;
+    console.log('User logged in')
+    return next()
+  })
+  .catch(err => {
+    return next({
+        log: 'Error in userController.login',
+        status: 418,
+        message: { err: 'Error in userController.login' },
+    })
+  })
+}
 
 
 
