@@ -157,7 +157,7 @@ function App() {
           }
         />
         <Route
-          path="/graphs/:topicFromURL"
+          path="/overview/:topicFromURL"
           element={<PartitionGraph metadata={metadata} offsets={offsets} />}
         />
       </Routes>

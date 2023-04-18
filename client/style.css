@@ -73,11 +73,18 @@
   padding: 10px;
 }
 
+.graph-page {
+  margin: 40px;
+}
+
 .chart-layout {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* justify-items: center; */
-  gap: 50px;
-  width: 30%;
+  align-items:stretch;
+  gap: 10px;
+}
+
+.chart-wrapper {
+  border: 4px solid whitesmoke;
+  border-radius: 10px;;
+  padding: 10px;
 }

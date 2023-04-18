@@ -2,7 +2,7 @@ export const partitionOffsetsData = (offsets) => ({
   labels: offsets.map((partition) => partition.partition),
   datasets: [
     {
-      label: offsets.map((partition) => partition.partition),
+      // label: offsets.map((partition) => partition.partition),
       data: offsets.map((partition) => partition.high),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',

@@ -91,7 +91,7 @@ function Row({ userInfo, row, setOffsets }) {
         </TableCell>
         <TableCell component="th" scope="row">
           <Link
-            to={`/graphs/${row.name}`}
+            to={`/overview/${row.name}`}
             onClick={() => getOffsetsOnLink(row.name, userInfo, setOffsets)}
           >
             {row.name}

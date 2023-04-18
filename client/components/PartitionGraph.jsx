@@ -39,17 +39,21 @@ function PartitionGraph({ metadata, offsets }) {
   )[0];
 
   return (
-    <div>
+    <div className="graph-page">
       <h2>{topic.name}</h2>
       <div className="chart-layout">
-        <Pie
-          data={partitionReplicasData(topic)}
-          options={partitionReplicasOptions}
-        />
-        <Bar
-          data={partitionOffsetsData(offsets)}
-          options={partitionOffsetsOptions}
-        />
+        <div className="chart-wrapper">
+          <Pie
+            data={partitionReplicasData(topic)}
+            options={partitionReplicasOptions}
+          />
+        </div>
+        <div className="chart-wrapper">
+          <Bar
+            data={partitionOffsetsData(offsets)}
+            options={partitionOffsetsOptions}
+          />
+        </div>
       </div>
     </div>
   );
