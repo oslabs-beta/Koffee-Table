@@ -120,6 +120,7 @@ function App() {
               setConnected={setConnected}
               setMetadata={setMetadata}
               setUserInfo={setUserInfo}
+              setBrokers={setBrokers}
             />
           }
         />
