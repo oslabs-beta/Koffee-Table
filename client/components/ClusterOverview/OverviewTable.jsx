@@ -26,7 +26,7 @@ export default function OverviewTable({ metadata, brokers }) {
   ];
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} id="container">
       <Table sx={{ minWidth: 650 }} aria-label='a dense table'>
         <TableBody>
           {rows.map((row) => (

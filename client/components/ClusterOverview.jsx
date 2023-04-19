@@ -145,7 +145,7 @@ export default function ClusterOverview({ metadata, brokers }) {
     <div>
       <h1> Overview </h1>
       <div className="cluster-overview-table">
-        <table className="cluster-overview-table">
+        <table className="cluster-overview-table table">
           <tbody>
             <tr>
               <td> Total Topics</td>

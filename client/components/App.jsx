@@ -83,8 +83,10 @@ function App() {
 
   const [connected, setConnected] = useState(false);
   const [metadata, setMetadata] = useState(defaultMetadata);
+  const [userCluster, setUserCluster] = useState({});
   const [consumer, setConsumer] = useState({});
-  const [topicPartition, setTopicPartition] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [currentTopic, setCurrentTopic] = useState()
   const [messages, setMessages] = useState({});
   const [brokers, setBrokers] = useState(defaultBrokers);
   const [offsets, setOffsets] = useState([
@@ -103,12 +105,13 @@ function App() {
   ]);
   const [userInfo, setUserInfo] = useState([]);
 
+
   return (
     <div id="main">
       <Navbar />
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login setUserCluster={setUserCluster}/>} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
           exact
@@ -121,6 +124,8 @@ function App() {
               setMetadata={setMetadata}
               setUserInfo={setUserInfo}
               setBrokers={setBrokers}
+              setTopics={setTopics}
+              userCluster={userCluster}
             />
           }
         />
@@ -128,10 +133,12 @@ function App() {
           path="/displayPartition"
           element={
             <BasicClusterInfo
-              setTopicPartition={setTopicPartition}
+              setTopics={setTopics}
+              topics={topics}
               metadata={metadata}
               setBrokers={setBrokers}
               setUserInfo={setUserInfo}
+              setCurrentTopic={setCurrentTopic}
             />
           }
         />
@@ -142,11 +149,13 @@ function App() {
           path="/messages"
           element={
             <Messages
-              topicPartition={topicPartition}
+              topics={topics}
               connected={connected}
               messages={messages}
               setMessages={setMessages}
               userInfo={userInfo}
+              currentTopic={currentTopic}
+
             />
           }
         />

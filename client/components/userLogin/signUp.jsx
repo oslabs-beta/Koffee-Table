@@ -3,11 +3,10 @@ import React from 'react';
 function SignUp() {
   const signUp = () => {
 
-    const feedback = document.querySelectorAll('.feedback')
-    const [username, password, clientID, hostName, port] = document.querySelectorAll('.signUp');
-    
+    const feedback = document.querySelectorAll('.feedback');
+    const targets = document.querySelectorAll('.signUp');
+    const [username, password, clientID, hostName, port] = targets;
     feedback.forEach(fb => fb.style.opacity = 0)
-
 
     if(username.value === ""|| password.value === "") {
     feedback[2].style.opacity = 1;
@@ -36,43 +35,43 @@ function SignUp() {
     .catch((err)=>{
       console.log('error in Login', err)
     })
-
-    username.value = ""
-    password.value = ""
-    clientID.value = ""
-    hostName.value = ""
-    port.value = ""
+    targets.forEach(field => field.value = "")
+    // username.value = ""
+    // password.value = ""
+    // clientID.value = ""
+    // hostName.value = ""
+    // port.value = ""
   };
 
   return (
     <div id="loginPage">
-      <h1>Sign here!</h1>
+      <h1>Sign up here</h1>
       <input 
       id="usernameField" 
-      className="login signUp" 
+      className="input login signUp" 
       placeholder="username" 
       />
       <input 
       id="passwordField" 
-      className="login signUp" 
+      className="input login signUp" 
       placeholder="password" 
       />
       <input
         id="clientIDField"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Client ID - optional"
       />
       <input
         id="hostNameFlied"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Host Name - optional"
       />
       <input
         id="portField"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Port - optional"
       />
-      <button id="loginButton" className="login signUp" onClick={signUp}>Login</button>
+      <button id="loginButton" className="btn login signUp" onClick={signUp}>Login</button>
       <div>
         <div id="success" className='feedback'>User created!</div>
         <div id="fail" className='feedback'>User already exists!</div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Connect(props) {
+  const { userCluster } = props;
+
   const sendClusterData = () => {
     const hostName = document.querySelector('.hostName').value;
     const port = document.querySelector('.Port').value;
@@ -30,16 +32,14 @@ function Connect(props) {
           props.setConnected(true);
           props.setBrokers(data.brokers);
 
-          //on successful connection userInfo is saved to the data base // not yet using user info
-          // fetch('/user?username=user1', {
-          //   method: 'PATCH',
-          //   headers: {'Content-Type': 'application/json'},
-          //   body: JSON.stringify({clusterInfo: [clientId, hostName, port]})
-          // })
-          // .then(()=> console.log('user-data saved!'))
-          // .catch((err)=> console.log('error in user-data-save fetch', err))
 
-          // props.setConsumer(data.consumer);
+    
+          let topicArray = [];
+          for (let i = 0; i < data.topics.topics.length; i++){
+            topicArray.push(data.topics.topics[i]);
+          }
+          props.setTopics(topicArray);
+
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
         }
@@ -48,15 +48,57 @@ function Connect(props) {
         console.log('err in sendClusterData', err);
       });
   };
+  const sendUserClusterData = () => {
+    fetch('/getCluster', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        clientId: userCluster.clientID,
+        hostName: userCluster.hostName,
+        port: userCluster.port,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        //do important stuff here
+        //error name in obj maight be a problem
+        if (!data.err) {
+          document.querySelector('#connectionSuccess').style.display = 'block';
+          props.setMetadata(data.topics);
+          props.setConnected(true);
+          props.setBrokers(data.brokers);
+
+
+    
+          let topicArray = [];
+          for (let i = 0; i < data.topics.topics.length; i++){
+            topicArray.push(data.topics.topics[i]);
+          }
+          props.setTopics(topicArray);
+
+        } else {
+          document.querySelector('#connectionStatus').style.display = 'block';
+        }
+      })
+      .catch((err) => {
+        console.log('err in sendClusterData', err);
+      });
+  }
 
   return (
     <div className="connectCluster">
+      <h1>Connect to Kafka Cluster</h1>
       <input placeholder="Client ID" className=" input ClientId"></input>
       <input placeholder="Host Name" className=" input hostName"></input>
       <input placeholder="Port" className=" input Port"></input>
-      <button className="btn sendClusterButton" onClick={sendClusterData}>
-        Submit
-      </button>
+        <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
+          Submit
+        </button>
+          {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
+          Connect with User Information
+        </button>) : null}
       <p id="connectionStatus">Connection Failed</p>
       <p id="connectionSuccess">Connected!</p>
     </div>

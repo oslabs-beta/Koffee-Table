@@ -7,10 +7,8 @@ const io = require('socket.io')(3001, {
 
 const consumerController = {};
 
-consumerController.readMessages = async (topicPartition, userInfo) => {
-  console.log('this is user ', userInfo);
-  console.log('topicPartition', topicPartition);
-
+consumerController.readMessages = async (topic, userInfo) => {
+console.log("-----------")
   try {
     const kafka = new Kafka({
       clientId: userInfo[0],
@@ -19,13 +17,11 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
 
     const consumer = await kafka.consumer({ groupId: 'test' });
     await consumer.connect();
-    console.log('consumerController connected');
 
     await consumer.subscribe({
-      topic: topicPartition[0],
+      topic: topic,
       fromBeginning: true,
     });
-    console.log('post subscribe');
     await consumer.run({
       eachMessage: async (result) => {
         //topicPartition contains an array as [topic, parition]
@@ -65,10 +61,10 @@ consumerController.readMessages = async (topicPartition, userInfo) => {
 io.on('connection', (socket) => {
   console.log('here is socket.id: ', socket.id);
   socket.on('messages', async (result) => {
-    console.log('this is current partition', result.topicPartition[1])
+    console.log('this is current partition', result.topic)
     //declare a constant that is the invocation of running consumerController.readMessage
     await consumerController.readMessages(
-      result.topicPartition,
+      result.topic,
       result.userInfo
     );
     // instead of consumerController.readMessage saving the data on res.locals and going next --- return instead

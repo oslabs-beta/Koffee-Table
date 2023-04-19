@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-
-
 function Messages(props) {
-  const { topicPartition, connected, messages, setMessages, userInfo } = props;
+  const { topics, connected, setMessages, userInfo, currentTopic, messages } =
+    props;
+
 
   console.log('message object', messages);
   useEffect(() => {
@@ -12,7 +12,7 @@ function Messages(props) {
     socket.on('connect', () => {
       console.log(`You connected with id: ${socket.id}`);
       socket.emit('messages', {
-        topicPartition: topicPartition,
+        topic: currentTopic.name,
         userInfo: userInfo,
       });
     });
@@ -28,56 +28,31 @@ function Messages(props) {
     });
     return () => {
       console.log('disconnected');
+      setMessages({});
       socket.close()
     }
   }, []);
 
-
-
-  // socket.on('broadcasting', (message) => {
-  //   console.log('MESSAGE RECEIVED', message);
-  //   if (messages[topicPartition[1]]) {
-  //     console.log('it exists');
-  //     setMessages((prevState) => {
-  //       const newObject = Object.assign({}, prevState);
-  //       newObject[topicPartition[1]] = [...newObject[topicPartition[1]], message]
-  //       return newObject;
-  //   });
-  //   }
-  //   else{
-  //     console.log('it does not exist');
-  //     setMessages((prevState) => {
-  //     const newObject = Object.assign({}, prevState);
-  //     // console.log('here is newObject: ', prevState)
-  //     newObject[topicPartition[1]] = [message];
-  //     return newObject;
-  //   });
-  //   }
-  // });
-
   let display = [];
-  if (messages[topicPartition[1]]) {
-    //messages already exist and are ready to be pushed into display
-    for (let i = 0; i < messages[topicPartition[1]].length; i++) {
-      display.push(
-        <p>
-          {i}: {messages[topicPartition[1]][i]}
-        </p>
-      );
+  for (let i = 0; i < currentTopic.partitions.length; i++) {
+    if (messages[i]){
+    let temp = [];
+    let values = Object.values(messages);
+    for (let j = 0; j < values[i].length; j++) {
+      temp.push(<div>{values[i][j]}</div>);
     }
-  } else {
-    //no messages to push into display from messages
-    display.push(<p>No messages</p>);
+    display.push(
+      <div className='partitionContainer'>
+        Partition: 
+        {currentTopic.partitions[i].partitionId}
+        {temp}
+      </div>
+    );
+    }
   }
-  // socket.close();
-  // console.log('socket has been closed');
- 
-  return (
-    <div>
-      <p>{topicPartition}</p>
-      <div>{display}</div>
-    </div>
-  );
+
+  return <div id='partitionWrapper'>{display}</div>;
 }
 
 export default Messages;
+
