@@ -45,33 +45,33 @@ function SignUp() {
 
   return (
     <div id="loginPage">
-      <h1>Sign here!</h1>
+      <h1>Sign up here</h1>
       <input 
       id="usernameField" 
-      className="login signUp" 
+      className="input login signUp" 
       placeholder="username" 
       />
       <input 
       id="passwordField" 
-      className="login signUp" 
+      className="input login signUp" 
       placeholder="password" 
       />
       <input
         id="clientIDField"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Client ID - optional"
       />
       <input
         id="hostNameFlied"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Host Name - optional"
       />
       <input
         id="portField"
-        className="signupUserData signUp"
+        className="input signupUserData signUp"
         placeholder="Port - optional"
       />
-      <button id="loginButton" className="login signUp" onClick={signUp}>Login</button>
+      <button id="loginButton" className="btn login signUp" onClick={signUp}>Login</button>
       <div>
         <div id="success" className='feedback'>User created!</div>
         <div id="fail" className='feedback'>User already exists!</div>

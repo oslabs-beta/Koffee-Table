@@ -89,17 +89,16 @@ function Connect(props) {
 
   return (
     <div className="connectCluster">
+      <h1>Connect to Kafka Cluster</h1>
       <input placeholder="Client ID" className=" input ClientId"></input>
       <input placeholder="Host Name" className=" input hostName"></input>
       <input placeholder="Port" className=" input Port"></input>
-      <div>
-        <button className="btn sendClusterButton" onClick={sendClusterData}>
+        <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
           Submit
         </button>
           {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
           Connect with User Information
         </button>) : null}
-      </div>
       <p id="connectionStatus">Connection Failed</p>
       <p id="connectionSuccess">Connected!</p>
     </div>

@@ -16,7 +16,7 @@ else{
                   to="/messages"
                   onClick={() => setCurrentTopic(topics[i])}
                 >
-                  <div>
+                  <div className="topic">
                   {topics[i].name}
                   </div>
                 </Link>

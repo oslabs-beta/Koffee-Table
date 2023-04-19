@@ -67,14 +67,14 @@ function Test() {
   };
 
   return (
-    <div>
+    <div id="testTool">
       <h1>KAFKA DATA STREAM</h1>
-      <input placeholder="how many inputs" id="input1" />
-      <input placeholder="delay in ms" id="input2" />
-      <button id="button1" onClick={button1}>
+      <input placeholder="how many inputs" className="input" id="input1" />
+      <input placeholder="delay in ms" id="input2" className="input" />
+      <button id="button1" className="btn btnx" onClick={button1}>
         start Data flow
       </button>
-      <button id="button2" onClick={button2}>
+      <button id="button2" className="btn btnx" onClick={button2}>
         start listening
       </button>
     </div>
