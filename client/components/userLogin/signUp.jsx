@@ -3,11 +3,10 @@ import React from 'react';
 function SignUp() {
   const signUp = () => {
 
-    const feedback = document.querySelectorAll('.feedback')
-    const [username, password, clientID, hostName, port] = document.querySelectorAll('.signUp');
-    
+    const feedback = document.querySelectorAll('.feedback');
+    const targets = document.querySelectorAll('.signUp');
+    const [username, password, clientID, hostName, port] = targets;
     feedback.forEach(fb => fb.style.opacity = 0)
-
 
     if(username.value === ""|| password.value === "") {
     feedback[2].style.opacity = 1;
@@ -36,12 +35,12 @@ function SignUp() {
     .catch((err)=>{
       console.log('error in Login', err)
     })
-
-    username.value = ""
-    password.value = ""
-    clientID.value = ""
-    hostName.value = ""
-    port.value = ""
+    targets.forEach(field => field.value = "")
+    // username.value = ""
+    // password.value = ""
+    // clientID.value = ""
+    // hostName.value = ""
+    // port.value = ""
   };
 
   return (
