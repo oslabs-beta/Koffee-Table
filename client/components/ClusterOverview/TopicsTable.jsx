@@ -43,10 +43,8 @@ const getOffsetsOnLink = async (topic, userInfo, setOffsets) => {
     .then((offsets) => setOffsets(offsets));
 };
 
-function Row({ userInfo, row, setOffsets }) {
+function Row({ userInfo, row, setOffsets, setTopicPartition }) {
   const [open, setOpen] = React.useState(false);
-
-  console.log('userInfo', userInfo);
 
   return (
     <React.Fragment>
@@ -92,7 +90,10 @@ function Row({ userInfo, row, setOffsets }) {
         <TableCell component="th" scope="row">
           <Link
             to={`/overview/${row.name}`}
-            onClick={() => getOffsetsOnLink(row.name, userInfo, setOffsets)}
+            onClick={() => {
+              getOffsetsOnLink(row.name, userInfo, setOffsets);
+              setTopicPartition([row.name, row.partitions]);
+            }}
           >
             {row.name}
           </Link>
@@ -150,6 +151,7 @@ export default function TopicsTable({
   offsets,
   setOffsets,
   userInfo,
+  setTopicPartition,
 }) {
   function createData(
     name,
@@ -222,6 +224,7 @@ export default function TopicsTable({
               row={row}
               setOffsets={setOffsets}
               userInfo={userInfo}
+              setTopicPartition={setTopicPartition}
             />
           ))}
         </TableBody>

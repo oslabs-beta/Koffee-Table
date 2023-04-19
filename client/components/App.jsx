@@ -11,7 +11,7 @@ import Graphs from './Graphs.jsx';
 import PartitionGraph from './PartitionGraph.jsx';
 import AllClusterOverview from './AllClusterOverview.jsx';
 import Login from './userLogin/Login.jsx';
-import SignUp from './userLogin/signUp.jsx'
+import SignUp from './userLogin/signUp.jsx';
 import { io } from 'socket.io-client';
 
 function App() {
@@ -102,13 +102,15 @@ function App() {
     },
   ]);
   const [userInfo, setUserInfo] = useState([]);
+  const [liveLagTime, setLiveLagTime ] = useState({})
+  const [intervalId, setIntervalId] = useState('');
 
   return (
     <div id="main">
       <Navbar />
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/login' element={<Login />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
           exact
@@ -159,12 +161,24 @@ function App() {
               offsets={offsets}
               setOffsets={setOffsets}
               userInfo={userInfo}
+              setTopicPartition={setTopicPartition}
             />
           }
         />
         <Route
           path="/overview/:topicFromURL"
-          element={<PartitionGraph metadata={metadata} offsets={offsets} />}
+          element={
+            <PartitionGraph
+              metadata={metadata}
+              offsets={offsets}
+              topicPartition={topicPartition}
+              userInfo={userInfo}
+              liveLagTime={liveLagTime}
+              setLiveLagTime={setLiveLagTime}
+              setIntervalId={setIntervalId}
+              intervalId={intervalId}
+            />
+          }
         />
       </Routes>
     </div>
