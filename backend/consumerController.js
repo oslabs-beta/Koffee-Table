@@ -8,7 +8,7 @@ const io = require('socket.io')(3001, {
 const consumerController = {};
 
 consumerController.readMessages = async (topic, userInfo) => {
-
+console.log("-----------")
   try {
     const kafka = new Kafka({
       clientId: userInfo[0],

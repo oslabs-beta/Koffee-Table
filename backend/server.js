@@ -3,7 +3,7 @@ const path = require('path');
 // const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
-// const consumerController = require('./consumerController');
+const consumerController = require('./consumerController');
 // const userRouter = require('./userStuff/userRouter')
 
 const app = express();

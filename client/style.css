@@ -171,12 +171,18 @@
   overflow-y: scroll;
 }
 
-.partitionCotainer {
-  background-color: lightcoral;
+.partitionContainer {
+  background-color: #eddcbf;
   min-width: 250px;
   height: 400px;
   margin: 15px;
   border-radius: 40px;
+  overflow-y: scroll;
+
+}
+
+.partitionContainer::-webkit-scrollbar {
+  display: none;
 }
 
 #container {
@@ -194,3 +200,4 @@
 .btnx{
   margin: auto;
 }
+

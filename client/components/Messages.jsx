@@ -5,6 +5,7 @@ function Messages(props) {
   const { topics, connected, setMessages, userInfo, currentTopic, messages } =
     props;
 
+
   console.log('message object', messages);
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -41,8 +42,8 @@ function Messages(props) {
       temp.push(<div>{values[i][j]}</div>);
     }
     display.push(
-      <div className='partitionCotainer'>
-        hey
+      <div className='partitionContainer'>
+        Partition: 
         {currentTopic.partitions[i].partitionId}
         {temp}
       </div>
