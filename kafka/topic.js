@@ -14,8 +14,8 @@ async function run() {
     await admin.createTopics({
       topics: [
         {
-          topic: 'Users',
-          numPartitions: 2,
+          topic: 'test',
+          numPartitions: 6,
         },
       ],
     });

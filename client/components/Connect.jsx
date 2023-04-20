@@ -24,6 +24,7 @@ function Connect(props) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log('this is data', data)
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {

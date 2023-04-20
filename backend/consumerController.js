@@ -8,7 +8,9 @@ const io = require('socket.io')(3001, {
 const consumerController = {};
 
 consumerController.readMessages = async (topic, userInfo) => {
-console.log("-----------")
+  console.log("-----")
+  console.log(topic)
+  console.log("-----")
   try {
     const kafka = new Kafka({
       clientId: userInfo[0],
@@ -25,8 +27,6 @@ console.log("-----------")
     await consumer.run({
       eachMessage: async (result) => {
         //topicPartition contains an array as [topic, parition]
-        console.log('this is result partition', result.partition)
-          console.log('result: ', result);
           // messageList = []
           //each time we get a message, build out the object
           // message = {}
@@ -61,7 +61,6 @@ console.log("-----------")
 io.on('connection', (socket) => {
   console.log('here is socket.id: ', socket.id);
   socket.on('messages', async (result) => {
-    console.log('this is current partition', result.topic)
     //declare a constant that is the invocation of running consumerController.readMessage
     await consumerController.readMessages(
       result.topic,

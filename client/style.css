@@ -148,6 +148,9 @@
   margin: 20px;
   margin: auto;
 }
+.topicsWrapper::-webkit-scrollbar {
+  display: none;
+}
 .topicLink {
   font-size: 20px;
   text-decoration: none;
@@ -199,5 +202,8 @@
 }
 .btnx{
   margin: auto;
+}
+.message{
+  padding: 10px;
 }
 

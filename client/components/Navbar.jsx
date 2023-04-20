@@ -22,7 +22,7 @@ function Navbar() {
       </Link>
 
       <Link className="link displayTransitTimeButton" to="/displayPartition">
-        Topics
+        Live Messages
       </Link>
 
       {/* <Link className="link displayTransitTimeButton" to="/graphs">

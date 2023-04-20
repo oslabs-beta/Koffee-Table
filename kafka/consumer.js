@@ -14,7 +14,7 @@ async function run() {
     await consumer.connect();
     console.log('consumer connected');
     consumer.subscribe({
-      topic: 'Users',
+      topic: 'test',
       fromBeginning: true,
     });
     console.log('this is kafka', await kafka);
