@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2';
 import React from 'react';
 
-export default function LagTimeGraph({ liveLagTime }) {
+export default function LagTimeGraph({ liveLagTime, time }) {
   /* liveLagTime: 
         {
             0: [4, 5, 4] 
@@ -11,27 +11,14 @@ export default function LagTimeGraph({ liveLagTime }) {
 
   console.log('liveLagTime', liveLagTime);
 
-  // function getDatasets
-  // function getDatasets(liveLagTime) {
-  //   // iterate through liveLagTime
+  function getDatasets(data) {
+    // iterate through liveLagTime
+    const datasets = [];
 
-  //   const datasets = liveLagTime.map(lagTimes => {
-  //     {
-  //       data: [lagTimes]
-  //     }
-  //   })
-  //   // return array of objects
-  // }
-
-  // populate new object with values for each partition
-  // {0: [4, 5], 1: [6.33, 4]}
-
-  const data = {
-    labels: [0, 1, 2, 3],
-    datasets: [
-      {
-        // label: offsets.map((partition) => partition.partition),
-        // data: offsets.map((partition) => partition.high),
+    for (const partition in data) {
+      const partitionData = {
+        label: partition,
+        data: data[partition],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -49,8 +36,20 @@ export default function LagTimeGraph({ liveLagTime }) {
           'rgba(255, 159, 64, 1)',
         ],
         borderWidth: 2,
-      },
-    ],
+      };
+      datasets.push(partitionData);
+    }
+    // return array of objects
+    return datasets;
+  }
+
+  // populate new object with values for each partition
+  // {0: [4, 5], 1: [6.33, 4]}
+
+  const data = {
+    // x-axis labels
+    labels: time,
+    datasets: getDatasets(liveLagTime),
   };
 
   const options = {
@@ -77,5 +76,5 @@ export default function LagTimeGraph({ liveLagTime }) {
     },
   };
 
-  return <p>hi</p>;
+  return <Line data={data} options={options}></Line>;
 }

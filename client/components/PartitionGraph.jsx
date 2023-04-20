@@ -9,6 +9,8 @@ import {
   LinearScale,
   CategoryScale,
   BarElement,
+  LineElement,
+  PointElement,
 } from 'chart.js';
 import { Pie, Bar, Line } from 'react-chartjs-2';
 import {
@@ -29,7 +31,10 @@ ChartJS.register(
   Title,
   LinearScale,
   CategoryScale,
-  BarElement
+  BarElement,
+  PointElement,
+  LineElement
+  // Point
 );
 
 function PartitionGraph({
@@ -41,6 +46,8 @@ function PartitionGraph({
   liveLagTime,
   intervalId,
   setIntervalId,
+  time,
+  setTime,
 }) {
   const { topicFromURL } = useParams();
   // console.log(topicFromUrl);
@@ -78,8 +85,11 @@ function PartitionGraph({
         //return newObject
         return newObject;
       });
+      setTime((prevState) => [...prevState, Date.now()]);
     });
     return () => {
+      //reset
+      setLiveLagTime({});
       socket.emit('clear-interval', {});
       console.log('disconnected');
       socket.close();
@@ -103,7 +113,7 @@ function PartitionGraph({
           />
         </div>
         <div className="chart-wrapper">
-          <LagTimeGraph liveLagTime={liveLagTime} />
+          <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
       </div>
     </div>
