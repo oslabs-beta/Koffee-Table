@@ -49,7 +49,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
   const options = {
     responsive: true,
     plugins: {
-      title: { display: true, text: 'Lag Time/15s' },
+      title: { display: true, text: 'Lag Time/5s' },
       legend: {
         display: true,
       },
@@ -58,13 +58,17 @@ export default function LagTimeGraph({ liveLagTime, time }) {
       y: {
         title: {
           display: true,
+          ticks: {
+            min: 0,
+            max: 40
+          },
           text: 'Lag Time (ms)',
         },
       },
       x: {
         title: {
           display: true,
-          text: 'Time',
+          text: 'Time from start (s)',
         },
       },
     },

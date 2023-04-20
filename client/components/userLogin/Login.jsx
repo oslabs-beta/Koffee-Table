@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate()
+  const { setUserCluster } = props;
 
   const login = () => {
     const [username, password] = (document.querySelectorAll('.loginField'))
@@ -18,6 +19,23 @@ function Login() {
       console.log(data)
       if(!data) feedback[1].style.opacity = 1
       else {
+
+      //   {
+      //     "_id": "643db3361b4351bb31dfdfee",
+      //     "username": "newUser",
+      //     "password": "pass",
+      //     "clientID": "someID",
+      //     "hostName": "someHostname",
+      //     "port": 2,
+      //     "__v": 0
+      // }
+
+      setUserCluster({
+        clientID: clientID,
+        hostName: hostName,
+        port: port
+      })
+
         navigate('/connectKafka')
         feedback[0].style.opacity = 1;
       }
@@ -27,11 +45,11 @@ function Login() {
 
   return (
     <div id='loginPage' >
-      <h1>Login here!</h1>
-      <input id="usernameField" className="login loginField" type="text" placeholder="username"/>
-      <input id="passwordField" className="login loginField" type="text" placeholder="password"/>
-      <button id="loginButton" className="login" onClick={login}>Login</button>
-      <Link to="/signUp">Sign up here!</Link>
+      <h1>Login here</h1>
+      <input id="usernameField" className="input login loginField" type="text" placeholder="username"/>
+      <input id="passwordField" className="input login loginField" type="text" placeholder="password"/>
+      <button id="loginButton" className="btn login" onClick={login}>Login</button>
+      <Link to="/signUp">Sign up here</Link>
       <div>
         <div id="success" className='feedback'>Logged in</div>
         <div id="fail" className='feedback'>Incorrect login credentials!</div>

@@ -1,19 +1,31 @@
 /* Front End Draft 1 */
+* {
+  margin: 0px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 #main {
   display: grid;
   grid-template-columns: 1fr 5fr;
+  background: rgb(221, 132, 78);
+  background: radial-gradient(
+    circle,
+    rgba(221, 132, 78, 1) 0%,
+    rgba(129, 99, 85, 0.8519782913165266) 100%
+  );
 }
+
 .navBar {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 300px;
   background-color: rgb(30, 30, 30);
-  margin-left: -10px;
-  margin-top: -10px;
 }
 #title {
   text-align: center;
+  margin: 20px;
 }
 .link {
   text-align: center;
@@ -30,27 +42,29 @@
   border: none;
   width: 150px;
   height: 35px;
+  background-color: #d7af70;
 }
 .btn:hover {
   opacity: 0.7;
 }
 
 .connectCluster {
-  margin-top: 25px;
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
   gap: 10px;
+  margin: auto;
+  text-align: center;
 }
 
 .input {
-  width: 400px;
+  min-width: 400px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
   border: solid 1px black;
   height: 50px;
+  background-color: #eddcbf;
 }
 .topics {
   text-align: center;
@@ -72,6 +86,9 @@
   gap: 10px;
   padding: 10px;
 }
+.overview {
+  background-color: #eddcbf;
+}
 
 .graph-page {
   margin: 40px;
@@ -91,7 +108,7 @@
   width: 30vw;
   height: 30vh;
   border: 4px solid whitesmoke;
-  border-radius: 10px;;
+  border-radius: 10px;
   padding: 10px;
 }
 /* loginPage Stuff */
@@ -124,9 +141,75 @@
   left: 54%;
   opacity: 0;
 }
-#success{
+#success {
   color: green;
 }
-#fail{
+#fail {
   color: red;
 }
+
+/* messages - topic stuff */
+.topicsWrapper {
+  text-align: center;
+  margin: 20px;
+  margin: auto;
+}
+.topicsWrapper::-webkit-scrollbar {
+  display: none;
+}
+.topicLink {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+.topic{
+  margin-top: 20px;
+  border: 1px black solid;
+  background-color: #eddcbf;
+  border-radius: 15px;
+  width: 300px;
+}
+
+#partitionWrapper {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.partitionContainer {
+  background-color: #eddcbf;
+  min-width: 250px;
+  height: 400px;
+  margin: 15px;
+  border-radius: 40px;
+  overflow-y: scroll;
+
+}
+
+.partitionContainer::-webkit-scrollbar {
+  display: none;
+}
+
+#container {
+  background-color: #eddcbf;
+}
+#clusterWrapper {
+  margin: 20px;
+}
+#testTool{
+  margin: auto;
+  text-align: center;
+  display: grid;
+  gap: 10px;
+}
+.btnx{
+  margin: auto;
+}
+.message{
+  padding: 10px;
+}
+
