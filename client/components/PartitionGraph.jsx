@@ -23,6 +23,7 @@ import {
 } from '../chart-data/partitionOffsets';
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
+import MessageVelocity from './graphs/MessageVelocity.jsx';
 
 ChartJS.register(
   ArcElement,
@@ -44,8 +45,8 @@ function PartitionGraph({
   userInfo,
   setLiveLagTime,
   liveLagTime,
-  intervalId,
-  setIntervalId,
+  messageVelocity,
+  setMessageVelocity,
   time,
   setTime,
 }) {
@@ -64,8 +65,9 @@ function PartitionGraph({
         userInfo: userInfo,
       });
     });
-    socket.on('message-received', ({ lagObject, intervalId }) => {
+    socket.on('message-received', ({ lagObject, messageVelocity }) => {
       console.log('PartitionGraph recieved: ', lagObject);
+      console.log('messageVelocity: ', messageVelocity);
       // console.log('intervalId typeof: ', typeof intervalId);
       // setIntervalId(intervalId.toString());
 
@@ -74,6 +76,17 @@ function PartitionGraph({
       Opttion 2: {1:5}
       */
       //set state
+      setMessageVelocity((prevState) => {
+        const newObject = { ...prevState };
+        for (const key in messageVelocity) {
+          //for each key in lagObject, 'push' the value into newObject of the same key
+          if (!newObject[key]) newObject[key] = [];
+          newObject[key].push(messageVelocity[key]);
+        }
+        //return newObject
+        return newObject;
+      })
+
       setLiveLagTime((prevState) => {
         const newObject = { ...prevState };
         //iterate through lagObject
@@ -87,7 +100,7 @@ function PartitionGraph({
       });
       setTime((prevState) => {
         console.log(prevState);
-        return [...prevState, prevState[prevState.length - 1] + 15];
+        return [...prevState, prevState[prevState.length - 1] + 5];
       });
 
       
@@ -95,7 +108,7 @@ function PartitionGraph({
 
     return () => {
       //reset
-      setTime([]);
+      setTime([0]);
       setLiveLagTime({});
       socket.emit('clear-interval', {});
       console.log('disconnected');
@@ -121,6 +134,9 @@ function PartitionGraph({
         </div>
         <div className="chart-wrapper">
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
+        </div>
+        <div className="chart-wrapper">
+          <MessageVelocity messageVelocity={messageVelocity} time={time}/>
         </div>
       </div>
     </div>
