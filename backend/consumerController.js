@@ -20,7 +20,7 @@ consumerController.readMessages = async (topic, userInfo) => {
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
     });
 
-    const consumer = await kafka.consumer({ groupId: 'test' });
+    const consumer = await kafka.consumer({ groupId: 'test1' });
     await consumer.connect();
 
     await consumer.subscribe({
@@ -56,7 +56,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
     });
 
-    const consumer = await kafka.consumer({ groupId: 'test' });
+    const consumer = await kafka.consumer({ groupId: 'test2' });
     await consumer.connect();
     console.log('consumerController.lagTime connected');
 
@@ -66,6 +66,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
     });
     // object to hold lag times per partition
     let lagTimesPartitions = {};
+    let messageVelocity = {}; 
     //for loop as long as i < topicPartition[1] creating a key and value of []
     for (let i = 0; i < topicPartition[1]; i++) {
       lagTimesPartitions[i] = [];
@@ -88,6 +89,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       console.log('setInterval called', Date.now());
       for (const partition in lagTimesPartitions) {
         let timestamps = lagTimesPartitions[partition];
+        messageVelocity[partition] = timestamps.length; 
         //if the length timestamps is 0, set the value to 0
         if (!timestamps.length) {
           average = 0;
@@ -111,6 +113,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       */
       io.emit('message-received', {
         lagObject: lagTimesPartitions,
+        messageVelocity
         // intervalId: intervalId,
       });
       // reset messageList
@@ -121,6 +124,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
 
       if (disconnected) {
         console.log('stop it now!!!');
+        console.log(intervalId.toString())
         clearInterval(intervalId);
       }
     }, 5000);

@@ -1,28 +1,26 @@
 import { Line } from 'react-chartjs-2';
 import React from 'react';
 
-export default function LagTimeGraph({ liveLagTime, time }) {
-    console.log('liveLagTime: ', liveLagTime);
+export default function LagTimeGraph({ messageVelocity, time }) {
+    console.log('liveLagTime: ', messageVelocity);
 
-  const colors = [
-    'rgba(255, 99, 132, 0.2)',
-    'rgba(54, 162, 235, 0.2)',
-    'rgba(255, 206, 86, 0.2)',
-    'rgba(75, 192, 192, 0.2)',
-    'rgba(153, 102, 255, 0.2)',
-    'rgba(255, 159, 64, 0.2)',
-  ]
+    const colors = [
+      'rgba(255, 99, 132)',
+      'rgba(54, 162, 235)',
+      'rgba(255, 206, 86)',
+      'rgba(75, 192, 192)',
+      'rgba(153, 102, 255)',
+      'rgba(255, 159, 64)',
+    ];
 
   function getDatasets(data, colorPallete) {
     // iterate through liveLagTime
     const datasets = [];
 
     for (const partition in data) {
-      const filteredData = data[partition].filter(el => el > 0); 
-      console.log(filteredData); 
       const partitionData = {
         label: partition,
-        data: filteredData.length, 
+        data: data[partition],
         backgroundColor: colorPallete[partition],
         borderColor: colorPallete[partition],
         borderWidth: 2,
@@ -39,7 +37,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
   const data = {
     // x-axis labels
     labels: time,
-    datasets: getDatasets(liveLagTime, colors),
+    datasets: getDatasets(messageVelocity, colors),
   };
 
   const options = {
