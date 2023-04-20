@@ -11,7 +11,7 @@ import Graphs from './Graphs.jsx';
 import PartitionGraph from './PartitionGraph.jsx';
 import AllClusterOverview from './AllClusterOverview.jsx';
 import Login from './userLogin/Login.jsx';
-import SignUp from './userLogin/signUp.jsx'
+import SignUp from './userLogin/signUp.jsx';
 import { io } from 'socket.io-client';
 
 function App() {
@@ -86,7 +86,8 @@ function App() {
   const [userCluster, setUserCluster] = useState({});
   const [consumer, setConsumer] = useState({});
   const [topics, setTopics] = useState([]);
-  const [currentTopic, setCurrentTopic] = useState()
+  const [topicPartition, setTopicPartition] = useState([]);
+  const [currentTopic, setCurrentTopic] = useState();
   const [messages, setMessages] = useState({});
   const [brokers, setBrokers] = useState(defaultBrokers);
   const [offsets, setOffsets] = useState([
@@ -104,14 +105,19 @@ function App() {
     },
   ]);
   const [userInfo, setUserInfo] = useState([]);
-
+  const [liveLagTime, setLiveLagTime] = useState({});
+  const [intervalId, setIntervalId] = useState('');
+  const [time, setTime] = useState([0]);
 
   return (
     <div id="main">
       <Navbar />
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/login' element={<Login setUserCluster={setUserCluster}/>} />
+        <Route path="/" element={<Main />} />
+        <Route
+          path="/login"
+          element={<Login setUserCluster={setUserCluster} />}
+        />
         <Route path="/signUp" element={<SignUp />} />
         <Route
           exact
@@ -155,7 +161,6 @@ function App() {
               setMessages={setMessages}
               userInfo={userInfo}
               currentTopic={currentTopic}
-
             />
           }
         />
@@ -168,12 +173,26 @@ function App() {
               offsets={offsets}
               setOffsets={setOffsets}
               userInfo={userInfo}
+              setTopicPartition={setTopicPartition}
             />
           }
         />
         <Route
           path="/overview/:topicFromURL"
-          element={<PartitionGraph metadata={metadata} offsets={offsets} />}
+          element={
+            <PartitionGraph
+              metadata={metadata}
+              offsets={offsets}
+              topicPartition={topicPartition}
+              userInfo={userInfo}
+              liveLagTime={liveLagTime}
+              setLiveLagTime={setLiveLagTime}
+              setIntervalId={setIntervalId}
+              intervalId={intervalId}
+              time={time}
+              setTime={setTime}
+            />
+          }
         />
       </Routes>
     </div>

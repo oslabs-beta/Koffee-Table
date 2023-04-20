@@ -21,7 +21,7 @@ function Messages(props) {
     socket.on('broadcasting', (message, partition) => {
       console.log('MESSAGE RECEIVED', message, 'on partition', partition);
       setMessages((prevState) => {
-        const newObject = { ...prevState }; // shallow copy the state object
+        const newObject = { ...prevState }; // deep copy of the state object
         const topicMessages = newObject[partition] || []; // get the messages array for the topic or create a new one
         const updatedTopicMessages = [...topicMessages, message]; // add the new message to the end of the array
         newObject[partition] = updatedTopicMessages; // update the state object with the new messages array

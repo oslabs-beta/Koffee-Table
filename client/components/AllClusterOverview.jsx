@@ -9,6 +9,7 @@ export default function AllClusterOverview({
   offsets,
   setOffsets,
   userInfo,
+  setTopicPartition,
 }) {
   return (
     <div id="clusterWrapper">
@@ -22,6 +23,7 @@ export default function AllClusterOverview({
         offsets={offsets}
         setOffsets={setOffsets}
         userInfo={userInfo}
+        setTopicPartition={setTopicPartition}
       />
     </div>
   );
