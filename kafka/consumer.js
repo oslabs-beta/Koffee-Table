@@ -7,14 +7,14 @@ async function run() {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
-      brokers: ['Joes-Air:9092'],
+      brokers: ['Jonathans-Air:9092'],
     });
 
     const consumer = kafka.consumer({ groupId: 'test' });
     await consumer.connect();
     console.log('consumer connected');
     consumer.subscribe({
-      topic: 'Users',
+      topic: 'test',
       fromBeginning: true,
     });
     console.log('this is kafka', await kafka);

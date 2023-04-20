@@ -20,12 +20,13 @@ async function run(input) {
     const producer = kafka.producer();
     await producer.connect();
     console.log('producer connected');
-    let partition;
-    if (input.toLowerCase() === input) {
-      partition = 0;
-    } else {
-      partition = 1;
-    }
+    let partition = Math.floor(Math.random() * 6);
+    console.log(partition);
+    // if (input.toLowerCase() === input) {
+    //   partition = 0;
+    // } else {
+    //   partition = 1;
+    // }
     const result = await producer.send({
       topic: 'Users',
       messages: [

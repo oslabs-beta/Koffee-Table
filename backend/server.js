@@ -1,11 +1,10 @@
 const express = require('express');
 const path = require('path');
-const cookieController = require('./cookieController');
+// const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-const userController = require('./userController')
-const userRouter = require('./userRouter')
+// const userRouter = require('./userStuff/userRouter')
 
 const app = express();
 app.use(express.json());
@@ -16,7 +15,7 @@ app.use(express.json());
 //   res.redirect('/'); //delete this in production and revert to line above
 // });
 
-app.use('/user', userRouter);
+// app.use('/user', userRouter);
 
 
 
@@ -58,7 +57,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 //serve main page of application for dev mode
-app.get('/*', (req, res) => {
+app.get('/*', (req, res) => { console.log("here")
   // res.sendFile(path.resolve(__dirname, '../client/index.html'));
   res.redirect('/'); //delete this in production and revert to line above
 });

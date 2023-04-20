@@ -49,7 +49,7 @@ function Row({ userInfo, row, setOffsets, setTopicPartition }) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell >
           <IconButton
             aria-label="expand row"
             size="small"
@@ -201,7 +201,7 @@ export default function TopicsTable({
   );
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer id="container" component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
