@@ -75,7 +75,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
     await consumer.run({
       eachMessage: async (result) => {
         // each time we get a message, build out the lagTimePartitions object by pushing the lagTime into an array
-
+        
         //just push the lag time
         const lagTime = Date.now() - result.message.timestamp;
         console.log('LAG TIME!', lagTime);

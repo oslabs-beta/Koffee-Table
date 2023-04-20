@@ -23,6 +23,7 @@ import {
 } from '../chart-data/partitionOffsets';
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
+import MessageVelocity from './graphs/MessageVelocity.jsx';
 
 ChartJS.register(
   ArcElement,
@@ -89,6 +90,7 @@ function PartitionGraph({
     });
     return () => {
       //reset
+      setTime()
       setLiveLagTime({});
       socket.emit('clear-interval', {});
       console.log('disconnected');
@@ -114,6 +116,9 @@ function PartitionGraph({
         </div>
         <div className="chart-wrapper">
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
+        </div>
+        <div className="chart-wrapper">
+          <MessageVelocity liveLagTime={liveLagTime} time={time}/>
         </div>
       </div>
     </div>

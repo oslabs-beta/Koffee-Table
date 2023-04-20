@@ -2,13 +2,7 @@ import { Line } from 'react-chartjs-2';
 import React from 'react';
 
 export default function LagTimeGraph({ liveLagTime, time }) {
-  console.log('liveLagTime: ', liveLagTime);
-  /* liveLagTime: 
-        {
-            0: [4, 5, 4] 
-            1: [6.33, 3, 2]
-        }, 
-    */
+    console.log('liveLagTime: ', liveLagTime);
 
   const colors = [
     'rgba(255, 99, 132, 0.2)',
@@ -17,16 +11,18 @@ export default function LagTimeGraph({ liveLagTime, time }) {
     'rgba(75, 192, 192, 0.2)',
     'rgba(153, 102, 255, 0.2)',
     'rgba(255, 159, 64, 0.2)',
-  ];
+  ]
 
   function getDatasets(data, colorPallete) {
     // iterate through liveLagTime
     const datasets = [];
 
     for (const partition in data) {
+      const filteredData = data[partition].filter(el => el > 0); 
+      console.log(filteredData); 
       const partitionData = {
         label: partition,
-        data: data[partition],
+        data: filteredData.length, 
         backgroundColor: colorPallete[partition],
         borderColor: colorPallete[partition],
         borderWidth: 2,
@@ -49,7 +45,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
   const options = {
     responsive: true,
     plugins: {
-      title: { display: true, text: 'Lag Time/15s' },
+      title: { display: true, text: 'Message Velocity / 5s' },
       legend: {
         display: true,
       },
@@ -58,7 +54,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
       y: {
         title: {
           display: true,
-          text: 'Lag Time (ms)',
+          text: 'Number of Messages',
         },
       },
       x: {
