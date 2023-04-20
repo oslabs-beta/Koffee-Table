@@ -106,7 +106,7 @@ function App() {
   ]);
   const [userInfo, setUserInfo] = useState([]);
   const [liveLagTime, setLiveLagTime] = useState({});
-  const [intervalId, setIntervalId] = useState('');
+  const [messageVelocity, setMessageVelocity] = useState({});
   const [time, setTime] = useState([0]);
 
   return (
@@ -187,8 +187,8 @@ function App() {
               userInfo={userInfo}
               liveLagTime={liveLagTime}
               setLiveLagTime={setLiveLagTime}
-              setIntervalId={setIntervalId}
-              intervalId={intervalId}
+              setMessageVelocity={setMessageVelocity}
+              messageVelocity={messageVelocity}
               time={time}
               setTime={setTime}
             />

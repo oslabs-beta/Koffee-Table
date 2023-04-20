@@ -63,6 +63,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
     });
     // object to hold lag times per partition
     let lagTimesPartitions = {};
+    let messageVelocity = {}; 
     //for loop as long as i < topicPartition[1] creating a key and value of []
     for (let i = 0; i < topicPartition[1]; i++) {
       lagTimesPartitions[i] = [];
@@ -70,7 +71,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
     await consumer.run({
       eachMessage: async (result) => {
         // each time we get a message, build out the lagTimePartitions object by pushing the lagTime into an array
-
+        
         //just push the lag time
         const lagTime = Date.now() - result.message.timestamp;
         console.log('LAG TIME!', lagTime);
@@ -90,6 +91,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       console.log('setInterval called', Date.now());
       for (const partition in lagTimesPartitions) {
         let timestamps = lagTimesPartitions[partition];
+        messageVelocity[partition] = timestamps.length; 
         //if the length timestamps is 0, set the value to 0
         if (!timestamps.length) {
           average = 0;
@@ -113,6 +115,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       */
       io.emit('message-received', {
         lagObject: lagTimesPartitions,
+        messageVelocity
         // intervalId: intervalId,
       });
       // reset messageList
