@@ -5,6 +5,8 @@ function Messages(props) {
   const { topics, connected, setMessages, userInfo, currentTopic, messages } =
     props;
 
+    console.log('this is topic', currentTopic)
+
 
   console.log('message object', messages);
   useEffect(() => {
@@ -33,18 +35,30 @@ function Messages(props) {
     }
   }, []);
 
+
+
+  /*
+  // //{
+   p1,
+   p5,
+   p0,
+  // }
+[1,2,3,4]
+*/
   let display = [];
   for (let i = 0; i < currentTopic.partitions.length; i++) {
+
     if (messages[i]){
+
     let temp = [];
-    let values = Object.values(messages);
-    for (let j = 0; j < values[i].length; j++) {
-      temp.push(<div>{values[i][j]}</div>);
+    for (let j = 0; j < messages[i].length; j++) {
+      temp.push(<div className="message">{messages[i][j]}</div>);
     }
+
     display.push(
       <div className='partitionContainer'>
         Partition: 
-        {currentTopic.partitions[i].partitionId}
+        {i}
         {temp}
       </div>
     );

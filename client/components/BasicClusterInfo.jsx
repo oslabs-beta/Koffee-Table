@@ -4,12 +4,13 @@ import { Outlet, Link } from 'react-router-dom';
 function BasicClusterInfo(props) {
   const { metadata, setTopics, topics, setCurrentTopic } = props;
 
-
+let connected = false;
 const renderTopics = [];
 if (topics.length === 0){
   renderTopics.push(<p className="topicLink" >Not Connected</p>)
 }
 else{
+  connected = true;
   for (let i = 0; i < topics.length; i++){
     renderTopics.push(<Link
                   className="topicLink"
@@ -25,7 +26,10 @@ else{
 }
 
 return (
-  <div className="topicsWrapper" >{renderTopics}</div>
+
+  <div className="topicsWrapper" >
+    {connected ? <h1>Choose a Topic</h1> : null}
+    {renderTopics}</div>
 )
 
 
