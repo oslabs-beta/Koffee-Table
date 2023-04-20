@@ -104,7 +104,7 @@ function App() {
   const [userInfo, setUserInfo] = useState([]);
   const [liveLagTime, setLiveLagTime ] = useState({})
   const [intervalId, setIntervalId] = useState('');
-  const [time, setTime] = useState([])
+  const [time, setTime] = useState([0])
 
   return (
     <div id="main">
