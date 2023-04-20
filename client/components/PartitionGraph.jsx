@@ -87,7 +87,7 @@ function PartitionGraph({
       });
       setTime((prevState) => {
         console.log(prevState);
-        return [...prevState, prevState[prevState.length - 1] + 15];
+        return [...prevState, (prevState[prevState.length - 1] + 15)];
       });
 
       
@@ -95,7 +95,7 @@ function PartitionGraph({
 
     return () => {
       //reset
-      setTime([]);
+      setTime([0]);
       setLiveLagTime({});
       socket.emit('clear-interval', {});
       console.log('disconnected');

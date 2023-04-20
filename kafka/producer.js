@@ -14,7 +14,7 @@ async function run(input) {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
-      brokers: ['Joes-Air:9092'],
+      brokers: ['Jonathans-Air:9092'],
     });
 
     const producer = kafka.producer();
@@ -28,7 +28,7 @@ async function run(input) {
     //   partition = 1;
     // }
     const result = await producer.send({
-      topic: 'Users',
+      topic: 'test',
       messages: [
         {
           value: input,

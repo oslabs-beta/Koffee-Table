@@ -11,16 +11,13 @@ let intervalId;
 let disconnected;
 
 consumerController.readMessages = async (topic, userInfo) => {
-  console.log("-----")
-  console.log(topic)
-  console.log("-----")
   try {
     const kafka = new Kafka({
       clientId: userInfo[0],
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
     });
 
-    const consumer = await kafka.consumer({ groupId: 'test' });
+    const consumer = await kafka.consumer({ groupId: 'test1' });
     await consumer.connect();
 
     await consumer.subscribe({
@@ -56,7 +53,7 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
     });
 
-    const consumer = await kafka.consumer({ groupId: 'test' });
+    const consumer = await kafka.consumer({ groupId: 'test2' });
     await consumer.connect();
     console.log('consumerController.lagTime connected');
 
@@ -85,6 +82,11 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       //after 3s, average the array of lag time for each partition
       // let average;
       //create new object
+      if (disconnected) {
+        console.log('stop it now!!!');
+        clearInterval(intervalId);
+      }
+
       console.log('setInterval called', Date.now());
       for (const partition in lagTimesPartitions) {
         let timestamps = lagTimesPartitions[partition];
@@ -117,11 +119,6 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       lagTimesPartitions = {};
       for (let i = 0; i < topicPartition[1]; i++) {
         lagTimesPartitions[i] = [];
-      }
-
-      if (disconnected) {
-        console.log('stop it now!!!');
-        clearInterval(intervalId);
       }
     }, 5000);
   } catch (err) {
