@@ -39,9 +39,7 @@ ChartJS.register(
 );
 
 function PartitionGraph({
-  metadata,
   offsets,
-  topicPartition,
   userInfo,
   setLiveLagTime,
   liveLagTime,
@@ -49,10 +47,12 @@ function PartitionGraph({
   setMessageVelocity,
   time,
   setTime,
+  currentTopic,
+  topics
 }) {
   const { topicFromURL } = useParams();
-  // console.log(topicFromUrl);
-  const topic = metadata.topics.filter(
+  // console.log(topicFromUrl);\
+  const topic = topics.filter(
     (topic) => topic.name === topicFromURL
   )[0];
 
@@ -61,7 +61,7 @@ function PartitionGraph({
     socket.on('connect', () => {
       console.log(`PartitionGraph: You connected with id: ${socket.id}`);
       socket.emit('lagTime', {
-        topicPartition: topicPartition,
+        currentTopic: currentTopic,
         userInfo: userInfo,
       });
     });
@@ -100,7 +100,7 @@ function PartitionGraph({
       });
       setTime((prevState) => {
         console.log(prevState);
-        return [...prevState, prevState[prevState.length - 1] + 5];
+        return [...prevState, prevState[prevState.length - 1] + 3];
       });
 
       

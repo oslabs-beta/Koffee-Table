@@ -15,95 +15,14 @@ import SignUp from './userLogin/signUp.jsx';
 import { io } from 'socket.io-client';
 
 function App() {
-  const defaultMetadata = {
-    topics: [
-      {
-        name: 'Test Topic 1',
-        partitions: [
-          {
-            partitionErrorCode: 0,
-            partitionId: 0,
-            leader: 2,
-            replicas: [2],
-            isr: [2],
-            offlineReplicas: [],
-          },
-          {
-            partitionErrorCode: 0,
-            partitionId: 1,
-            leader: 3,
-            replicas: [3],
-            isr: [3],
-            offlineReplicas: [],
-          },
-        ],
-      },
-      {
-        name: 'Test Topic 2',
-        partitions: [
-          {
-            partitionErrorCode: 0,
-            partitionId: 0,
-            leader: 3,
-            replicas: [3],
-            isr: [3],
-            offlineReplicas: [],
-          },
-          {
-            partitionErrorCode: 0,
-            partitionId: 2,
-            leader: 2,
-            replicas: [2],
-            isr: [2],
-            offlineReplicas: [],
-          },
-          {
-            partitionErrorCode: 0,
-            partitionId: 1,
-            leader: 1,
-            replicas: [1],
-            isr: [1],
-            offlineReplicas: [],
-          },
-        ],
-      },
-    ],
-  };
-
-  const defaultBrokers = {
-    brokers: [
-      {
-        nodeId: 1,
-        host: 'Your host name',
-        port: 9092,
-      },
-    ],
-    controller: 1,
-  };
-
-  const [connected, setConnected] = useState(false);
-  const [metadata, setMetadata] = useState(defaultMetadata);
+  // ML: connect function that connects to consumers and admin following the connect click
   const [userCluster, setUserCluster] = useState({});
-  const [consumer, setConsumer] = useState({});
   const [topics, setTopics] = useState([]);
-  const [topicPartition, setTopicPartition] = useState([]);
   const [currentTopic, setCurrentTopic] = useState();
   const [messages, setMessages] = useState({});
-  const [brokers, setBrokers] = useState(defaultBrokers);
-  const [offsets, setOffsets] = useState([
-    {
-      partition: 0,
-      high: 5,
-      offset: 0,
-      low: 0,
-    },
-    {
-      partition: 1,
-      high: 9,
-      offset: 0,
-      low: 0,
-    },
-  ]);
+  const [brokers, setBrokers] = useState(null);
+  const [offsets, setOffsets] = useState([]);
+  // userInfo: [clientId, hostName, port] -- change to object for Jonas :)
   const [userInfo, setUserInfo] = useState([]);
   const [liveLagTime, setLiveLagTime] = useState({});
   const [messageVelocity, setMessageVelocity] = useState({});
@@ -124,10 +43,7 @@ function App() {
           path="/connectKafka"
           element={
             <Connect
-              setConsumer={setConsumer}
-              connected={connected}
-              setConnected={setConnected}
-              setMetadata={setMetadata}
+              // setConsumer={setConsumer}
               setUserInfo={setUserInfo}
               setBrokers={setBrokers}
               setTopics={setTopics}
@@ -141,7 +57,6 @@ function App() {
             <BasicClusterInfo
               setTopics={setTopics}
               topics={topics}
-              metadata={metadata}
               setBrokers={setBrokers}
               setUserInfo={setUserInfo}
               setCurrentTopic={setCurrentTopic}
@@ -156,7 +71,6 @@ function App() {
           element={
             <Messages
               topics={topics}
-              connected={connected}
               messages={messages}
               setMessages={setMessages}
               userInfo={userInfo}
@@ -168,12 +82,12 @@ function App() {
           path="/overview"
           element={
             <AllClusterOverview
-              metadata={metadata}
+              topics={topics}
               brokers={brokers}
               offsets={offsets}
               setOffsets={setOffsets}
               userInfo={userInfo}
-              setTopicPartition={setTopicPartition}
+              setCurrentTopic={setCurrentTopic}
             />
           }
         />
@@ -181,9 +95,9 @@ function App() {
           path="/overview/:topicFromURL"
           element={
             <PartitionGraph
-              metadata={metadata}
+              topics={topics}
               offsets={offsets}
-              topicPartition={topicPartition}
+              currentTopic={currentTopic}
               userInfo={userInfo}
               liveLagTime={liveLagTime}
               setLiveLagTime={setLiveLagTime}

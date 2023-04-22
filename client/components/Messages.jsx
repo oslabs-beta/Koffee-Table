@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 function Messages(props) {
-  const { topics, connected, setMessages, userInfo, currentTopic, messages } =
+  const { topics, setMessages, userInfo, currentTopic, messages } =
     props;
 
     console.log('this is topic', currentTopic)
@@ -23,7 +23,7 @@ function Messages(props) {
       setMessages((prevState) => {
         const newObject = { ...prevState }; // deep copy of the state object
         const topicMessages = newObject[partition] || []; // get the messages array for the topic or create a new one
-        const updatedTopicMessages = [...topicMessages, message]; // add the new message to the end of the array
+        const updatedTopicMessages = [...topicMessages, <div className="message">{message}</div>]; // add the new message to the end of the array
         newObject[partition] = updatedTopicMessages; // update the state object with the new messages array
         return newObject; // return the updated state
       });
@@ -45,21 +45,16 @@ function Messages(props) {
   // }
 [1,2,3,4]
 */
+console.log('these are the messages', messages)
   let display = [];
   for (let i = 0; i < currentTopic.partitions.length; i++) {
 
     if (messages[i]){
-
-    let temp = [];
-    for (let j = 0; j < messages[i].length; j++) {
-      temp.push(<div className="message">{messages[i][j]}</div>);
-    }
-
     display.push(
       <div className='partitionContainer'>
         Partition: 
         {i}
-        {temp}
+        {messages[i]}
       </div>
     );
     }
