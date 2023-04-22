@@ -9,9 +9,11 @@ import Paper from '@mui/material/Paper';
 
 export default function OverviewTable({ brokers }) {
   
+  let brokersList; 
+
   if (brokers) {
     const { controller } = brokers;
-    const brokersList = brokers.brokers.map((broker) => {
+    brokersList = brokers.brokers.map((broker) => {
       return {
         id: broker.nodeId,
         host: broker.host,
