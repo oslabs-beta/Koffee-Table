@@ -7,28 +7,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(id, host, port, controller) {
-  return { id, host, port, controller };
-}
-
 export default function OverviewTable({ brokers }) {
-  const { controller } = brokers;
-
-  let brokersList;
-  brokersList = brokers.brokers.map((broker) => {
-    return {
-      id: broker.nodeId,
-      host: broker.host,
-      port: broker.port,
-      controller: brokers.controller === controller ? 'Yes' : 'No',
-    };
-  });
-
-  //iterate through each broker and create data for each broker
-  let rows = [];
-  rows = brokersList.map((broker) =>
-    createData(broker.id, broker.host, broker.port, broker.controller)
-  );
+  
+  if (brokers) {
+    const { controller } = brokers;
+    const brokersList = brokers.brokers.map((broker) => {
+      return {
+        id: broker.nodeId,
+        host: broker.host,
+        port: broker.port,
+        controller: brokers.controller === controller ? 'Yes' : 'No',
+      };
+    });
+  } 
 
   return (
     <TableContainer component={Paper} id="container">
@@ -50,19 +41,19 @@ export default function OverviewTable({ brokers }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+         {brokersList ? brokersList.map((topic) => (
             <TableRow
-              key={row.id}
+              key={topic.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component='th' scope='row'>
-                {row.id}
+                {topic.id}
               </TableCell>
-              <TableCell align='right'>{row.host}</TableCell>
-              <TableCell align='right'>{row.port}</TableCell>
-              <TableCell align='right'>{row.controller}</TableCell>
+              <TableCell align='right'>{topic.host}</TableCell>
+              <TableCell align='right'>{topic.port}</TableCell>
+              <TableCell align='right'>{topic.controller}</TableCell>
             </TableRow>
-          ))}
+          )) : null}
         </TableBody>
       </Table>
     </TableContainer>

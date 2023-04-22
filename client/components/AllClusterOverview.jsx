@@ -4,26 +4,26 @@ import BrokersTable from './ClusterOverview/BrokersTable.jsx';
 import TopicsTable from './ClusterOverview/TopicsTable.jsx';
 
 export default function AllClusterOverview({
-  metadata,
+  topics,
   brokers,
   offsets,
   setOffsets,
   userInfo,
-  setTopicPartition,
+  setCurrentTopic,
 }) {
   return (
     <div id="clusterWrapper">
       <h1>Kafka Cluster Overview</h1>
-      <OverviewTable metadata={metadata} brokers={brokers} />
+      <OverviewTable topics={topics} brokers={brokers} />
       <h2>Brokers</h2>
       <BrokersTable brokers={brokers} />
       <h2>Topics</h2>
       <TopicsTable 
-        metadata={metadata}
+        topics={topics}
         offsets={offsets}
         setOffsets={setOffsets}
         userInfo={userInfo}
-        setTopicPartition={setTopicPartition}
+        setCurrentTopic={setCurrentTopic}
       />
     </div>
   );

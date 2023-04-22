@@ -23,6 +23,7 @@ app.use(express.json());
 app.post(
   '/getCluster',
   adminController.connectAdmin,
+  // consumerController.connectConsumer, 
   //cookieController.setCookie
   (req, res) => {
     return res

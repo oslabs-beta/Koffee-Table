@@ -7,11 +7,28 @@ const io = require('socket.io')(3001, {
 
 const consumerController = {};
 
+// let kafka;
+// let consumer;  
+
+/*
+consumerController.connectConsumer = async(req, res, next) => {
+  kafka = new Kafka({
+    clientId: userInfo[0],
+    brokers: [`${userInfo[1]}:${userInfo[2]}`],
+  });
+
+  consumer = await kafka.consumer({ groupId: 'test1' });
+  await consumer.connect();
+ return next(); 
+} 
+*/
+
 let intervalId;
 let disconnected;
 
 consumerController.readMessages = async (topic, userInfo) => {
   try {
+    // can try to abstract this out 
     const kafka = new Kafka({
       clientId: userInfo[0],
       brokers: [`${userInfo[1]}:${userInfo[2]}`],
@@ -20,13 +37,13 @@ consumerController.readMessages = async (topic, userInfo) => {
     const consumer = await kafka.consumer({ groupId: 'test1' });
     await consumer.connect();
 
+
     await consumer.subscribe({
       topic: topic,
       fromBeginning: true,
     });
     await consumer.run({
       eachMessage: async (result) => {
-        //topicPartition contains an array as [topic, parition]
         console.log('this is result partition', result.partition);
         console.log('result: ', result);
 
@@ -42,9 +59,7 @@ consumerController.readMessages = async (topic, userInfo) => {
   }
 };
 
-consumerController.lagTime = async (topicPartition, userInfo) => {
-  console.log('this is user ', userInfo);
-  console.log('topicPartition', topicPartition);
+consumerController.lagTime = async (currentTopic, userInfo) => {
   disconnected = false;
 
   try {
@@ -58,14 +73,14 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
     console.log('consumerController.lagTime connected');
 
     await consumer.subscribe({
-      topic: topicPartition[0],
+      topic: currentTopic.name,
       fromBeginning: true,
     });
     // object to hold lag times per partition
     let lagTimesPartitions = {};
     let messageVelocity = {}; 
-    //for loop as long as i < topicPartition[1] creating a key and value of []
-    for (let i = 0; i < topicPartition[1]; i++) {
+    //for loop as long as i < length of the topic partition length creating a key and value of []
+    for (let i = 0; i < currentTopic.partitions.length; i++) {
       lagTimesPartitions[i] = [];
     }
     await consumer.run({
@@ -120,10 +135,10 @@ consumerController.lagTime = async (topicPartition, userInfo) => {
       });
       // reset messageList
       lagTimesPartitions = {};
-      for (let i = 0; i < topicPartition[1]; i++) {
+      for (let i = 0; i < currentTopic.partitions.length; i++) {
         lagTimesPartitions[i] = [];
       }
-    }, 5000);
+    }, 3000);
   } catch (err) {
     console.log('error', err);
   }
@@ -139,7 +154,7 @@ io.on('connection', (socket) => {
   });
   socket.on('lagTime', async (result) => {
     console.log('recieved connection in LagTime');
-    await consumerController.lagTime(result.topicPartition, result.userInfo);
+    await consumerController.lagTime(result.currentTopic, result.userInfo);
   });
   socket.on('clear-interval', () => {
     console.log('socket.on gets message');

@@ -28,7 +28,7 @@ async function run(input) {
     //   partition = 1;
     // }
     const result = await producer.send({
-      topic: 'test',
+      topic: 'The-Real-MVP-Presentation',
       messages: [
         {
           value: input,

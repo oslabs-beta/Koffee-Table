@@ -27,9 +27,9 @@ function Test() {
   });
 
   const send = (input) => {
-    const cohort = ['Brecht', 'Yining', 'Joe', 'Gavin', 'Natalie', 'John', 'Weston', 'Kirill', 'Victor', 'Emily', 'Jonathan', 'Matthew', 'Ian', 'Hwi Won', 'Benjamin', 'Krystal', 'Olivia', 'Anna', 'Paul', 'Jaeni', 'Sid', 'Annie', 'Matt', 'Jeb', 'Jonas', 'Bryant', 'Slava', 'Ty', 'Hazel', 'Kudrat', 'Peter', 'Jay', 'Jacob', 'Andrii']
+    const cohort = ['Brecht', 'Yining', 'Joe', 'Table', 'Natalie', 'John', 'Weston', 'Kirill', 'Victor', 'Emily', 'Jonathan', 'Matthew', 'Ian', 'Hwi Won', 'Benjamin', 'Krystal', 'Olivia', 'Anna', 'Paul', 'Jaeni', 'Sid', 'Annie', 'Matt', 'Jeb', 'Jonas', 'Bryent', 'Slava', 'Ty', 'Hazel', 'Kudrat', 'Peter', 'Jay', 'Jacob', 'Andrii']
 
-    const unique = ['VapesWithHillaryC', 'Fancy-France-Art', 'Guitar-4-life', 'Gavin', 'I-want-to-travel', 'WhereDoIPutMyMattress?', 'myBabyZadieCanDance', 'brogrammer4life', 'IHateSales', 'Emily', 'Jonathan', 'matt-l-podcast', 'bodySurfsForLunch', '6AM-hack-hour', 'Ben', 'GETTING-MARRIED', 'Olivia', 'myCatPlaysValorant', 'everyoneshouldmovetoNY', 'Wish-I-Had-Some-Pets', 'i-already-work-4-google', 'codingAtTheOpera', 'codeBreaksWhenILookAtIt', 'flexMasterStretch', 'Codes-auf-deutsch', 'Bryant', 'I-Live-In-Kirills-Backyard', 'PicklesTheBall', 'i-love-casios', 'the-DOM-manipulates-me', 'Peter', 'taller-than-you-thought', 'Lone-Star-State-Boi', 'Andrii']
+    const unique = ['VapesWithHillaryC', 'Fancy-France-Art', 'Guitar-4-life', 'IUsedToHaveARealName', 'I-want-to-travel', 'WhereDoIPutMyMattress?', 'myBabyZadieCanDance', 'brogrammer4life', 'IHateSales', 'ArtConnoisseur', 'myScreenTooThick4ScreenShare', 'matt-l-podcast', 'bodySurfsForLunch', '6AM-hack-hour', 'DoneClubFoundingFather', 'GETTING-MARRIED', 'construction-in-thebackground', 'myCatPlaysValorant', 'everyoneshouldmovetoNY', 'Wish-I-Had-Some-Pets', 'i-already-work-4-google', 'codingAtTheOpera', 'codeBreaksWhenILookAtIt', 'flexMasterStretch', 'Codes-auf-deutsch', 'SneakerHead', 'I-Live-In-Kirills-Backyard', 'PicklesTheBall', 'i-love-casios', 'the-DOM-manipulates-me', 'Peter123', 'taller-than-you-thought', 'Lone-Star-State-Boi', 'lovingAmerica1776']
 
     const accounts = ['Amazon', 'Google', 'Netflix', 'Facebook', 'Hulu', 'HBO', 'Snapchat', 'Instagram', 'Disney+', 'Paramount+', 'FuboTV', 'Peacock', 'Redit', 'YouTube TV', 'Steam', 'Wells Fargo', 'Citi Bank', 'Capital One', 'TD Bank', 'Bank of America']
     const cohortNum = Math.floor(Math.random() * cohort.length);
@@ -47,7 +47,7 @@ function Test() {
 
   const send2 = (input) => {
     const cohort = ['Brecht', 'Yining', 'Joe', 'Gavin', 'Natalie', 'John', 'Weston', 'Kirill', 'Victor', 'Emily', 'Jonathan', 'Matthew', 'Ian', 'Hwi Won (John)', 'Benjamin', 'Krystal', 'Olivia', 'Anna', 'Paul', 'Jaeni', 'Sid', 'Annie', 'Matt', 'Jeb', 'Jonas', 'Bryant', 'Slava', 'Myla', 'Ty', 'Hazel', 'Kudrat', 'Peter', 'Joseph', 'Jacob', 'Andrii']
-    const accounts = ['Amazon', 'Google', 'Netflix', 'Facebook', 'Hulu', 'HBO', 'Snapchat', 'Instagram', 'Disney+', 'Paramount+', 'FuboTV', 'Peacock', 'Redit', 'YouTube TV', 'Steam', 'Wells Fargo', 'Citi Bank', 'Capital One', 'TD Bank', 'Bank of America']
+    const accounts = ['Amazon', 'Google', 'Netflix', 'Facebook', 'Hulu', 'HBO', 'Snapchat', 'Instagram', 'Disney+', 'Paramount+', 'FuboTV', 'Peacock', 'Reddit', 'YouTube TV', 'Steam', 'Wells Fargo', 'Citi Bank', 'Capital One', 'TD Bank', 'Bank of America']
     const cohortNum = Math.random(cohort.length);
     const accountsNum = Math.random(accounts.length);
     const password = (Math.random(5) * 10 ** 17).toString(36);

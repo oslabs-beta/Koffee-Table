@@ -29,12 +29,9 @@ function Connect(props) {
         //error name in obj maight be a problem
         if (!data.err) {
           document.querySelector('#connectionSuccess').style.display = 'block';
-          props.setMetadata(data.topics);
-          props.setConnected(true);
+          // props.setMetadata(data.topics);
           props.setBrokers(data.brokers);
 
-
-    
           let topicArray = [];
           for (let i = 0; i < data.topics.topics.length; i++){
             topicArray.push(data.topics.topics[i]);
@@ -67,8 +64,7 @@ function Connect(props) {
         //error name in obj maight be a problem
         if (!data.err) {
           document.querySelector('#connectionSuccess').style.display = 'block';
-          props.setMetadata(data.topics);
-          props.setConnected(true);
+          // props.setMetadata(data.topics);
           props.setBrokers(data.brokers);
 
 

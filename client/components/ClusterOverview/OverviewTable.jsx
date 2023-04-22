@@ -11,8 +11,8 @@ function createData(category, value) {
   return { category, value };
 }
 
-export default function OverviewTable({ metadata, brokers }) {
-  const { topics } = metadata;
+export default function OverviewTable({ topics, brokers }) {
+  // const { topics } = metadata;
 
   const totalPartitions = topics.reduce(
     (accumulator, topic) => accumulator + topic.partitions.length,
@@ -26,7 +26,7 @@ export default function OverviewTable({ metadata, brokers }) {
   ];
 
   return (
-    <TableContainer component={Paper} id="container">
+    <TableContainer component={Paper} id='container'>
       <Table sx={{ minWidth: 650 }} aria-label='a dense table'>
         <TableBody>
           {rows.map((row) => (
