@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function Connect(props) {
-  const { userCluster } = props;
 
   const sendClusterData = () => {
     const hostName = document.querySelector('.hostName').value;
@@ -46,43 +45,7 @@ function Connect(props) {
         console.log('err in sendClusterData', err);
       });
   };
-  const sendUserClusterData = () => {
-    fetch('/getCluster', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        clientId: userCluster.clientID,
-        hostName: userCluster.hostName,
-        port: userCluster.port,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //do important stuff here
-        //error name in obj maight be a problem
-        if (!data.err) {
-          document.querySelector('#connectionSuccess').style.display = 'block';
-          // props.setMetadata(data.topics);
-          props.setBrokers(data.brokers);
-
-
-    
-          let topicArray = [];
-          for (let i = 0; i < data.topics.topics.length; i++){
-            topicArray.push(data.topics.topics[i]);
-          }
-          props.setTopics(topicArray);
-
-        } else {
-          document.querySelector('#connectionStatus').style.display = 'block';
-        }
-      })
-      .catch((err) => {
-        console.log('err in sendClusterData', err);
-      });
-  }
+ 
 
   return (
     <div className="connectCluster">
@@ -93,9 +56,10 @@ function Connect(props) {
         <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
           Submit
         </button>
-          {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
+        {/* checks if user info is in state */}
+          {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
           Connect with User Information
-        </button>) : null}
+        </button>) : null} */}
       <p id="connectionStatus">Connection Failed</p>
       <p id="connectionSuccess">Connected!</p>
     </div>
