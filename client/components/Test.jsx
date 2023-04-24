@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { io } from 'socket.io-client';
 
 function Test() {
@@ -27,16 +29,112 @@ function Test() {
   });
 
   const send = (input) => {
-    const cohort = ['Brecht', 'Yining', 'Joe', 'Table', 'Natalie', 'John', 'Weston', 'Kirill', 'Victor', 'Emily', 'Jonathan', 'Matthew', 'Ian', 'Hwi Won', 'Benjamin', 'Krystal', 'Olivia', 'Anna', 'Paul', 'Jaeni', 'Sid', 'Annie', 'Matt', 'Jeb', 'Jonas', 'Bryent', 'Slava', 'Ty', 'Hazel', 'Kudrat', 'Peter', 'Jay', 'Jacob', 'Andrii']
+    const cohort = [
+      'Brecht',
+      'Yining',
+      'Joe',
+      'Table',
+      'Natalie',
+      'John',
+      'Weston',
+      'Kirill',
+      'Victor',
+      'Emily',
+      'Jonathan',
+      'Matthew',
+      'Ian',
+      'Hwi Won',
+      'Benjamin',
+      'Krystal',
+      'Olivia',
+      'Anna',
+      'Paul',
+      'Jaeni',
+      'Sid',
+      'Annie',
+      'Matt',
+      'Jeb',
+      'Jonas',
+      'Bryent',
+      'Slava',
+      'Ty',
+      'Hazel',
+      'Kudrat',
+      'Peter',
+      'Jay',
+      'Jacob',
+      'Andrii',
+    ];
 
-    const unique = ['VapesWithHillaryC', 'Fancy-France-Art', 'Guitar-4-life', 'IUsedToHaveARealName', 'I-want-to-travel', 'WhereDoIPutMyMattress?', 'myBabyZadieCanDance', 'brogrammer4life', 'IHateSales', 'ArtConnoisseur', 'myScreenTooThick4ScreenShare', 'matt-l-podcast', 'bodySurfsForLunch', '6AM-hack-hour', 'DoneClubFoundingFather', 'GETTING-MARRIED', 'construction-in-thebackground', 'myCatPlaysValorant', 'everyoneshouldmovetoNY', 'Wish-I-Had-Some-Pets', 'i-already-work-4-google', 'codingAtTheOpera', 'codeBreaksWhenILookAtIt', 'flexMasterStretch', 'Codes-auf-deutsch', 'SneakerHead', 'I-Live-In-Kirills-Backyard', 'PicklesTheBall', 'i-love-casios', 'the-DOM-manipulates-me', 'Peter123', 'taller-than-you-thought', 'Lone-Star-State-Boi', 'lovingAmerica1776']
+    const unique = [
+      'VapesWithHillaryC',
+      'Fancy-France-Art',
+      'Guitar-4-life',
+      'IUsedToHaveARealName',
+      'I-want-to-travel',
+      'WhereDoIPutMyMattress?',
+      'myBabyZadieCanDance',
+      'brogrammer4life',
+      'IHateSales',
+      'ArtConnoisseur',
+      'myScreenTooThick4ScreenShare',
+      'matt-l-podcast',
+      'bodySurfsForLunch',
+      '6AM-hack-hour',
+      'DoneClubFoundingFather',
+      'GETTING-MARRIED',
+      'construction-in-thebackground',
+      'myCatPlaysValorant',
+      'everyoneshouldmovetoNY',
+      'Wish-I-Had-Some-Pets',
+      'i-already-work-4-google',
+      'codingAtTheOpera',
+      'codeBreaksWhenILookAtIt',
+      'flexMasterStretch',
+      'Codes-auf-deutsch',
+      'SneakerHead',
+      'I-Live-In-Kirills-Backyard',
+      'PicklesTheBall',
+      'i-love-casios',
+      'the-DOM-manipulates-me',
+      'Peter123',
+      'taller-than-you-thought',
+      'Lone-Star-State-Boi',
+      'lovingAmerica1776',
+    ];
 
-    const accounts = ['Amazon', 'Google', 'Netflix', 'Facebook', 'Hulu', 'HBO', 'Snapchat', 'Instagram', 'Disney+', 'Paramount+', 'FuboTV', 'Peacock', 'Redit', 'YouTube TV', 'Steam', 'Wells Fargo', 'Citi Bank', 'Capital One', 'TD Bank', 'Bank of America']
+    const accounts = [
+      'Amazon',
+      'Google',
+      'Netflix',
+      'Facebook',
+      'Hulu',
+      'HBO',
+      'Snapchat',
+      'Instagram',
+      'Disney+',
+      'Paramount+',
+      'FuboTV',
+      'Peacock',
+      'Redit',
+      'YouTube TV',
+      'Steam',
+      'Wells Fargo',
+      'Citi Bank',
+      'Capital One',
+      'TD Bank',
+      'Bank of America',
+    ];
     const cohortNum = Math.floor(Math.random() * cohort.length);
-    const accountsNum = Math.floor(Math.random() * accounts.length)
+    const accountsNum = Math.floor(Math.random() * accounts.length);
     const password = (Math.random(5) * 10 ** 17).toString(36);
-    const input2 = cohort[cohortNum] + `'s ` + accounts[accountsNum] + ' ' + "password: " + unique[cohortNum]; 
-
+    const input2 =
+      cohort[cohortNum] +
+      `'s ` +
+      accounts[accountsNum] +
+      ' ' +
+      'password: ' +
+      unique[cohortNum];
 
     fetch('/', {
       method: 'POST',
@@ -46,12 +144,75 @@ function Test() {
   };
 
   const send2 = (input) => {
-    const cohort = ['Brecht', 'Yining', 'Joe', 'Gavin', 'Natalie', 'John', 'Weston', 'Kirill', 'Victor', 'Emily', 'Jonathan', 'Matthew', 'Ian', 'Hwi Won (John)', 'Benjamin', 'Krystal', 'Olivia', 'Anna', 'Paul', 'Jaeni', 'Sid', 'Annie', 'Matt', 'Jeb', 'Jonas', 'Bryant', 'Slava', 'Myla', 'Ty', 'Hazel', 'Kudrat', 'Peter', 'Joseph', 'Jacob', 'Andrii']
-    const accounts = ['Amazon', 'Google', 'Netflix', 'Facebook', 'Hulu', 'HBO', 'Snapchat', 'Instagram', 'Disney+', 'Paramount+', 'FuboTV', 'Peacock', 'Reddit', 'YouTube TV', 'Steam', 'Wells Fargo', 'Citi Bank', 'Capital One', 'TD Bank', 'Bank of America']
+    const cohort = [
+      'Brecht',
+      'Yining',
+      'Joe',
+      'Gavin',
+      'Natalie',
+      'John',
+      'Weston',
+      'Kirill',
+      'Victor',
+      'Emily',
+      'Jonathan',
+      'Matthew',
+      'Ian',
+      'Hwi Won (John)',
+      'Benjamin',
+      'Krystal',
+      'Olivia',
+      'Anna',
+      'Paul',
+      'Jaeni',
+      'Sid',
+      'Annie',
+      'Matt',
+      'Jeb',
+      'Jonas',
+      'Bryant',
+      'Slava',
+      'Myla',
+      'Ty',
+      'Hazel',
+      'Kudrat',
+      'Peter',
+      'Joseph',
+      'Jacob',
+      'Andrii',
+    ];
+    const accounts = [
+      'Amazon',
+      'Google',
+      'Netflix',
+      'Facebook',
+      'Hulu',
+      'HBO',
+      'Snapchat',
+      'Instagram',
+      'Disney+',
+      'Paramount+',
+      'FuboTV',
+      'Peacock',
+      'Reddit',
+      'YouTube TV',
+      'Steam',
+      'Wells Fargo',
+      'Citi Bank',
+      'Capital One',
+      'TD Bank',
+      'Bank of America',
+    ];
     const cohortNum = Math.random(cohort.length);
     const accountsNum = Math.random(accounts.length);
     const password = (Math.random(5) * 10 ** 17).toString(36);
-    const input2 = cohort[cohortNum] + `'s ` + accounts[accountsNum] + ' ' + 'password: ' + password; 
+    const input2 =
+      cohort[cohortNum] +
+      `'s ` +
+      accounts[accountsNum] +
+      ' ' +
+      'password: ' +
+      password;
 
     // socket.on('event', () => {
     //   socket.emit('test-event', input2);
@@ -76,15 +237,45 @@ function Test() {
 
   return (
     <div id="testTool">
-      <h1>KAFKA DATA STREAM</h1>
-      <input placeholder="how many inputs" className="input" id="input1" />
-      <input placeholder="delay in ms" id="input2" className="input" />
-      <button id="button1" className="btn btnx" onClick={button1}>
-        start Data flow
-      </button>
-      <button id="button2" className="btn btnx" onClick={button2}>
-        start listening
-      </button>
+      <Form>
+        <h1>KAFKA DATA STREAM</h1>
+        <Form.Group className="input-wrapper">
+          <Form.Control
+            placeholder="how many inputs"
+            className="input"
+            id="input1"
+          />
+        </Form.Group>
+        <Form.Group className="input-wrapper">
+          <Form.Control
+            placeholder="delay in ms"
+            id="input2"
+            className="input"
+          />
+        </Form.Group>
+        <Form.Group className="input-wrapper">
+          <Button
+            variant="primary"
+            type="submit"
+            id="button1"
+            className="btn btnx"
+            onClick={button1}
+          >
+            Start data flow
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            id="button2"
+            className="btn btnx"
+            onClick={button2}
+          >
+            Start listening
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   );
 }

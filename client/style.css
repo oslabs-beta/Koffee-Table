@@ -8,12 +8,31 @@
 #main {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  background: rgb(221, 132, 78);
-  background: radial-gradient(
+  background: #FED8B1;
+  /* background: radial-gradient(
     circle,
     rgba(221, 132, 78, 1) 0%,
     rgba(129, 99, 85, 0.8519782913165266) 100%
-  );
+  ); */
+}
+
+.connect {
+  width: 30%;
+  margin: auto;
+}
+
+.logo {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.logo-nav {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .navBar {
@@ -22,6 +41,10 @@
   height: 100vh;
   width: 300px;
   background-color: rgb(30, 30, 30);
+}
+
+#nav-home {
+  margin-top: 0px;
 }
 #title {
   text-align: center;
@@ -40,8 +63,8 @@
 .btn {
   border-radius: 15px;
   border: none;
-  width: 150px;
-  height: 35px;
+  width: 70%;
+  height: 3vw;
   background-color: #d7af70;
 }
 .btn:hover {
@@ -57,15 +80,31 @@
 }
 
 .input {
-  min-width: 400px;
+  /* min-width: 400px;
   max-width: 500px;
+  */
+  padding: 0 5px;
+  /* margin: 0px;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto;  */
   border-radius: 15px;
-  border: solid 1px black;
+  border: solid 1px gray;
   height: 50px;
-  background-color: #eddcbf;
+  /* background-color: #d8d7d7c4; */
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.submit-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .topics {
   text-align: center;
   margin-left: auto;
@@ -86,8 +125,15 @@
   gap: 10px;
   padding: 10px;
 }
+
+div#container.MuiPaper-root {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  background-color: whitesmoke;
+}
+
 .overview {
-  background-color: #eddcbf;
+  background-color: #edbfc0;
 }
 
 .graph-page {
@@ -113,21 +159,41 @@
 }
 /* loginPage Stuff */
 
+form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px 2px gray;
+  min-width: 40%;
+}
+
 #loginPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10vh;
+  /* margin-bottom: 10vh; */
+  /* background-color: white; */
 }
+
 .login {
-  margin: 10px;
+  margin: 10px 0px;
   padding: 5px 10px;
+  /* 
   margin: 8px;
+   */
   height: 3vh;
   width: 20vw;
   border-radius: 1vw;
 }
+
+.login-header {
+margin-bottom: 20px;
+}
+
 .signupUserData {
   margin: 10px;
   padding: 5px 10px;
@@ -136,7 +202,7 @@
   width: 15vw;
   border-radius: 1vw;
 }
-.feedback {
+.feedback { 
   position: absolute;
   left: 54%;
   opacity: 0;

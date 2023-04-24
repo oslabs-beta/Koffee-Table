@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import Form from 'react-bootstrap/Form';
 
-function Connect(props) {
-
+function Connect({ setUserInfo, setBrokers, setTopics }) {
   const sendClusterData = () => {
     const hostName = document.querySelector('.hostName').value;
     const port = document.querySelector('.Port').value;
     const clientId = document.querySelector('.ClientId').value;
     document.querySelector('#connectionStatus').style.display = 'none';
     document.querySelector('#connectionSuccess').style.display = 'none';
-    props.setUserInfo([clientId, hostName, port]);
+    setUserInfo([clientId, hostName, port]);
 
     fetch('/getCluster', {
       method: 'POST',
@@ -23,20 +23,19 @@ function Connect(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('this is data', data)
+        console.log('this is data', data);
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {
           document.querySelector('#connectionSuccess').style.display = 'block';
           // props.setMetadata(data.topics);
-          props.setBrokers(data.brokers);
+          setBrokers(data.brokers);
 
           let topicArray = [];
-          for (let i = 0; i < data.topics.topics.length; i++){
+          for (let i = 0; i < data.topics.topics.length; i++) {
             topicArray.push(data.topics.topics[i]);
           }
-          props.setTopics(topicArray);
-
+          setTopics(topicArray);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
         }
@@ -45,23 +44,33 @@ function Connect(props) {
         console.log('err in sendClusterData', err);
       });
   };
- 
 
   return (
     <div className="connectCluster">
-      <h1>Connect to Kafka Cluster</h1>
-      <input placeholder="Client ID" className=" input ClientId"></input>
-      <input placeholder="Host Name" className=" input hostName"></input>
-      <input placeholder="Port" className=" input Port"></input>
-        <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
+      <Form>
+        <h1>Connect to Kafka Cluster</h1>
+        <input
+          placeholder="Client ID"
+          className=" input ClientId input-wrapper"
+        ></input>
+        <input
+          placeholder="Host Name"
+          className=" input hostName input-wrapper"
+        ></input>
+        <input placeholder="Port" className=" input Port input-wrapper"></input>
+        <button
+          className="btn btnx sendClusterButton"
+          onClick={sendClusterData}
+        >
           Submit
         </button>
         {/* checks if user info is in state */}
-          {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
+        {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
           Connect with User Information
         </button>) : null} */}
-      <p id="connectionStatus">Connection Failed</p>
-      <p id="connectionSuccess">Connected!</p>
+        <p id="connectionStatus">Connection Failed</p>
+        <p id="connectionSuccess">Connected!</p>
+      </Form>
     </div>
   );
 }

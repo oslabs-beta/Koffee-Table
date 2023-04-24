@@ -31,11 +31,17 @@ function App() {
     <div id="main">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Main />} />
         <Route
-          path="/login"
-          element={<Login/>}
+          path="/"
+          element={
+            <Main
+              setUserInfo={setUserInfo}
+              setBrokers={setBrokers}
+              setTopics={setTopics}
+            />
+          }
         />
+        <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
           exact
