@@ -47,30 +47,31 @@ function Connect({ setUserInfo, setBrokers, setTopics }) {
 
   return (
     <div className="connectCluster">
-      <Form>
-        <h1>Connect to Kafka Cluster</h1>
-        <input
-          placeholder="Client ID"
-          className=" input ClientId input-wrapper"
-        ></input>
-        <input
-          placeholder="Host Name"
-          className=" input hostName input-wrapper"
-        ></input>
-        <input placeholder="Port" className=" input Port input-wrapper"></input>
-        <button
-          className="btn btnx sendClusterButton"
-          onClick={sendClusterData}
-        >
-          Submit
-        </button>
-        {/* checks if user info is in state */}
-        {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
+      {/* <Form> */}
+      <h1>Connect to Kafka Cluster</h1>
+      <input
+        placeholder="Client ID"
+        className=" input ClientId input-wrapper"
+      ></input>
+      <input
+        placeholder="Host Name"
+        className=" input hostName input-wrapper"
+      ></input>
+      <input placeholder="Port" className=" input Port input-wrapper"></input>
+      <button
+        className="btn btnx sendClusterButton"
+        onClick={sendClusterData}
+        y
+      >
+        Submit
+      </button>
+      {/* checks if user info is in state */}
+      {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
           Connect with User Information
         </button>) : null} */}
-        <p id="connectionStatus">Connection Failed</p>
-        <p id="connectionSuccess">Connected!</p>
-      </Form>
+      <p id="connectionStatus">Connection Failed</p>
+      <p id="connectionSuccess">Connected!</p>
+      {/* </Form> */}
     </div>
   );
 }

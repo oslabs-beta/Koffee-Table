@@ -14,9 +14,9 @@ function Navbar() {
         Login
       </Link>
 
-      {/* <Link className="link displayTransitTimeButton" to="/connectKafka">
+      <Link className="link displayTransitTimeButton" to="/connectKafka">
         Connect to Kafka Cluster
-      </Link> */}
+      </Link>
 
       <Link className="link displayTransitTimeButton" to="/overview">
         Kafka Cluster Overview
