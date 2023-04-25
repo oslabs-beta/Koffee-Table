@@ -55,7 +55,8 @@ function Login(props) {
     //   </div>
     // </div>
     <div id="loginPage">
-      <Form>
+      {/* <Form> */}
+      <div className="form-wrapper">
         <h1 className="login-header">Login</h1>
         <Form.Group
           className="mb-3 input-wrapper"
@@ -102,7 +103,8 @@ function Login(props) {
             Incorrect login credentials!
           </div>
         </div>
-      </Form>
+        {/* </Form> */}
+      </div>
     </div>
   );
 }

@@ -5,7 +5,10 @@ import logo from '../imgs/logo.png';
 function Navbar() {
   return (
     <div className="navBar">
-      <img src={logo} alt="logo" className="logo-nav" />
+      <Link className="link partitionButton" id="nav-home" to="/">
+        <img src={logo} alt="logo" className="logo-nav" />
+      </Link>
+
       <Link className="link partitionButton" id="nav-home" to="/">
         Home
       </Link>
@@ -14,9 +17,9 @@ function Navbar() {
         Login
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/connectKafka">
+      {/* <Link className="link displayTransitTimeButton" to="/connectKafka">
         Connect to Kafka Cluster
-      </Link>
+      </Link> */}
 
       <Link className="link displayTransitTimeButton" to="/overview">
         Kafka Cluster Overview

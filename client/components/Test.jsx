@@ -237,21 +237,13 @@ function Test() {
 
   return (
     <div id="testTool">
-      <Form>
-        <h1>KAFKA DATA STREAM</h1>
+      <div className="form-wrapper">
+        <h1>Live Messages</h1>
         <Form.Group className="input-wrapper">
-          <Form.Control
-            placeholder="how many inputs"
-            className="input"
-            id="input1"
-          />
+          <input placeholder="how many inputs" className="input" id="input1" />
         </Form.Group>
         <Form.Group className="input-wrapper">
-          <Form.Control
-            placeholder="delay in ms"
-            id="input2"
-            className="input"
-          />
+          <input placeholder="delay in ms" id="input2" className="input" />
         </Form.Group>
         <Form.Group className="input-wrapper">
           <Button
@@ -275,7 +267,7 @@ function Test() {
             Start listening
           </Button>
         </Form.Group>
-      </Form>
+      </div>
     </div>
   );
 }

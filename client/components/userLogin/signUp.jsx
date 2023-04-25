@@ -48,8 +48,9 @@ function SignUp() {
 
   return (
     <div id="loginPage">
-      <Form>
-        <h1>Sign Up</h1>
+      {/* <Form> */}
+      <div className="form-wrapper">
+        <h1 className="login-header">Sign Up</h1>
         <input
           id="usernameField"
           className="input login signUp"
@@ -89,7 +90,8 @@ function SignUp() {
             Finish the form please!
           </div>
         </div>
-      </Form>
+        {/* </Form> */}
+      </div>
     </div>
   );
 }

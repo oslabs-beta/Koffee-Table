@@ -7,7 +7,7 @@ function BasicClusterInfo(props) {
   let connected = false;
   const renderTopics = [];
   if (topics.length === 0) {
-    renderTopics.push(<p className='topicLink'>Not Connected</p>);
+    renderTopics.push(<p className="topicLink">Not Connected</p>);
   } else {
     connected = true;
     for (let i = 0; i < topics.length; i++) {
@@ -19,18 +19,18 @@ function BasicClusterInfo(props) {
       // );
       renderTopics.push(
         <Link
-          className='topicLink'
-          to='/messages'
+          className="topicLink"
+          to="/messages"
           onClick={() => setCurrentTopic(topics[i])}
         >
-          <div className='topic'>{topics[i].name}</div>
+          <div className="topic">{topics[i].name}</div>
         </Link>
       );
     }
   }
 
   return (
-    <div className='topicsWrapper'>
+    <div className="topicsWrapper form-wrapper">
       {connected ? <h1>Choose a Topic</h1> : null}
       {renderTopics}
     </div>

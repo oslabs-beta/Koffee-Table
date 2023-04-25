@@ -46,7 +46,7 @@ function Connect({ setUserInfo, setBrokers, setTopics }) {
   };
 
   return (
-    <div className="connectCluster">
+    <div className="form-wrapper">
       {/* <Form> */}
       <h1>Connect to Kafka Cluster</h1>
       <input
