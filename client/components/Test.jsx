@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 function Test() {
   // const socket = io('http://localhost:3001');
@@ -239,13 +239,13 @@ function Test() {
     <div id="testTool">
       <div className="form-wrapper">
         <h1>Live Messages</h1>
-        <Form.Group className="input-wrapper">
+        <div className="input-wrapper">
           <input placeholder="how many inputs" className="input" id="input1" />
-        </Form.Group>
-        <Form.Group className="input-wrapper">
+        </div>
+        <div className="input-wrapper">
           <input placeholder="delay in ms" id="input2" className="input" />
-        </Form.Group>
-        <Form.Group className="input-wrapper">
+        </div>
+        <div className="input-wrapper">
           <Button
             variant="primary"
             type="submit"
@@ -255,8 +255,8 @@ function Test() {
           >
             Start data flow
           </Button>
-        </Form.Group>
-        <Form.Group>
+        </div>
+        <div>
           <Button
             variant="primary"
             type="submit"
@@ -266,7 +266,7 @@ function Test() {
           >
             Start listening
           </Button>
-        </Form.Group>
+        </div>
       </div>
     </div>
   );

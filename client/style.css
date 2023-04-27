@@ -93,17 +93,10 @@
 }
 
 .input {
-  /* min-width: 400px;
-  max-width: 500px;
-  */
   padding: 0 5px;
-  /* margin: 0px;
-  margin-left: auto;
-  margin-right: auto;  */
   border-radius: 15px;
   border: solid 1px gray;
   height: 50px;
-  /* background-color: #d8d7d7c4; */
 }
 
 .input-wrapper {
@@ -151,8 +144,6 @@ div#container.MuiPaper-root {
 
 .graph-page {
   margin: 40px;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .chart-layout {
@@ -190,8 +181,6 @@ div#container.MuiPaper-root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: 10vh; */
-  /* background-color: white; */
 }
 
 .login {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -55,33 +54,26 @@ function Login(props) {
     //   </div>
     // </div>
     <div id="loginPage">
-      {/* <Form> */}
       <div className="form-wrapper">
         <h1 className="login-header">Login</h1>
-        <Form.Group
-          className="mb-3 input-wrapper"
-          controlId="formBasicUsername"
-        >
-          <Form.Label>Username</Form.Label>
-          <Form.Control
+        <div className="mb-3 input-wrapper" controlId="formBasicUsername">
+          <label>Username</label>
+          <input
             type="username"
             placeholder="Enter username"
             className="input login loginField"
           />
-        </Form.Group>
+        </div>
 
-        <Form.Group
-          className="mb-3 input-wrapper"
-          controlId="formBasicPassword"
-        >
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        <div className="mb-3 input-wrapper" controlId="formBasicPassword">
+          <label>Password</label>
+          <input
             type="password"
             placeholder="Enter password"
             className="input login loginField"
           />
-        </Form.Group>
-        <Form.Group className="submit-wrapper">
+        </div>
+        <div className="submit-wrapper">
           <Button
             variant="primary"
             type="submit"
@@ -94,7 +86,7 @@ function Login(props) {
           <div>
             Don't have an account? <Link to="/signUp">Sign up here</Link>
           </div>
-        </Form.Group>
+        </div>
         <div>
           <div id="success" className="feedback">
             Logged in
@@ -103,7 +95,6 @@ function Login(props) {
             Incorrect login credentials!
           </div>
         </div>
-        {/* </Form> */}
       </div>
     </div>
   );

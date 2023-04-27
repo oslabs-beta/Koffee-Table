@@ -1,5 +1,4 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
 
 function SignUp() {
   const signUp = () => {
@@ -48,7 +47,6 @@ function SignUp() {
 
   return (
     <div id="loginPage">
-      {/* <Form> */}
       <div className="form-wrapper">
         <h1 className="login-header">Sign Up</h1>
         <input
@@ -90,7 +88,6 @@ function SignUp() {
             Finish the form please!
           </div>
         </div>
-        {/* </Form> */}
       </div>
     </div>
   );
