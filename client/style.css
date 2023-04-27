@@ -8,12 +8,31 @@
 #main {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  background: rgb(221, 132, 78);
-  background: radial-gradient(
+  background: #FED8B1;
+  /* background: radial-gradient(
     circle,
     rgba(221, 132, 78, 1) 0%,
     rgba(129, 99, 85, 0.8519782913165266) 100%
-  );
+  ); */
+}
+
+.connect {
+  width: 30%;
+  margin: auto;
+}
+
+.logo {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.logo-nav {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .navBar {
@@ -22,6 +41,13 @@
   height: 100vh;
   width: 300px;
   background-color: rgb(30, 30, 30);
+  position: sticky;
+  top: 0px;
+  bottom: auto;
+}
+
+#nav-home {
+  margin-top: 0px;
 }
 #title {
   text-align: center;
@@ -36,12 +62,13 @@
 
 .ConnectToCluster {
   text-align: center;
+  
 }
 .btn {
   border-radius: 15px;
   border: none;
-  width: 150px;
-  height: 35px;
+  width: 70%;
+  height: 3vw;
   background-color: #d7af70;
 }
 .btn:hover {
@@ -54,18 +81,36 @@
   gap: 10px;
   margin: auto;
   text-align: center;
+  /* display: flex;
+  flex-direction: column; */
+  align-items: stretch;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px 2px gray;
+  min-width: 200px;
 }
 
 .input {
-  min-width: 400px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0 5px;
   border-radius: 15px;
-  border: solid 1px black;
+  border: solid 1px gray;
   height: 50px;
-  background-color: #eddcbf;
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.submit-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .topics {
   text-align: center;
   margin-left: auto;
@@ -86,14 +131,19 @@
   gap: 10px;
   padding: 10px;
 }
+
+div#container.MuiPaper-root {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  background-color: whitesmoke;
+}
+
 .overview {
-  background-color: #eddcbf;
+  background-color: #edbfc0;
 }
 
 .graph-page {
   margin: 40px;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .chart-layout {
@@ -107,27 +157,48 @@
 .chart-wrapper {
   width: 30vw;
   height: 30vh;
-  border: 4px solid whitesmoke;
+  background-color: whitesmoke;
   border-radius: 10px;
   padding: 10px;
 }
 /* loginPage Stuff */
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px 2px gray;
+  min-width: 200px;
+}
 
 #loginPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10vh;
 }
+
 .login {
-  margin: 10px;
+  margin: 10px 0px;
   padding: 5px 10px;
+  /* 
   margin: 8px;
+   */
   height: 3vh;
   width: 20vw;
   border-radius: 1vw;
 }
+
+.login-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .signupUserData {
   margin: 10px;
   padding: 5px 10px;
@@ -136,7 +207,7 @@
   width: 15vw;
   border-radius: 1vw;
 }
-.feedback {
+.feedback { 
   position: absolute;
   left: 54%;
   opacity: 0;
@@ -165,9 +236,13 @@
 .topic{
   margin-top: 20px;
   border: 1px black solid;
-  background-color: #eddcbf;
+  background-color: #d7af70;
   border-radius: 15px;
   width: 300px;
+}
+
+.topic:hover {
+  opacity: 0.7;
 }
 
 #partitionWrapper {
