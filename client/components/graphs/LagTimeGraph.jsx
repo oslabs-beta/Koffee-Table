@@ -48,6 +48,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: { display: true, text: 'Lag Time / 3s' },
       legend: {
@@ -60,7 +61,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
           display: true,
           ticks: {
             min: 0,
-            max: 40
+            max: 40,
           },
           text: 'Lag Time (ms)',
         },

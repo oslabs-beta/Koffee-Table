@@ -35,7 +35,6 @@ ChartJS.register(
   BarElement,
   PointElement,
   LineElement
-  // Point
 );
 
 function PartitionGraph({
@@ -53,13 +52,6 @@ function PartitionGraph({
   const { topicFromURL } = useParams();
   // console.log(topicFromUrl);\
   const topic = topics.filter((topic) => topic.name === topicFromURL)[0];
-
-  console.log(
-    'here are liveLagTime and MessageVeloicty: ',
-    liveLagTime,
-    ', ',
-    messageVelocity
-  );
 
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -131,8 +123,6 @@ function PartitionGraph({
         return newObject;
       });
 
-  
-
       setTime((prevState) => {
         return [...prevState, prevState[prevState.length - 1] + 3];
       });
@@ -146,7 +136,7 @@ function PartitionGraph({
 
     return () => {
       //reset
-      clearInterval(intervalId);
+      clearInterval(intervalId);;
       setTime([0]);
       setLiveLagTime({});
       setMessageVelocity({});
@@ -156,10 +146,10 @@ function PartitionGraph({
   }, []);
 
   return (
-    <div className='graph-page'>
-      <h2>{topic.name}</h2>
-      <div className='chart-layout'>
-        <div className='chart-wrapper'>
+    <div className="graph-page">
+      <h2 className="topic-name">{topic.name}</h2>
+      <div className="chart-layout">
+        <div className="chart-wrapper">
           <Pie
             data={partitionReplicasData(topic)}
             options={partitionReplicasOptions}
@@ -176,6 +166,9 @@ function PartitionGraph({
         </div>
         <div className='chart-wrapper'>
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
+        </div>
+        <div className="chart-wrapper">
+          <MessageVelocity messageVelocity={messageVelocity} time={time} />
         </div>
       </div>
     </div>

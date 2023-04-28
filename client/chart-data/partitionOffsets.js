@@ -27,6 +27,7 @@ export const partitionOffsetsData = (offsets) => ({
 
 export const partitionOffsetsOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     title: { display: true, text: 'Partition Offsets' },
     legend: {

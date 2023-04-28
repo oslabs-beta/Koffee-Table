@@ -38,6 +38,7 @@ export default function MessageVelocity({ messageVelocity, time }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: { display: true, text: 'Message Velocity / 3s' },
       legend: {
@@ -54,7 +55,7 @@ export default function MessageVelocity({ messageVelocity, time }) {
       x: {
         title: {
           display: true,
-          text: 'Time',
+          text: 'Time from start (s)',
         },
       },
     },

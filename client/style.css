@@ -46,9 +46,10 @@
   bottom: auto;
 }
 
-#nav-home {
+a.link.partitionButton, #nav-home {
   margin-top: 0px;
 }
+
 #title {
   text-align: center;
   margin: 20px;
@@ -144,6 +145,11 @@ div#container.MuiPaper-root {
   margin: 40px;
 }
 
+.topic-name {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .chart-layout {
   display: flex;
   align-items:stretch;
@@ -159,6 +165,7 @@ div#container.MuiPaper-root {
   border-radius: 10px;
   padding: 10px;
 }
+
 /* loginPage Stuff */
 
 .form-wrapper {
@@ -185,9 +192,6 @@ div#container.MuiPaper-root {
 .login {
   margin: 10px 0px;
   padding: 5px 10px;
-  /* 
-  margin: 8px;
-   */
   height: 3vh;
   border-radius: 1vw;
 }
@@ -257,7 +261,6 @@ div#container.MuiPaper-root {
   margin: 15px;
   border-radius: 40px;
   overflow-y: scroll;
-
 }
 
 .partitionContainer::-webkit-scrollbar {
