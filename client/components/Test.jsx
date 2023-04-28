@@ -247,7 +247,6 @@ function Test() {
         </div>
         <div className="input-wrapper">
           <Button
-            variant="primary"
             type="submit"
             id="button1"
             className="btn btnx"
@@ -258,7 +257,6 @@ function Test() {
         </div>
         <div>
           <Button
-            variant="primary"
             type="submit"
             id="button2"
             className="btn btnx"

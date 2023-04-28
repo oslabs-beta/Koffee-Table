@@ -4,7 +4,7 @@ const path = require('path');
 const producerController = require('../kafka/producer');
 const adminController = require('./adminController');
 const consumerController = require('./consumerController');
-// const userRouter = require('./userStuff/userRouter')
+const userRouter = require('./userStuff/userRouter')
 
 const app = express();
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(express.json());
 //   res.redirect('/'); //delete this in production and revert to line above
 // });
 
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 
 
 

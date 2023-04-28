@@ -129,12 +129,9 @@ userController.selfDestruct = (req, res, next) => {
 
 userController.login = (req, res, next) => {
 
-  console.log(req.query)
-
   User.findOne(req.query)
   .then((data) => {
     res.locals.data = data;
-    console.log('User logged in')
     return next()
   })
   .catch(err => {

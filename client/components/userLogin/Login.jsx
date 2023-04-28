@@ -1,58 +1,36 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+
 
 function Login(props) {
   const navigate = useNavigate();
   const { setUserCluster } = props;
 
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [feedback, setFeedback] =useState(["none", "none"])
+
   const login = () => {
-    const [username, password] = document.querySelectorAll('.loginField');
-    const feedback = document.querySelectorAll('.feedback');
 
-    feedback.forEach((fb) => (fb.style.opacity = 0));
+    setFeedback(["none", "none"])
 
-    fetch(`/user/login?username=${username.value}&password=${password.value}`)
+    fetch(`/user/login?username=${username}&password=${password}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        if (!data) feedback[1].style.opacity = 1;
+        console.log(data)
+
+        if (!data) setFeedback(["none", "block"])
         else {
-          //   {
-          //     "_id": "643db3361b4351bb31dfdfee",
-          //     "username": "newUser",
-          //     "password": "pass",
-          //     "clientID": "someID",
-          //     "hostName": "someHostname",
-          //     "port": 2,
-          //     "__v": 0
-          // }
-
-          setUserCluster({
-            clientID: clientID,
-            hostName: hostName,
-            port: port,
-          });
-
-          navigate('/connectKafka');
-          feedback[0].style.opacity = 1;
+          setFeedback(["block", "none"])
+          // navigate('/connectKafka');
         }
       })
       .catch((err) => console.log('error in login fetch', err));
   };
 
   return (
-    // <div id='loginPage' >
-    //   <h1>Login here</h1>
-    //   <input id="usernameField" className="input login loginField" type="text" placeholder="username"/>
-    //   <input id="passwordField" className="input login loginField" type="text" placeholder="password"/>
-    //   <button id="loginButton" className="btn login" onClick={login}>Login</button>
-    //   <Link to="/signUp">Sign up here</Link>
-    //   <div>
-    //     <div id="success" className='feedback'>Logged in</div>
-    //     <div id="fail" className='feedback'>Incorrect login credentials!</div>
-    //   </div>
-    // </div>
+
     <div id="loginPage">
       <div className="form-wrapper">
         <h1 className="login-header">Login</h1>
@@ -62,6 +40,7 @@ function Login(props) {
             type="username"
             placeholder="Enter username"
             className="input login loginField"
+            onKeyUp={(v)=>setPassword(v.target.value)}
           />
         </div>
 
@@ -71,11 +50,11 @@ function Login(props) {
             type="password"
             placeholder="Enter password"
             className="input login loginField"
+            onKeyUp={(v)=>setUsername(v.target.value)}
           />
         </div>
         <div className="submit-wrapper">
           <Button
-            variant="primary"
             type="submit"
             onClick={login}
             id="loginButton"
@@ -86,12 +65,10 @@ function Login(props) {
           <div>
             Don't have an account? <Link to="/signUp">Sign up here</Link>
           </div>
-        </div>
-        <div>
-          <div id="success" className="feedback">
-            Logged in
+          <div id="success"  style={{"display": feedback[0]}}>
+            {username} logged in
           </div>
-          <div id="fail" className="feedback">
+          <div id="fail"  style={{"display": feedback[1]}}>
             Incorrect login credentials!
           </div>
         </div>
