@@ -38,7 +38,8 @@
 .navBar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 95vh;
+  padding-top: 5vh;
   width: 300px;
   background-color: rgb(30, 30, 30);
   position: sticky;
@@ -59,6 +60,9 @@ a.link.partitionButton, #nav-home {
   margin-top: 40px;
   text-decoration: none;
   color: white;
+}
+.linkMessage{
+  color: #d7af70;
 }
 
 .ConnectToCluster {
@@ -90,6 +94,17 @@ a.link.partitionButton, #nav-home {
   padding: 30px;
   background-color: whitesmoke;
   box-shadow: 0px 0px 10px 2px gray;
+  min-width: 200px;
+}
+
+.clusterWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto;
+  text-align: center;
+  align-items: stretch;
+  padding: 30px;
   min-width: 200px;
 }
 

@@ -167,9 +167,6 @@ function PartitionGraph({
         <div className='chart-wrapper'>
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
-        <div className="chart-wrapper">
-          <MessageVelocity messageVelocity={messageVelocity} time={time} />
-        </div>
       </div>
     </div>
   );

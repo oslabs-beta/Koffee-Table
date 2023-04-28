@@ -20,9 +20,9 @@ function Login(props) {
       .then((data) => {
         if (!data) setFeedback(["none", "block"])
         else {
-          setUserInfo([data.clientID, data.hostName, data.port]);
+          setUserInfo([data.clientID, data.hostName, data.port, username]);
           setFeedback(["block", "none"])
-          navigate('/');
+          navigate('/connect');
         }
       })
       .catch((err) => console.log('error in login fetch', err));
@@ -38,7 +38,7 @@ function Login(props) {
             type='username'
             placeholder='Enter username'
             className='input login loginField'
-            onKeyUp={(v)=>setPassword(v.target.value)}
+            onKeyUp={(v)=>setUsername(v.target.value)}
           />
         </div>
 
@@ -48,7 +48,7 @@ function Login(props) {
             type="password"
             placeholder="Enter password"
             className="input login loginField"
-            onKeyUp={(v)=>setUsername(v.target.value)}
+            onKeyUp={(v)=>setPassword(v.target.value)}
           />
         </div>
         <div className='submit-wrapper'>

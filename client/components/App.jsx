@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../style.css';
-import Main from './Main.jsx';
 import Connect from './Connect.jsx';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
@@ -30,10 +29,10 @@ function App() {
 
   return (
     <div id="main">
-      <Navbar />
+      <Navbar userInfo={userInfo}/>
       <Routes>
         <Route
-          path="/"
+          path="/connect"
           element={
             <Connect
               setConnected={setConnected}
