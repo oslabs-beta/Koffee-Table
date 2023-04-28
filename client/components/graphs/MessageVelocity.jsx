@@ -2,7 +2,6 @@ import { Line } from 'react-chartjs-2';
 import React from 'react';
 
 export default function LagTimeGraph({ messageVelocity, time }) {
-    console.log('liveLagTime: ', messageVelocity);
 
     const colors = [
       'rgba(255, 99, 132)',
@@ -31,9 +30,6 @@ export default function LagTimeGraph({ messageVelocity, time }) {
     return datasets;
   }
 
-  // populate new object with values for each partition
-  // {0: [4, 5], 1: [6.33, 4]}
-
   const data = {
     // x-axis labels
     labels: time,
@@ -43,7 +39,7 @@ export default function LagTimeGraph({ messageVelocity, time }) {
   const options = {
     responsive: true,
     plugins: {
-      title: { display: true, text: 'Message Velocity / 5s' },
+      title: { display: true, text: 'Message Velocity / 3s' },
       legend: {
         display: true,
       },

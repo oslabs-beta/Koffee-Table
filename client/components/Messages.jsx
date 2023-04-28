@@ -2,19 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 function Messages(props) {
-  const { topics, setMessages, userInfo, currentTopic, messages } =
-    props;
+  const { topics, setMessages, userInfo, currentTopic, messages } = props;
 
-    console.log('this is topic', currentTopic)
-
-
-  console.log('message object', messages);
+  
   useEffect(() => {
     const socket = io('http://localhost:3001');
     socket.on('connect', () => {
       console.log(`You connected with id: ${socket.id}`);
-      socket.emit('messages', {
-        topic: currentTopic.name,
+      socket.emit('info-messages', {
+        topic: currentTopic,
         userInfo: userInfo,
       });
     });
@@ -37,15 +33,6 @@ function Messages(props) {
 
 
 
-  /*
-  // //{
-   p1,
-   p5,
-   p0,
-  // }
-[1,2,3,4]
-*/
-console.log('these are the messages', messages)
   let display = [];
   for (let i = 0; i < currentTopic.partitions.length; i++) {
 

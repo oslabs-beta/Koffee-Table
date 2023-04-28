@@ -1,47 +1,48 @@
 const { Kafka } = require('kafkajs');
+
+
+
+// -------------------------------------- //
+//establish io as a global variable and list possible origin ports on frontend
 const io = require('socket.io')(3001, {
   cors: {
     origin: ['http://localhost:3000', 'http://localhost:8080'],
   },
 });
+// -------------------------------------- //
 
 const consumerController = {};
 
-// let kafka;
-// let consumer;  
+// global variables
+let intervalId;
+let disconnected;
+let consumer;
 
-/*
-consumerController.connectConsumer = async(req, res, next) => {
-  kafka = new Kafka({
+
+//modular consumer connection and subscription
+ async function connectConsumer(topic, userInfo){
+  console.log('this is current topic', topic)
+  //connect and subscribe to kafka cluster
+  // --------------------------------- //
+  const kafka = new Kafka({
     clientId: userInfo[0],
     brokers: [`${userInfo[1]}:${userInfo[2]}`],
   });
-
-  consumer = await kafka.consumer({ groupId: 'test1' });
+  const consumer = await kafka.consumer({ groupId: 'test1' });
   await consumer.connect();
- return next(); 
-} 
-*/
+  await consumer.subscribe({
+    topic: topic.name,
+    fromBeginning: false,
+  });
+  return consumer;
+  // ------------------------------------ //
+}
 
-let intervalId;
-let disconnected;
-
-consumerController.readMessages = async (topic, userInfo) => {
+//send messages to front end for MESSAGES component
+consumerController.readMessages = async (consumer) => {
   try {
-    // can try to abstract this out 
-    const kafka = new Kafka({
-      clientId: userInfo[0],
-      brokers: [`${userInfo[1]}:${userInfo[2]}`],
-    });
-
-    const consumer = await kafka.consumer({ groupId: 'test1' });
-    await consumer.connect();
-
-
-    await consumer.subscribe({
-      topic: topic,
-      fromBeginning: true,
-    });
+    // --------------------------------- //
+     //run consumer and broadcast messages
     await consumer.run({
       eachMessage: async (result) => {
         console.log('this is result partition', result.partition);
@@ -54,112 +55,54 @@ consumerController.readMessages = async (topic, userInfo) => {
         );
       },
     });
+    // ---------------------------------- //
   } catch (err) {
     console.log('error', err);
   }
 };
 
-consumerController.lagTime = async (currentTopic, userInfo) => {
+//send messages to front end for PARTIONGRAPH component
+consumerController.lagTime = async (consumer, currentTopic) => {
   disconnected = false;
-
   try {
-    const kafka = new Kafka({
-      clientId: userInfo[0],
-      brokers: [`${userInfo[1]}:${userInfo[2]}`],
-    });
-
-    const consumer = await kafka.consumer({ groupId: 'test2' });
-    await consumer.connect();
-    console.log('consumerController.lagTime connected');
-
-    await consumer.subscribe({
-      topic: currentTopic.name,
-      fromBeginning: true,
-    });
-    // object to hold lag times per partition
-    let lagTimesPartitions = {};
-    let messageVelocity = {}; 
-    //for loop as long as i < length of the topic partition length creating a key and value of []
-    for (let i = 0; i < currentTopic.partitions.length; i++) {
-      lagTimesPartitions[i] = [];
-    }
+    // -------------------------------- //
+    //run consumer and broadcast message
     await consumer.run({
       eachMessage: async (result) => {
-        // each time we get a message, build out the lagTimePartitions object by pushing the lagTime into an array
-        
-        //just push the lag time
+        //calculation for lag time
         const lagTime = Date.now() - result.message.timestamp;
-        console.log('LAG TIME!', lagTime);
-        lagTimesPartitions[result.partition].push(lagTime);
+        io.emit('message-received', result.partition, lagTime);
       },
     });
-
-    intervalId = setInterval(() => {
-      //after 3s, average the array of lag time for each partition
-      // let average;
-      //create new object
-      if (disconnected) {
-        console.log('stop it now!!!');
-        clearInterval(intervalId);
-      }
-
-      console.log('setInterval called', Date.now());
-      for (const partition in lagTimesPartitions) {
-        let timestamps = lagTimesPartitions[partition];
-        messageVelocity[partition] = timestamps.length; 
-        //if the length timestamps is 0, set the value to 0
-        if (!timestamps.length) {
-          average = 0;
-        }
-        //else get the average
-        else average = timestamps.reduce((a, b) => a + b) / timestamps.length;
-        //add this average to new object and send back new object
-        lagTimesPartitions[partition] = average;
-      }
-      /*
-        what we have: 
-        { 
-          0 : [5, 6, 6, 1]
-          1: [3, 3, 3, 3]
-        }
-        what we want to looks like:
-        { 
-          0: 6
-          1: 3
-        }
-      */
-      io.emit('message-received', {
-        lagObject: lagTimesPartitions,
-        messageVelocity
-        // intervalId: intervalId,
-      });
-      // reset messageList
-      lagTimesPartitions = {};
-      for (let i = 0; i < currentTopic.partitions.length; i++) {
-        lagTimesPartitions[i] = [];
-      }
-    }, 3000);
+    // --------------------------------- //
   } catch (err) {
     console.log('error', err);
   }
 };
 
-io.on('connection', (socket) => {
+// --------------------------------------- //
+//receive connection from front end
+io.on('connection', async (socket) => {
   console.log('here is socket.id: ', socket.id);
-  socket.on('messages', async (result) => {
-    await consumerController.readMessages(
-      result.topic,
-      result.userInfo
-    );
+
+  //receive topic and user info from MESSAGES component
+  socket.on('info-messages', async (result) => {
+    consumer = await connectConsumer(result.topic, result.userInfo);
+    await consumerController.readMessages(consumer);
   });
-  socket.on('lagTime', async (result) => {
-    console.log('recieved connection in LagTime');
-    await consumerController.lagTime(result.currentTopic, result.userInfo);
+
+  //receive topic and user info from PARTITIONGRAPH component
+  socket.on('info-graph', async (result) => {
+    consumer = await connectConsumer(result.topic, result.userInfo);
+    await consumerController.lagTime(consumer, result.topic);
   });
-  socket.on('clear-interval', () => {
-    console.log('socket.on gets message');
-    disconnected = true;
-  });
+
+  //on socket disconnect, disconnect the consumer
+  socket.on('disconnect', async () => {
+    await consumer.disconnect();
+    console.log('consumer disconnected')
+  })
 });
+// ---------------------------------------- //
 
 module.exports = consumerController;
