@@ -167,6 +167,7 @@ div#container.MuiPaper-root {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: center;
 
   border: 1px solid gray;
   border-radius: 15px;
@@ -190,7 +191,6 @@ div#container.MuiPaper-root {
   margin: 8px;
    */
   height: 3vh;
-  width: 20vw;
   border-radius: 1vw;
 }
 
