@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+
 
 function Login(props) {
   const navigate = useNavigate();
   const { setUserInfo } = props;
 
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [feedback, setFeedback] =useState(["none", "none"])
+
   const login = () => {
-    const [username, password] = document.querySelectorAll('.loginField');
-    const feedback = document.querySelectorAll('.feedback');
 
-    feedback.forEach((fb) => (fb.style.opacity = 0));
+    setFeedback(["none", "none"])
 
-    fetch(`/user/login?username=${username.value}&password=${password.value}`)
+    fetch(`/user/login?username=${username}&password=${password}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('here is the data in the login fetch request: ', data);
-        if (!data) feedback[1].style.opacity = 1;
+        if (!data) setFeedback(["none", "block"])
         else {
           setUserInfo([data.clientID, data.hostName, data.port]);
-
+          setFeedback(["block", "none"])
           navigate('/');
-          feedback[0].style.opacity = 1;
         }
       })
       .catch((err) => console.log('error in login fetch', err));
@@ -37,21 +38,22 @@ function Login(props) {
             type='username'
             placeholder='Enter username'
             className='input login loginField'
+            onKeyUp={(v)=>setPassword(v.target.value)}
           />
         </div>
 
         <div className='mb-3 input-wrapper' controlId='formBasicPassword'>
           <label>Password</label>
           <input
-            type='password'
-            placeholder='Enter password'
-            className='input login loginField'
+            type="password"
+            placeholder="Enter password"
+            className="input login loginField"
+            onKeyUp={(v)=>setUsername(v.target.value)}
           />
         </div>
         <div className='submit-wrapper'>
           <Button
-            variant='primary'
-            type='submit'
+            type="submit"
             onClick={login}
             id='loginButton'
             className='btn login'
@@ -61,12 +63,10 @@ function Login(props) {
           <div>
             Don't have an account? <Link to='/signUp'>Sign up here</Link>
           </div>
-        </div>
-        <div>
-          <div id='success' className='feedback'>
-            Logged in
+          <div id="success"  style={{"display": feedback[0]}}>
+            {username} logged in
           </div>
-          <div id='fail' className='feedback'>
+          <div id="fail"  style={{"display": feedback[1]}}>
             Incorrect login credentials!
           </div>
         </div>

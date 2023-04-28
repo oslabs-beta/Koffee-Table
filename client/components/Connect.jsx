@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Connect(props) {
+
+  const [clientId, setclientId] = useState(props.userInfo[0]);
+  const [hostName, setHostName] = useState(props.userInfo[1]);
+  const [port, setPort] = useState(props.userInfo[2]);
+  const [conStatus, setConStatus] = useState(["none", "none"]);
+
   const sendClusterData = () => {
-    let clientId;
-    let hostName;
-    let port;
-    if (props.userInfo) {
-      console.log('here is userInfo: ', props.userInfo);
-      clientId = props.userInfo[0];
-      hostName = props.userInfo[1];
-      port = props.userInfo[2];
-    } else {
-      hostName = document.querySelector('.hostName').value;
-      port = document.querySelector('.Port').value;
-      clientId = document.querySelector('.ClientId').value;
-      document.querySelector('#connectionStatus').style.display = 'none';
-      document.querySelector('#connectionSuccess').style.display = 'none';
-      props.setUserInfo([clientId, hostName, port]);
-    }
     fetch('/getCluster', {
       method: 'POST',
       headers: {
@@ -35,7 +25,7 @@ function Connect(props) {
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {
-          document.querySelector('#connectionSuccess').style.display = 'block';
+          setConStatus(["block", "none"])
           // props.setMetadata(data.topics);
           props.setBrokers(data.brokers);
 
@@ -46,7 +36,7 @@ function Connect(props) {
           props.setTopics(topicArray);
           props.setConnected(true);
         } else {
-          document.querySelector('#connectionStatus').style.display = 'block';
+          setConStatus(["none", "block"])
           props.setConnected(false);
         }
       })
@@ -61,9 +51,9 @@ function Connect(props) {
       {!props.connected ? (
         <div className='connectCluster'>
           <h1>Connect to Kafka Cluster</h1>
-          <input placeholder='Client ID' className=' input ClientId'></input>
-          <input placeholder='Host Name' className=' input hostName'></input>
-          <input placeholder='Port' className=' input Port'></input>
+          <input placeholder='Client ID' className=' input ClientId' onKeyUp={(v)=>setclientId(v.target.value)}></input>
+          <input placeholder='Host Name' className=' input hostName' onKeyUp={(v)=>setHostName(v.target.value)}></input>
+          <input placeholder='Port' className=' input Port' onKeyUp={(v)=>setPort(v.target.value)}></input>
           <button
             className='btn btnx sendClusterButton'
             onClick={sendClusterData}
@@ -71,7 +61,7 @@ function Connect(props) {
             Submit
           </button>
           {/* checks if user info is in state */}
-          {props.userInfo.length > 0 ? (
+          {props.userInfo.length ? (
             <button
               className='btn btnx sendUserClusterButton'
               onClick={sendClusterData}
@@ -79,8 +69,8 @@ function Connect(props) {
               Connect with User Information
             </button>
           ) : null}
-          <p id='connectionStatus'>Connection Failed</p>
-          <p id='connectionSuccess'>Connected!</p>
+          <p id='connectionStatus' style={{"display": conStatus[0]}}>Connection Failed</p>
+          <p id='connectionSuccess' style={{"display": conStatus[1]}}>Connected!</p>
         </div>
       ) : (
         <div>Already Connected</div>

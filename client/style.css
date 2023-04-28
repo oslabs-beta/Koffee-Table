@@ -117,11 +117,9 @@
   margin-right: auto;
 }
 #connectionStatus {
-  display: none;
   color: red;
 }
 #connectionSuccess {
-  display: none;
   color: green;
 }
 
@@ -207,11 +205,8 @@ div#container.MuiPaper-root {
   width: 15vw;
   border-radius: 1vw;
 }
-.feedback { 
-  position: absolute;
-  left: 54%;
-  opacity: 0;
-}
+
+
 #success {
   color: green;
 }
