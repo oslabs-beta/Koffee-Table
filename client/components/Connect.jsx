@@ -7,9 +7,7 @@ function Connect(props) {
   const [port, setPort] = useState(props.userInfo[2]);
   const [conStatus, setConStatus] = useState(["none", "none"]);
 
-
   const sendClusterData = () => {
-
     fetch('/getCluster', {
       method: 'POST',
       headers: {
@@ -63,7 +61,7 @@ function Connect(props) {
             Submit
           </button>
           {/* checks if user info is in state */}
-          {props.userInfo.length > 0 ? (
+          {props.userInfo.length ? (
             <button
               className='btn btnx sendUserClusterButton'
               onClick={sendClusterData}

@@ -20,6 +20,7 @@ function Login(props) {
       .then((data) => {
         if (!data) setFeedback(["none", "block"])
         else {
+          setUserInfo([data.clientID, data.hostName, data.port]);
           setFeedback(["block", "none"])
           navigate('/');
         }
