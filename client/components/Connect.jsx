@@ -44,36 +44,48 @@ function Connect(props) {
             topicArray.push(data.topics.topics[i]);
           }
           props.setTopics(topicArray);
+          props.setConnected(true);
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
+          props.setConnected(false);
         }
-        props.setConnected(true);
       })
+
       .catch((err) => {
         console.log('err in sendClusterData', err);
       });
   };
 
   return (
-    <div className="connectCluster">
-    {!props.connected ? (<div className="connectCluster">
-    <h1>Connect to Kafka Cluster</h1>
-    <input placeholder='Client ID' className=' input ClientId'></input>
-    <input placeholder='Host Name' className=' input hostName'></input>
-    <input placeholder='Port' className=' input Port'></input>
-    <button className='btn btnx sendClusterButton' onClick={sendClusterData}>
-      Submit
-    </button>
-    {/* checks if user info is in state */}
-    {props.userInfo ? (
-      <button className='btn btnx sendUserClusterButton' onClick={sendClusterData}>
-        Connect with User Information
-      </button>
-    ) : null}
-    <p id='connectionStatus'>Connection Failed</p>
-    <p id='connectionSuccess'>Connected!</p>
-  </div>) : <div>Already Connected</div>}
-  </div>
+    <div className='connectCluster'>
+      {!props.connected ? (
+        <div className='connectCluster'>
+          <h1>Connect to Kafka Cluster</h1>
+          <input placeholder='Client ID' className=' input ClientId'></input>
+          <input placeholder='Host Name' className=' input hostName'></input>
+          <input placeholder='Port' className=' input Port'></input>
+          <button
+            className='btn btnx sendClusterButton'
+            onClick={sendClusterData}
+          >
+            Submit
+          </button>
+          {/* checks if user info is in state */}
+          {props.userInfo.length > 0 ? (
+            <button
+              className='btn btnx sendUserClusterButton'
+              onClick={sendClusterData}
+            >
+              Connect with User Information
+            </button>
+          ) : null}
+          <p id='connectionStatus'>Connection Failed</p>
+          <p id='connectionSuccess'>Connected!</p>
+        </div>
+      ) : (
+        <div>Already Connected</div>
+      )}
+    </div>
   );
 }
 
