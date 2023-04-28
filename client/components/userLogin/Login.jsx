@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 function Login(props) {
   const navigate = useNavigate();
-  const { setUserCluster } = props;
+  const { setUserInfo } = props;
 
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
@@ -18,33 +18,30 @@ function Login(props) {
     fetch(`/user/login?username=${username}&password=${password}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-
         if (!data) setFeedback(["none", "block"])
         else {
           setFeedback(["block", "none"])
-          // navigate('/connectKafka');
+          navigate('/');
         }
       })
       .catch((err) => console.log('error in login fetch', err));
   };
 
   return (
-
-    <div id="loginPage">
-      <div className="form-wrapper">
-        <h1 className="login-header">Login</h1>
-        <div className="mb-3 input-wrapper" controlId="formBasicUsername">
+    <div id='loginPage'>
+      <div className='form-wrapper'>
+        <h1 className='login-header'>Login</h1>
+        <div className='mb-3 input-wrapper' controlId='formBasicUsername'>
           <label>Username</label>
           <input
-            type="username"
-            placeholder="Enter username"
-            className="input login loginField"
+            type='username'
+            placeholder='Enter username'
+            className='input login loginField'
             onKeyUp={(v)=>setPassword(v.target.value)}
           />
         </div>
 
-        <div className="mb-3 input-wrapper" controlId="formBasicPassword">
+        <div className='mb-3 input-wrapper' controlId='formBasicPassword'>
           <label>Password</label>
           <input
             type="password"
@@ -53,17 +50,17 @@ function Login(props) {
             onKeyUp={(v)=>setUsername(v.target.value)}
           />
         </div>
-        <div className="submit-wrapper">
+        <div className='submit-wrapper'>
           <Button
             type="submit"
             onClick={login}
-            id="loginButton"
-            className="btn login"
+            id='loginButton'
+            className='btn login'
           >
             Submit
           </Button>
           <div>
-            Don't have an account? <Link to="/signUp">Sign up here</Link>
+            Don't have an account? <Link to='/signUp'>Sign up here</Link>
           </div>
           <div id="success"  style={{"display": feedback[0]}}>
             {username} logged in

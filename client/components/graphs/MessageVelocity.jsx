@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2';
 import React from 'react';
 
-export default function LagTimeGraph({ messageVelocity, time }) {
+export default function MessageVelocity({ messageVelocity, time }) {
 
     const colors = [
       'rgba(255, 99, 132)',

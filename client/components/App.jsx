@@ -16,6 +16,7 @@ import { io } from 'socket.io-client';
 
 function App() {
   // ML: connect function that connects to consumers and admin following the connect click
+  const [connected, setConnected] = useState(false);
   const [topics, setTopics] = useState([]);
   const [currentTopic, setCurrentTopic] = useState();
   const [messages, setMessages] = useState({});
@@ -34,26 +35,18 @@ function App() {
         <Route
           path="/"
           element={
-            <Main
-              setUserInfo={setUserInfo}
-              setBrokers={setBrokers}
-              setTopics={setTopics}
-            />
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route
-          exact
-          path="/connectKafka"
-          element={
             <Connect
+              setConnected={setConnected}
+              connected={connected}
+              userInfo={userInfo}
               setUserInfo={setUserInfo}
               setBrokers={setBrokers}
               setTopics={setTopics}
             />
           }
         />
+        <Route path="/login" element={<Login setUserInfo={setUserInfo}/>} />
+        <Route path="/signUp" element={<SignUp />} />
         <Route
           path="/displayPartition"
           element={
