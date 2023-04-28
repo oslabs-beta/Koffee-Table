@@ -35,7 +35,6 @@ ChartJS.register(
   BarElement,
   PointElement,
   LineElement
-  // Point
 );
 
 function PartitionGraph({
@@ -137,9 +136,10 @@ function PartitionGraph({
 
     return () => {
       //reset
-      clearInterval(intervalId);
+      clearInterval(intervalId);;
       setTime([0]);
       setLiveLagTime({});
+      setMessageVelocity({});
       console.log('disconnected');
       socket.close();
     };
@@ -155,13 +155,16 @@ function PartitionGraph({
             options={partitionReplicasOptions}
           />
         </div>
-        <div className="chart-wrapper">
+        <div className='chart-wrapper'>
           <Bar
             data={partitionOffsetsData(offsets)}
             options={partitionOffsetsOptions}
           />
         </div>
-        <div className="chart-wrapper">
+        <div className='chart-wrapper'>
+          <MessageVelocity messageVelocity={messageVelocity} time={time} />
+        </div>
+        <div className='chart-wrapper'>
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
         <div className="chart-wrapper">
