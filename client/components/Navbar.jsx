@@ -9,9 +9,9 @@ function Navbar() {
         <img src={logo} alt="logo" className="logo-nav" />
       </Link>
 
-      <Link className="link partitionButton" id="nav-home" to="/">
+      {/* <Link className="link partitionButton" id="nav-home" to="/">
         Home
-      </Link>
+      </Link> */}
 
       <Link className="link partitionButton" to="/login">
         Login

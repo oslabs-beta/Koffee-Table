@@ -27,6 +27,7 @@ export const partitionReplicasData = (topic) => ({
 
 export const partitionReplicasOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     title: { display: true, text: 'Partition Replicas' },
   },

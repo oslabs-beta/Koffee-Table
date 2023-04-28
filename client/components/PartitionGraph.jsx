@@ -48,15 +48,11 @@ function PartitionGraph({
   time,
   setTime,
   currentTopic,
-  topics
+  topics,
 }) {
   const { topicFromURL } = useParams();
   // console.log(topicFromUrl);\
-  const topic = topics.filter(
-    (topic) => topic.name === topicFromURL
-  )[0];
-
-
+  const topic = topics.filter((topic) => topic.name === topicFromURL)[0];
 
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -74,14 +70,13 @@ function PartitionGraph({
 
     socket.on('message-received', (partition, lagTime) => {
       //handle abnormal lagtimes from initial connection
-      if (lagTime > 100){
+      if (lagTime > 100) {
         lagTime = 0;
       }
-      if (!lagTimesPartitions[partition]){
+      if (!lagTimesPartitions[partition]) {
         lagTimesPartitions[partition] = [lagTime];
-      }
-      else{
-        lagTimesPartitions[partition].push(lagTime)
+      } else {
+        lagTimesPartitions[partition].push(lagTime);
       }
     });
 
@@ -89,19 +84,19 @@ function PartitionGraph({
     // interval every 3 seconds to update lag time and velocity
     const intervalId = setInterval(() => {
       //average lagtimepartition arrays after 3 seconds
-      for (const key in lagTimesPartitions){
+      for (const key in lagTimesPartitions) {
         let average = 0;
         let array = lagTimesPartitions[key];
-        array.forEach((element) =>{
+        array.forEach((element) => {
           average += element;
-        })
+        });
         average = average / lagTimesPartitions[key].length;
         lagTimeAverages[key] = average;
         currentMessageVelocity[key] = lagTimesPartitions[key].length;
       }
-      
+
       //loop to add 0 values to partitions with no messages in the current interval
-      for(let i = 0; i < currentTopic.partitions.length; i++){
+      for (let i = 0; i < currentTopic.partitions.length; i++) {
         if (!lagTimeAverages[i]) lagTimeAverages[i] = undefined;
         if (!currentMessageVelocity[i]) currentMessageVelocity[i] = undefined;
       }
@@ -109,41 +104,40 @@ function PartitionGraph({
       //set state for lag time
       let temp = lagTimeAverages;
       setLiveLagTime((prevState) => {
-        const newObject = {...prevState};
-        for (let partition in temp){
+        const newObject = { ...prevState };
+        for (let partition in temp) {
           let array = newObject[partition] || [];
-          let updateArray = [...array, temp[partition]]
-          newObject[partition] = updateArray; 
+          let updateArray = [...array, temp[partition]];
+          newObject[partition] = updateArray;
         }
         return newObject;
-      })
+      });
 
       //set state for velocity
       let temp2 = currentMessageVelocity;
       setMessageVelocity((prevState) => {
-        const newObject = {...prevState};
-        for (const key in temp2){
-          if (!newObject[key]) newObject[key] = [temp2[key]]
-          else newObject[key].push(temp2[key])
+        const newObject = { ...prevState };
+        for (const key in temp2) {
+          if (!newObject[key]) newObject[key] = [temp2[key]];
+          else newObject[key].push(temp2[key]);
         }
         return newObject;
-      })
+      });
 
       setTime((prevState) => {
-        return [...prevState, prevState[prevState.length - 1] + 3]
-      })
+        return [...prevState, prevState[prevState.length - 1] + 3];
+      });
 
       //reset lag objects
       lagTimesPartitions = {};
       lagTimeAverages = {};
       currentMessageVelocity = {};
-    }, 3000)
+    }, 3000);
     // ------------------------------------------ //
-
 
     return () => {
       //reset
-      clearInterval(intervalId)
+      clearInterval(intervalId);
       setTime([0]);
       setLiveLagTime({});
       console.log('disconnected');
@@ -153,7 +147,7 @@ function PartitionGraph({
 
   return (
     <div className="graph-page">
-      <h2>{topic.name}</h2>
+      <h2 className="topic-name">{topic.name}</h2>
       <div className="chart-layout">
         <div className="chart-wrapper">
           <Pie
@@ -171,7 +165,7 @@ function PartitionGraph({
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
         <div className="chart-wrapper">
-          <MessageVelocity messageVelocity={messageVelocity} time={time}/>
+          <MessageVelocity messageVelocity={messageVelocity} time={time} />
         </div>
       </div>
     </div>
