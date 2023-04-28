@@ -52,12 +52,14 @@ function SignUp() {
         <input
           id="usernameField"
           className="input login signUp"
-          placeholder="username"
+          placeholder="Enter username"
+          type="username"
         />
         <input
           id="passwordField"
           className="input login signUp"
-          placeholder="password"
+          placeholder="Enter password"
+          type="password"
         />
         <input
           id="clientIDField"

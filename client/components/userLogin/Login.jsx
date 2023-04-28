@@ -56,7 +56,7 @@ function Login(props) {
     <div id="loginPage">
       <div className="form-wrapper">
         <h1 className="login-header">Login</h1>
-        <div className="mb-3 input-wrapper" controlId="formBasicUsername">
+        <div className="mb-3 input-wrapper">
           <label>Username</label>
           <input
             type="username"
@@ -65,7 +65,7 @@ function Login(props) {
           />
         </div>
 
-        <div className="mb-3 input-wrapper" controlId="formBasicPassword">
+        <div className="mb-3 input-wrapper">
           <label>Password</label>
           <input
             type="password"

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function Connect(props) {
-
   const sendClusterData = () => {
     const hostName = document.querySelector('.hostName').value;
     const port = document.querySelector('.Port').value;
@@ -23,7 +22,7 @@ function Connect(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('this is data', data)
+        console.log('this is data', data);
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {
@@ -32,11 +31,10 @@ function Connect(props) {
           props.setBrokers(data.brokers);
 
           let topicArray = [];
-          for (let i = 0; i < data.topics.topics.length; i++){
+          for (let i = 0; i < data.topics.topics.length; i++) {
             topicArray.push(data.topics.topics[i]);
           }
           props.setTopics(topicArray);
-
         } else {
           document.querySelector('#connectionStatus').style.display = 'block';
         }
@@ -45,7 +43,6 @@ function Connect(props) {
         console.log('err in sendClusterData', err);
       });
   };
- 
 
   return (
     <div className="connectCluster">
@@ -53,11 +50,11 @@ function Connect(props) {
       <input placeholder="Client ID" className=" input ClientId"></input>
       <input placeholder="Host Name" className=" input hostName"></input>
       <input placeholder="Port" className=" input Port"></input>
-        <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
-          Submit
-        </button>
-        {/* checks if user info is in state */}
-          {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
+      <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
+        Submit
+      </button>
+      {/* checks if user info is in state */}
+      {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
           Connect with User Information
         </button>) : null} */}
       <p id="connectionStatus">Connection Failed</p>
