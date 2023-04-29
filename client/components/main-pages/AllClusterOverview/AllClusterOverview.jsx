@@ -12,13 +12,13 @@ export default function AllClusterOverview({
   setCurrentTopic,
 }) {
   return (
-    <div id="clusterWrapper">
+    <div className="cluster-overview-wrapper">
       <h1>Kafka Cluster Overview</h1>
       <OverviewTable topics={topics} brokers={brokers} />
       <h2>Brokers</h2>
       <BrokersTable brokers={brokers} />
       <h2>Topics</h2>
-      <TopicsTable 
+      <TopicsTable
         topics={topics}
         offsets={offsets}
         setOffsets={setOffsets}

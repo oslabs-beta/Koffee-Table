@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Chart as ChartJS,
@@ -16,11 +16,11 @@ import { Pie, Bar, Line } from 'react-chartjs-2';
 import {
   partitionReplicasData,
   partitionReplicasOptions,
-} from '../chart-data/partitionReplicas';
+} from '../../../../static-chart-data/partitionReplicas';
 import {
   partitionOffsetsData,
   partitionOffsetsOptions,
-} from '../chart-data/partitionOffsets';
+} from '../../../../static-chart-data/partitionOffsets';
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
 import MessageVelocity from './graphs/MessageVelocity.jsx';
@@ -107,7 +107,7 @@ function PartitionGraph({
         for (let partition in temp) {
           let array = newObject[partition] || [];
           let updateArray = [...array, temp[partition]];
-          if (updateArray.length > 10){
+          if (updateArray.length > 10) {
             updateArray.shift();
           }
           newObject[partition] = updateArray;
@@ -122,17 +122,17 @@ function PartitionGraph({
         for (const key in temp2) {
           let array = newObject[key] || [];
           let updateArray = [...array, temp2[key]];
-          if (updateArray.length > 10){
+          if (updateArray.length > 10) {
             updateArray.shift();
           }
-          newObject[key] = updateArray
+          newObject[key] = updateArray;
         }
         return newObject;
       });
 
       setTime((prevState) => {
         let array = [...prevState, prevState[prevState.length - 1] + 3];
-        if (array.length > 10){
+        if (array.length > 10) {
           array.shift();
         }
         return array;
@@ -147,7 +147,7 @@ function PartitionGraph({
 
     return () => {
       //reset
-      clearInterval(intervalId);;
+      clearInterval(intervalId);
       setTime([0]);
       setLiveLagTime({});
       setMessageVelocity({});
@@ -166,16 +166,16 @@ function PartitionGraph({
             options={partitionReplicasOptions}
           />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <Bar
             data={partitionOffsetsData(offsets)}
             options={partitionOffsetsOptions}
           />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <MessageVelocity messageVelocity={messageVelocity} time={time} />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
       </div>

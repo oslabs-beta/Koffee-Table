@@ -1,8 +1,6 @@
 const express = require('express');
-const userController = require('./userController')
-const router = express.Router()
-
-
+const userController = require('./controllers/userController');
+const router = express.Router();
 
 router.delete('/nukeDatabase', userController.selfDestruct, (req, res) => {
   return res.status(200).json(res.locals.data);
