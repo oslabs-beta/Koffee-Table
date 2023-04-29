@@ -5,7 +5,7 @@ async function run() {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
-      brokers: ['Jonathans-Air:9092'],
+      brokers: ['MATT-XPS:9092'],
     });
 
     const admin = kafka.admin();
@@ -14,8 +14,8 @@ async function run() {
     await admin.createTopics({
       topics: [
         {
-          topic: 'The-Real-MVP-Presentation',
-          numPartitions: 6,
+          topic: 'Welcome-to-KoffeeTable',
+          numPartitions: 4,
         },
       ],
     });

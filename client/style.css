@@ -310,3 +310,9 @@ div#container.MuiPaper-root {
 .message {
   padding: 10px;
 }
+
+.back-to-topics{
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black; 
+}

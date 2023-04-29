@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -52,6 +53,15 @@ function PartitionGraph({
   const { topicFromURL } = useParams();
   // console.log(topicFromUrl);\
   const topic = topics.filter((topic) => topic.name === topicFromURL)[0];
+
+  const unmount = () => {
+    clearInterval(intervalId);
+    setTime([0]);
+    setLiveLagTime({});
+    setMessageVelocity({});
+    console.log('disconnected');
+    socket.close();
+  };
 
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -107,7 +117,7 @@ function PartitionGraph({
         for (let partition in temp) {
           let array = newObject[partition] || [];
           let updateArray = [...array, temp[partition]];
-          if (updateArray.length > 10){
+          if (updateArray.length > 10) {
             updateArray.shift();
           }
           newObject[partition] = updateArray;
@@ -122,17 +132,17 @@ function PartitionGraph({
         for (const key in temp2) {
           let array = newObject[key] || [];
           let updateArray = [...array, temp2[key]];
-          if (updateArray.length > 10){
+          if (updateArray.length > 10) {
             updateArray.shift();
           }
-          newObject[key] = updateArray
+          newObject[key] = updateArray;
         }
         return newObject;
       });
 
       setTime((prevState) => {
         let array = [...prevState, prevState[prevState.length - 1] + 3];
-        if (array.length > 10){
+        if (array.length > 10) {
           array.shift();
         }
         return array;
@@ -147,7 +157,7 @@ function PartitionGraph({
 
     return () => {
       //reset
-      clearInterval(intervalId);;
+      clearInterval(intervalId);
       setTime([0]);
       setLiveLagTime({});
       setMessageVelocity({});
@@ -157,10 +167,19 @@ function PartitionGraph({
   }, []);
 
   return (
-    <div className="graph-page">
-      <h2 className="topic-name">{topic.name}</h2>
-      <div className="chart-layout">
-        <div className="chart-wrapper">
+    <div className='graph-page'>
+      <Link
+        className='back-to-topics'
+        to='/overview'
+        onClick={() => {
+          unmount;
+        }}
+      >
+        ← Back To Topics
+      </Link>
+      <h2 className='topic-name'>{topic.name}</h2>
+      <div className='chart-layout'>
+        <div className='chart-wrapper'>
           <Pie
             data={partitionReplicasData(topic)}
             options={partitionReplicasOptions}

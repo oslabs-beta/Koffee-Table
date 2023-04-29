@@ -14,13 +14,13 @@ async function run(input) {
   try {
     const kafka = new Kafka({
       clientId: 'myapp',
-      brokers: ['Jonathans-Air:9092'],
+      brokers: ['Matt-XPS:9092'],
     });
 
     const producer = kafka.producer();
     await producer.connect();
     console.log('producer connected');
-    let partition = Math.floor(Math.random() * 6);
+    let partition = Math.floor(Math.random() * 4);
     console.log(partition);
     // if (input.toLowerCase() === input) {
     //   partition = 0;
@@ -28,7 +28,7 @@ async function run(input) {
     //   partition = 1;
     // }
     const result = await producer.send({
-      topic: 'The-Real-MVP-Presentation',
+      topic: 'Welcome-to-KoffeeTable',
       messages: [
         {
           value: input,
