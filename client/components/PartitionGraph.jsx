@@ -107,6 +107,9 @@ function PartitionGraph({
         for (let partition in temp) {
           let array = newObject[partition] || [];
           let updateArray = [...array, temp[partition]];
+          if (updateArray.length > 10){
+            updateArray.shift();
+          }
           newObject[partition] = updateArray;
         }
         return newObject;
@@ -117,14 +120,22 @@ function PartitionGraph({
       setMessageVelocity((prevState) => {
         const newObject = { ...prevState };
         for (const key in temp2) {
-          if (!newObject[key]) newObject[key] = [temp2[key]];
-          else newObject[key].push(temp2[key]);
+          let array = newObject[key] || [];
+          let updateArray = [...array, temp2[key]];
+          if (updateArray.length > 10){
+            updateArray.shift();
+          }
+          newObject[key] = updateArray
         }
         return newObject;
       });
 
       setTime((prevState) => {
-        return [...prevState, prevState[prevState.length - 1] + 3];
+        let array = [...prevState, prevState[prevState.length - 1] + 3];
+        if (array.length > 10){
+          array.shift();
+        }
+        return array;
       });
 
       //reset lag objects

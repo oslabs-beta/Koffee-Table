@@ -38,6 +38,9 @@ export default function MessageVelocity({ messageVelocity, time }) {
 
   const options = {
     responsive: true,
+    animation: {
+      duration: 0,
+    },
     maintainAspectRatio: false,
     plugins: {
       title: { display: true, text: 'Message Velocity / 3s' },
