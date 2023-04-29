@@ -168,13 +168,7 @@ function PartitionGraph({
 
   return (
     <div className='graph-page'>
-      <Link
-        className='back-to-topics'
-        to='/overview'
-        onClick={() => {
-          unmount;
-        }}
-      >
+      <Link className='back-to-topics' to='/overview'>
         ← Back To Topics
       </Link>
       <h2 className='topic-name'>{topic.name}</h2>
