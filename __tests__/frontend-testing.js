@@ -114,13 +114,6 @@ describe('correctly renders App', () => {
       // expect(message.length).toEqual(0);
       // expect(message.innerText).toEqual("Not Connected");
     });
-    test('live messages correctly renders 1 button per topic', async () => {
-      render(<BasicClusterInfo topics={[]} />);
-      // const message = await screen.getAllByRole('button');
-      expect(screen.getByText('Not Connected')).toBeInTheDocument();
-      // expect(message.length).toEqual(0);
-      // expect(message.innerText).toEqual("Not Connected");
-    });
   });
 });
 
