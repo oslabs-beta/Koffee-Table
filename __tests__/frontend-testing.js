@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Main from '../client/components/Main';
+import Connect from '../client/components/Connect';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import Login from '../client/components/userLogin/Login';
 import Signup from '../client/components/userLogin/signUp';
@@ -9,26 +9,26 @@ import Test from '../client/components/Test';
 import BasicClusterInfo from '../client/components/BasicClusterInfo';
 
 describe('correctly renders App', () => {
-  xdescribe('correctly render Main', () => {
-    beforeEach(() => render(<Main />));
+  describe('correctly render Connect', () => {
+    beforeEach(() => render(<Connect userInfo={[]} />));
 
-    test('render correct number of input fields in Main', async () => {
+    test('render correct number of input fields in Connect', async () => {
       const inputs = await screen.getAllByRole('textbox');
       expect(inputs.length).toEqual(3);
     });
 
-    test('correctly renders 1 button in Main', async () => {
+    test('correctly renders 1 button in Connect', async () => {
       const button = await screen.getAllByRole('button');
       expect(button.length).toEqual(1);
     });
 
-    test('correctly renders logo in Main', async () => {
+    xtest('correctly renders logo in Connect', async () => {
       const img = await screen.getAllByRole('img');
       expect(img.length).toEqual(1);
     });
   });
 
-  xdescribe('correctly render Login', () => {
+  describe('correctly render Login', () => {
     beforeEach(() =>
       render(
         <MemoryRouter>
@@ -64,7 +64,7 @@ describe('correctly renders App', () => {
     });
   });
 
-  xdescribe('correctly render Signup', () => {
+  describe('correctly render Signup', () => {
     beforeEach(() => render(<Signup />));
 
     test('correctly renders input fields in Signup', async () => {
@@ -89,7 +89,7 @@ describe('correctly renders App', () => {
     });
   });
 
-  xdescribe('correctly render Test', () => {
+  describe('correctly render Test', () => {
     beforeEach(() => render(<Test />));
 
     test('render correct number of input fields in Test', async () => {
