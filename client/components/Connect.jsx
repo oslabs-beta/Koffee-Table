@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Connect(props) {
-  const sendClusterData = () => {
-    const hostName = document.querySelector('.hostName').value;
-    const port = document.querySelector('.Port').value;
-    const clientId = document.querySelector('.ClientId').value;
-    document.querySelector('#connectionStatus').style.display = 'none';
-    document.querySelector('#connectionSuccess').style.display = 'none';
-    props.setUserInfo([clientId, hostName, port]);
+  const [clientId, setclientId] = useState(null);
+  const [hostName, setHostName] = useState(null);
+  const [port, setPort] = useState(null);
+  const [conStatus, setConStatus] = useState(['none', 'none']);
+  const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
 
     fetch('/getCluster', {
       method: 'POST',
@@ -15,9 +13,9 @@ function Connect(props) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientId: clientId,
-        hostName: hostName,
-        port: port,
+        clientId: clientIdArg,
+        hostName: hostNameArg,
+        port: portArg,
       }),
     })
       .then((response) => response.json())
@@ -26,7 +24,7 @@ function Connect(props) {
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {
-          document.querySelector('#connectionSuccess').style.display = 'block';
+          setConStatus(['block', 'none']);
           // props.setMetadata(data.topics);
           props.setBrokers(data.brokers);
 
@@ -34,31 +32,65 @@ function Connect(props) {
           for (let i = 0; i < data.topics.topics.length; i++) {
             topicArray.push(data.topics.topics[i]);
           }
+          props.setUserInfo([clientId, hostName, port])
           props.setTopics(topicArray);
+          props.setConnected(true);
         } else {
-          document.querySelector('#connectionStatus').style.display = 'block';
+          setConStatus(['none', 'block']);
+          props.setConnected(false);
         }
       })
+
       .catch((err) => {
         console.log('err in sendClusterData', err);
       });
   };
 
   return (
-    <div className="connectCluster">
-      <h1>Connect to Kafka Cluster</h1>
-      <input placeholder="Client ID" className=" input ClientId"></input>
-      <input placeholder="Host Name" className=" input hostName"></input>
-      <input placeholder="Port" className=" input Port"></input>
-      <button className="btn btnx sendClusterButton" onClick={sendClusterData}>
-        Submit
-      </button>
-      {/* checks if user info is in state */}
-      {/* {userCluster.port ? (<button className="btn sendUserClusterButton" onClick={sendClusterData}>
-          Connect with User Information
-        </button>) : null} */}
-      <p id="connectionStatus">Connection Failed</p>
-      <p id="connectionSuccess">Connected!</p>
+    <div className='clusterWrapper'>
+      {!props.connected ? (
+        <div className='connectCluster'>
+          <h1>Connect to Kafka Cluster</h1>
+          <input
+            placeholder='Client ID'
+            className=' input ClientId'
+            onKeyUp={(v) => setclientId(v.target.value)}
+          ></input>
+          <input
+            placeholder='Host Name'
+            className=' input hostName'
+            onKeyUp={(v) => setHostName(v.target.value)}
+          ></input>
+          <input
+            placeholder='Port'
+            className=' input Port'
+            onKeyUp={(v) => setPort(v.target.value)}
+          ></input>
+        <button
+            className='btn btnx sendClusterButton'
+            onClick={()=>sendClusterData(clientId, hostName, port)}
+          >
+          Submit
+        </button>
+        {/* checks if user info is in state */}
+      {props.userInfo.length ? (
+            <button
+              className='btn btnx sendUserClusterButton'
+              onClick={() => sendClusterData(props.userInfo[0],props.userInfo[1],props.userInfo[2])}
+            >
+              Connect with User Information
+            </button>
+          ) : null}
+          <p id='connectionStatus' style={{ display: conStatus[0] }}>
+            Connection Failed
+          </p>
+          <p id='connectionSuccess' style={{ display: conStatus[1] }}>
+            Connected!
+          </p>
+        </div>
+      ) : (
+        <div>Already Connected</div>
+      )}
     </div>
   );
 }

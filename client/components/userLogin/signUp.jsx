@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 function SignUp() {
-  const signUp = () => {
-    const feedback = document.querySelectorAll('.feedback');
-    const targets = document.querySelectorAll('.signUp');
-    const [username, password, clientID, hostName, port] = targets;
-    feedback.forEach((fb) => (fb.style.opacity = 0));
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [clientId, setClientId] = useState(null)
+  const [hostName, sethostName] = useState(null)
+  const [port, setPort] = useState(null)
+  const [feedback, setFeedback] =useState(["none", "none", "none"])
 
-    if (username.value === '' || password.value === '') {
-      feedback[2].style.opacity = 1;
+  const signUp = () => {
+    setFeedback(["none", "none", "none"])
+    if (username === null || password === null) {
+      setFeedback(["none", "none", "block"])
       return;
     }
 
@@ -18,31 +22,25 @@ function SignUp() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-        clientID: clientID.value,
-        hostName: hostName.value,
-        port: port.value,
+        username: username,
+        password: password,
+        clientID: clientId,
+        hostName: hostName,
+        port: port,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         if (data === null) {
-          feedback[1].style.opacity = 1;
+          setFeedback(["none", "block", "none"])
           return;
         }
-        if (!data.err) feedback[0].style.opacity = 1;
+        if (!data.err) setFeedback(["block", "none", "none"])
       })
       .catch((err) => {
         console.log('error in Login', err);
       });
-    targets.forEach((field) => (field.value = ''));
-    // username.value = ""
-    // password.value = ""
-    // clientID.value = ""
-    // hostName.value = ""
-    // port.value = ""
   };
 
   return (
@@ -54,42 +52,45 @@ function SignUp() {
           className="input login signUp"
           placeholder="Enter username"
           type="username"
+          onKeyUp={(v)=>setUsername(v.target.value)}
         />
         <input
           id="passwordField"
           className="input login signUp"
           placeholder="Enter password"
           type="password"
+          onKeyUp={(v)=>setPassword(v.target.value)}
         />
         <input
           id="clientIDField"
           className="input signupUserData signUp"
           placeholder="Client ID - optional"
+          onKeyUp={(v)=>setClientId(v.target.value)}
         />
         <input
           id="hostNameFlied"
           className="input signupUserData signUp"
           placeholder="Host Name - optional"
+          onKeyUp={(v)=>sethostName(v.target.value)}
         />
         <input
           id="portField"
           className="input signupUserData signUp"
           placeholder="Port - optional"
+          onKeyUp={(v)=>setPort(v.target.value)}
         />
         <button id="loginButton" className="btn login signUp" onClick={signUp}>
           Login
         </button>
-        <div>
-          <div id="success" className="feedback">
+          <div id="success" className="feedback" style={{"display": feedback[0]}}>
             User created!
           </div>
-          <div id="fail" className="feedback">
+          <div id="fail" className="feedback" style={{"display": feedback[1]}}>
             User already exists!
           </div>
-          <div id="partial" className="feedback">
+          <div id="partial" className="feedback" style={{"display": feedback[2]}}>
             Finish the form please!
           </div>
-        </div>
       </div>
     </div>
   );

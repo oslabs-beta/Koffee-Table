@@ -2,7 +2,7 @@ import { Line } from 'react-chartjs-2';
 import React from 'react';
 
 export default function LagTimeGraph({ liveLagTime, time }) {
-  console.log('liveLagTime: ', liveLagTime);
+  // console.log('liveLagTime: ', liveLagTime);
   /* liveLagTime: 
         {
             0: [4, 5, 4] 
@@ -48,20 +48,25 @@ export default function LagTimeGraph({ liveLagTime, time }) {
 
   const options = {
     responsive: true,
+    animation: {
+      duration: 0,
+    },
+    maintainAspectRatio: false,
     plugins: {
-      title: { display: true, text: 'Lag Time/5s' },
+      title: { display: true, text: 'Lag Time / 3s' },
       legend: {
         display: true,
       },
     },
     scales: {
       y: {
+        suggestedMax: 12,
         title: {
           display: true,
-          ticks: {
-            min: 0,
-            max: 40
-          },
+          // ticks: {
+          //   min: 10,
+          //   max: 40,
+          // },
           text: 'Lag Time (ms)',
         },
       },

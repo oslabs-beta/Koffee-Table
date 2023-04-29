@@ -7,8 +7,8 @@
 
 #main {
   display: grid;
-  grid-template-columns: 1fr 5fr;
-  background: #FED8B1;
+  grid-template-columns: 1fr 7fr;
+  background: #fed8b1;
   /* background: radial-gradient(
     circle,
     rgba(221, 132, 78, 1) 0%,
@@ -38,7 +38,8 @@
 .navBar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 95vh;
+  padding-top: 5vh;
   width: 300px;
   background-color: rgb(30, 30, 30);
   position: sticky;
@@ -46,9 +47,11 @@
   bottom: auto;
 }
 
+a.link.partitionButton,
 #nav-home {
   margin-top: 0px;
 }
+
 #title {
   text-align: center;
   margin: 20px;
@@ -59,10 +62,12 @@
   text-decoration: none;
   color: white;
 }
+.linkMessage {
+  color: #d7af70;
+}
 
 .ConnectToCluster {
   text-align: center;
-  
 }
 .btn {
   border-radius: 15px;
@@ -92,6 +97,17 @@
   min-width: 200px;
 }
 
+.clusterWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto;
+  text-align: center;
+  align-items: stretch;
+  padding: 30px;
+  min-width: 200px;
+}
+
 .input {
   padding: 0 5px;
   border-radius: 15px;
@@ -117,11 +133,9 @@
   margin-right: auto;
 }
 #connectionStatus {
-  display: none;
   color: red;
 }
 #connectionSuccess {
-  display: none;
   color: green;
 }
 
@@ -146,9 +160,14 @@ div#container.MuiPaper-root {
   margin: 40px;
 }
 
+.topic-name {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .chart-layout {
   display: flex;
-  align-items:stretch;
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
@@ -161,12 +180,14 @@ div#container.MuiPaper-root {
   border-radius: 10px;
   padding: 10px;
 }
+
 /* loginPage Stuff */
 
 .form-wrapper {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: center;
 
   border: 1px solid gray;
   border-radius: 15px;
@@ -181,16 +202,17 @@ div#container.MuiPaper-root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/80cbc72f-e016-4d2a-842a-0127db05e041/Vintage_Style_Photography_A_beautiful_background_for_a_website_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
 .login {
   margin: 10px 0px;
   padding: 5px 10px;
-  /* 
-  margin: 8px;
-   */
   height: 3vh;
-  width: 20vw;
   border-radius: 1vw;
 }
 
@@ -207,11 +229,7 @@ div#container.MuiPaper-root {
   width: 15vw;
   border-radius: 1vw;
 }
-.feedback { 
-  position: absolute;
-  left: 54%;
-  opacity: 0;
-}
+
 #success {
   color: green;
 }
@@ -233,7 +251,7 @@ div#container.MuiPaper-root {
   text-decoration: none;
   color: black;
 }
-.topic{
+.topic {
   margin-top: 20px;
   border: 1px black solid;
   background-color: #d7af70;
@@ -262,7 +280,6 @@ div#container.MuiPaper-root {
   margin: 15px;
   border-radius: 40px;
   overflow-y: scroll;
-
 }
 
 .partitionContainer::-webkit-scrollbar {
@@ -272,19 +289,24 @@ div#container.MuiPaper-root {
 #container {
   background-color: #eddcbf;
 }
-#clusterWrapper {
-  margin: 20px;
+.clusterWrapper {
+  margin: 0;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/4d2b9a0c-773c-4326-83ff-3e33a084f2f0/Vintage_Style_Photography_A_beautiful_background_that_has_wood_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-#testTool{
+#testTool {
   margin: auto;
   text-align: center;
   display: grid;
-  gap: 10px;
+  gap: 75px;
 }
-.btnx{
+.btnx {
   margin: auto;
 }
-.message{
+.message {
   padding: 10px;
 }
-
