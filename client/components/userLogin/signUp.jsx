@@ -50,13 +50,15 @@ function SignUp() {
         <input
           id="usernameField"
           className="input login signUp"
-          placeholder="username"
+          placeholder="Enter username"
+          type="username"
           onKeyUp={(v)=>setUsername(v.target.value)}
         />
         <input
           id="passwordField"
           className="input login signUp"
-          placeholder="password"
+          placeholder="Enter password"
+          type="password"
           onKeyUp={(v)=>setPassword(v.target.value)}
         />
         <input

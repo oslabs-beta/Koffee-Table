@@ -5,7 +5,6 @@ function Connect(props) {
   const [hostName, setHostName] = useState(null);
   const [port, setPort] = useState(null);
   const [conStatus, setConStatus] = useState(['none', 'none']);
-
   const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
 
     fetch('/getCluster', {
@@ -67,14 +66,14 @@ function Connect(props) {
             className=' input Port'
             onKeyUp={(v) => setPort(v.target.value)}
           ></input>
-          <button
+        <button
             className='btn btnx sendClusterButton'
             onClick={()=>sendClusterData(clientId, hostName, port)}
           >
-            Submit
-          </button>
-          {/* checks if user info is in state */}
-          {props.userInfo.length ? (
+          Submit
+        </button>
+        {/* checks if user info is in state */}
+      {props.userInfo.length ? (
             <button
               className='btn btnx sendUserClusterButton'
               onClick={() => sendClusterData(props.userInfo[0],props.userInfo[1],props.userInfo[2])}
