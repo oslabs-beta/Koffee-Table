@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 
 function Connect(props) {
-  const [clientId, setclientId] = useState(props.userInfo[0]);
-  const [hostName, setHostName] = useState(props.userInfo[1]);
-  const [port, setPort] = useState(props.userInfo[2]);
+  const [clientId, setclientId] = useState(null);
+  const [hostName, setHostName] = useState(null);
+  const [port, setPort] = useState(null);
   const [conStatus, setConStatus] = useState(['none', 'none']);
 
-  const sendClusterData = () => {
+  const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
+
     fetch('/getCluster', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientId: clientId,
-        hostName: hostName,
-        port: port,
+        clientId: clientIdArg,
+        hostName: hostNameArg,
+        port: portArg,
       }),
     })
       .then((response) => response.json())
@@ -68,7 +69,7 @@ function Connect(props) {
           ></input>
           <button
             className='btn btnx sendClusterButton'
-            onClick={sendClusterData}
+            onClick={()=>sendClusterData(clientId, hostName, port)}
           >
             Submit
           </button>
@@ -76,7 +77,7 @@ function Connect(props) {
           {props.userInfo.length ? (
             <button
               className='btn btnx sendUserClusterButton'
-              onClick={sendClusterData}
+              onClick={() => sendClusterData(props.userInfo[0],props.userInfo[1],props.userInfo[2])}
             >
               Connect with User Information
             </button>
