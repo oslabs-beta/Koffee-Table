@@ -7,8 +7,8 @@
 
 #main {
   display: grid;
-  grid-template-columns: 1fr 5fr;
-  background: #FED8B1;
+  grid-template-columns: 1fr 7fr;
+  background: #fed8b1;
   /* background: radial-gradient(
     circle,
     rgba(221, 132, 78, 1) 0%,
@@ -47,7 +47,8 @@
   bottom: auto;
 }
 
-a.link.partitionButton, #nav-home {
+a.link.partitionButton,
+#nav-home {
   margin-top: 0px;
 }
 
@@ -61,13 +62,12 @@ a.link.partitionButton, #nav-home {
   text-decoration: none;
   color: white;
 }
-.linkMessage{
+.linkMessage {
   color: #d7af70;
 }
 
 .ConnectToCluster {
   text-align: center;
-  
 }
 .btn {
   border-radius: 15px;
@@ -167,7 +167,7 @@ div#container.MuiPaper-root {
 
 .chart-layout {
   display: flex;
-  align-items:stretch;
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
@@ -202,8 +202,13 @@ div#container.MuiPaper-root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/80cbc72f-e016-4d2a-842a-0127db05e041/Vintage_Style_Photography_A_beautiful_background_for_a_website_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
 .login {
   margin: 10px 0px;
   padding: 5px 10px;
@@ -224,7 +229,6 @@ div#container.MuiPaper-root {
   width: 15vw;
   border-radius: 1vw;
 }
-
 
 #success {
   color: green;
@@ -247,7 +251,7 @@ div#container.MuiPaper-root {
   text-decoration: none;
   color: black;
 }
-.topic{
+.topic {
   margin-top: 20px;
   border: 1px black solid;
   background-color: #d7af70;
@@ -285,19 +289,24 @@ div#container.MuiPaper-root {
 #container {
   background-color: #eddcbf;
 }
-#clusterWrapper {
-  margin: 20px;
+.clusterWrapper {
+  margin: 0;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/4d2b9a0c-773c-4326-83ff-3e33a084f2f0/Vintage_Style_Photography_A_beautiful_background_that_has_wood_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-#testTool{
+#testTool {
   margin: auto;
   text-align: center;
   display: grid;
-  gap: 10px;
+  gap: 75px;
 }
-.btnx{
+.btnx {
   margin: auto;
 }
-.message{
+.message {
   padding: 10px;
 }
-
