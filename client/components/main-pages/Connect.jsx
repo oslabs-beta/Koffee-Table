@@ -41,7 +41,9 @@ function Connect(props) {
           for (let i = 0; i < data.topics.topics.length; i++) {
             topicArray.push(data.topics.topics[i]);
           }
-          setUserInfo([clientId, hostName, port]);
+          if (!userInfo.length) {
+            setUserInfo([clientId, hostName, port]);
+          }
           setTopics(topicArray);
           setConnected(true);
         } else {
