@@ -2,9 +2,9 @@ const express = require('express');
 const path = require('path');
 // const cookieController = require('./cookieController');
 const producerController = require('../kafka/producer');
-const adminController = require('./adminController');
-const consumerController = require('./consumerController');
-const userRouter = require('./userStuff/userRouter')
+const adminController = require('./controllers/adminController');
+const consumerController = require('./controllers/consumerController');
+const userRouter = require('./userRouter')
 
 const app = express();
 app.use(express.json());

@@ -1,34 +1,24 @@
 import * as React from 'react';
-import Row from './Row.jsx'
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
+import Row from './Row.jsx';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Link } from 'react-router-dom';
 
 export default function TopicsTable({
   offsets,
   setOffsets,
   userInfo,
   setCurrentTopic,
-  topics
+  topics,
 }) {
-
   const totalPartitions = topics.reduce(
     (accumulator, topic) => accumulator + topic.partitions.length,
     0
   );
-
-
 
   return (
     <TableContainer id="container" component={Paper}>
@@ -53,7 +43,9 @@ export default function TopicsTable({
               key={topic.name}
               row={topic}
               offsets={offsets}
-              percent={Math.floor((topic.partitions.length / totalPartitions) * 100)}
+              percent={Math.floor(
+                (topic.partitions.length / totalPartitions) * 100
+              )}
               setOffsets={setOffsets}
               userInfo={userInfo}
               setCurrentTopic={setCurrentTopic}

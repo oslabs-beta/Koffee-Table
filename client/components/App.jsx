@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import '../style.css';
-import Connect from './Connect.jsx';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Connect from './main-pages/Connect.jsx';
 import Navbar from './Navbar.jsx';
-import BasicClusterInfo from './BasicClusterInfo.jsx';
-import Test from './Test.jsx';
-import Messages from './Messages.jsx';
-import Graphs from './Graphs.jsx';
-import PartitionGraph from './PartitionGraph.jsx';
-import AllClusterOverview from './AllClusterOverview.jsx';
-import Login from './userLogin/Login.jsx';
-import SignUp from './userLogin/signUp.jsx';
-import { io } from 'socket.io-client';
+import BasicClusterInfo from './main-pages/BasicClusterInfo/BasicClusterInfo.jsx';
+import Test from './main-pages/Test.jsx';
+import Messages from './main-pages/BasicClusterInfo/Messages.jsx';
+import PartitionGraph from './main-pages/AllClusterOverview/ClusterOverview/PartitionGraph.jsx';
+import AllClusterOverview from './main-pages/AllClusterOverview/AllClusterOverview.jsx';
+import Login from './main-pages/userLogin/Login.jsx';
+import SignUp from './main-pages/userLogin/signUp.jsx';
+import '../style.css';
 
 function App() {
   // ML: connect function that connects to consumers and admin following the connect click
@@ -29,7 +27,7 @@ function App() {
 
   return (
     <div id="main">
-      <Navbar userInfo={userInfo}/>
+      <Navbar userInfo={userInfo} />
       <Routes>
         <Route
           path="/connect"
@@ -44,7 +42,7 @@ function App() {
             />
           }
         />
-        <Route path="/login" element={<Login setUserInfo={setUserInfo}/>} />
+        <Route path="/login" element={<Login setUserInfo={setUserInfo} />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route
           path="/displayPartition"
