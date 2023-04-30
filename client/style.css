@@ -108,6 +108,10 @@ a.link.partitionButton,
   min-width: 200px;
 }
 
+.cluster-overview-wrapper {
+  margin: 30px;
+}
+
 .input {
   padding: 0 5px;
   border-radius: 15px;

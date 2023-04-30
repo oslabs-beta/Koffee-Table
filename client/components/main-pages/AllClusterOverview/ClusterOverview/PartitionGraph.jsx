@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
@@ -17,11 +17,11 @@ import { Pie, Bar, Line } from 'react-chartjs-2';
 import {
   partitionReplicasData,
   partitionReplicasOptions,
-} from '../chart-data/partitionReplicas';
+} from '../../../../static-chart-data/partitionReplicas';
 import {
   partitionOffsetsData,
   partitionOffsetsOptions,
-} from '../chart-data/partitionOffsets';
+} from '../../../../static-chart-data/partitionOffsets';
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
 import MessageVelocity from './graphs/MessageVelocity.jsx';
@@ -179,16 +179,16 @@ function PartitionGraph({
             options={partitionReplicasOptions}
           />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <Bar
             data={partitionOffsetsData(offsets)}
             options={partitionOffsetsOptions}
           />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <MessageVelocity messageVelocity={messageVelocity} time={time} />
         </div>
-        <div className='chart-wrapper'>
+        <div className="chart-wrapper">
           <LagTimeGraph liveLagTime={liveLagTime} time={time} />
         </div>
       </div>

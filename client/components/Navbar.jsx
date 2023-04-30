@@ -9,27 +9,29 @@ function Navbar(props) {
         <img src={logo} alt="logo" className="logo-nav" />
       </Link>
 
+      {!props.userInfo[3] ? (
+        <Link className="link partitionButton" to="/login">
+          Login
+        </Link>
+      ) : (
+        <p className="link linkMessage">Welcome, {props.userInfo[3]}!</p>
+      )}
 
-      {!props.userInfo[3] ? (<Link className="link partitionButton" to="/login">
-        Login
-      </Link>) : <p className="link linkMessage">Welcome,  {props.userInfo[3]}!</p>}
-
-      <Link className="link displayTransitTimeButton" to="/connect">
+      <Link className="link" to="/connect">
         Connect
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/overview">
+      <Link className="link" to="/overview">
         Kafka Cluster Overview
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/test">
+      <Link className="link" to="/test">
         Test
       </Link>
 
-      <Link className="link displayTransitTimeButton" to="/displayPartition">
+      <Link className="link" to="/displayPartition">
         Live Messages
       </Link>
-      
     </div>
   );
 }
