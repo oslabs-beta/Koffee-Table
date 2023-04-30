@@ -35,6 +35,7 @@ export default function TopicsTable({
             <TableCell align="right">
               <b>Under Replicated Partitions</b>
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

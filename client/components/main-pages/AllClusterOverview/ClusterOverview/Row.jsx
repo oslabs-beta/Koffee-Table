@@ -5,13 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
@@ -39,9 +39,25 @@ export default function Row({
   setOffsets,
   setCurrentTopic,
   percent,
-  offsets
+  offsets,
 }) {
   const [open, setOpen] = React.useState(false);
+  const [showWarning, setShowWarning] = React.useState(false);
+
+  const handleGarbageClick = () => {
+    setShowWarning(true);
+  };
+  
+  const handleConfirmClick = () => {
+    setShowWarning(false);
+    // Handle the star click here
+    console.log('Garbage clicked!');
+  };
+  
+  const handleCancelClick = () => {
+    setShowWarning(false);
+  };
+  
 
   return (
     <React.Fragment>
@@ -75,6 +91,15 @@ export default function Row({
         </TableCell>
         {/*  0 represents under-replicated partitions -- please fix later to actually present its number  */}
         <TableCell align='right'>{0}</TableCell>
+        <TableCell align='right'>
+          <IconButton
+            aria-label='expand row'
+            size='small'
+            onClick={handleGarbageClick}
+          >
+            <DeleteIcon></DeleteIcon>
+          </IconButton>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -113,6 +138,17 @@ export default function Row({
           </Collapse>
         </TableCell>
       </TableRow>
+      <Dialog open={showWarning} onClose={handleCancelClick}>
+        <DialogTitle>Warning</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Do you really want to delete <strong>{row.name}</strong>?</DialogContentText>
+          <DialogContentText>This process is irreversible</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmClick} style={{ backgroundColor: '#4285F4', color: '#ffffff' }}>Confirm</Button>
+          <Button onClick={handleCancelClick} style={{ color: '#DB4437' }}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }
