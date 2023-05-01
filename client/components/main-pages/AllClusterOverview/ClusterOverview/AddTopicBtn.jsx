@@ -47,13 +47,14 @@ export default function AddTopicBtn({ setTopics, userInfo }) {
     })
       .then((res) => res.json())
       .then((updatedTopics) => {
+        console.log('updated Topics:', updatedTopics)
         let topicArray = [];
-        for (let i = 0; i < updatedTopics.topics.topics.length; i++) {
-          topicArray.push(data.topics.topics[i]);
+        for (let i = 0; i < updatedTopics.topics.length; i++) {
+          topicArray.push(updatedTopics.topics[i]);
         }
         setTopics(topicArray);
-      });
-      setOpen(false);
+        setOpen(false);
+      })
   };
 
   return (
