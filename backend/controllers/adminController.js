@@ -63,4 +63,27 @@ adminController.deleteTopic = async (req, res, next) => {
   return next();
 };
 
+adminController.createTopic = async (req, res, next) => {
+  const { clientId, port, hostName, topic, partitionNum } = req.body;
+  const kafka = new Kafka({
+    clientId: clientId,
+    brokers: [`${hostName}:${port}`],
+  });
+
+  const admin = kafka.admin();
+  await admin.connect();
+  await admin.createTopics({
+    topics: [
+      {
+        topic: topic,
+        numPartitions: partitionNum,
+      },
+    ],
+  });
+  const topics = await admin.fetchTopicMetadata();
+  res.locals.updatedTopics = topics
+  await admin.disconnect();
+  return next();
+};
+
 module.exports = adminController;

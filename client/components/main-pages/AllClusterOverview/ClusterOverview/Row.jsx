@@ -72,12 +72,14 @@ export default function Row({
       }),
     })
       .then((res) => res.json())
-      .then((topic) => console.log(topic))
-    setTopics((prevTopics) => {
-      prevTopics.splice(prevTopics.indexOf(row.name), 1);
-      const updatedTopics = [...prevTopics];
-      return updatedTopics;
-    });
+      .then(() =>
+        setTopics((prevTopics) => {
+          const updatedTopics = prevTopics.filter(
+            (topic) => topic.name !== row.name
+          );
+          return updatedTopics;
+        })
+      );
   };
 
   const handleCancelClick = () => {

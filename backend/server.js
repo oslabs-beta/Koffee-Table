@@ -40,6 +40,10 @@ app.post('/getOffsets', adminController.getOffsets, (req, res) => {
   return res.status(201).json(res.locals.offsets);
 });
 
+app.post('/createTopic', adminController.createTopic, (req, res) => {
+  return res.status(201).json(res.locals.updatedTopics)
+})
+
 app.post('/deleteTopic', adminController.deleteTopic, (req, res) => {
   return res.status(201).json(res.locals.deletedTopic)
 })
