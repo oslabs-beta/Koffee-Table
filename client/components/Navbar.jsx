@@ -25,12 +25,12 @@ function Navbar(props) {
         Kafka Cluster Overview
       </Link>
 
-      <Link className="link" to="/test">
-        Test
-      </Link>
-
       <Link className="link" to="/displayPartition">
         Live Messages
+      </Link>
+
+      <Link className="link" to="/test">
+        Test
       </Link>
     </div>
   );

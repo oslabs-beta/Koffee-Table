@@ -4,7 +4,7 @@ const User = require('../mongooseDB');
 
 const userController = {};
 
-userController.creatUser = async (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { username, password, clientID, hostName, port } = req.body;
 
   try {
@@ -28,9 +28,9 @@ userController.creatUser = async (req, res, next) => {
     return next();
   } catch (err) {
     return next({
-      log: 'Error in userController.creatUser',
-      status: 418,
-      message: { err: 'Error in userController.creatUser' },
+      log: 'Error in userController.createUser',
+      status: 400,
+      message: { err: 'Error in userController.createUser' },
     });
   }
 };
@@ -39,7 +39,7 @@ userController.readUser = (req, res, next) => {
   if (!Object.keys(req.query).length)
     return next({
       log: 'no user defined',
-      status: 418,
+      status: 400,
       message: { err: 'no user defined' },
     });
 
@@ -53,7 +53,7 @@ userController.readUser = (req, res, next) => {
     .catch((err) => {
       return next({
         log: 'Error in userController.readUser',
-        status: 418,
+        status: 400,
         message: { err: 'Error in userController.readUser' },
       });
     });
@@ -65,7 +65,7 @@ userController.findAndUpdate = (req, res, next) => {
   if (!Object.keys(req.query).length)
     return next({
       log: 'no user defined',
-      status: 418,
+      status: 400,
       message: { err: 'no user defined' },
     });
 
@@ -75,10 +75,11 @@ userController.findAndUpdate = (req, res, next) => {
       console.log('User updated');
       return next();
     })
+
     .catch((err) => {
       return next({
         log: 'Error in userController.findOneAndUpdate',
-        status: 418,
+        status: 400,
         message: { err: 'Error in userController.findOneAndUpdate' },
       });
     });
@@ -87,7 +88,7 @@ userController.deletUser = (req, res, next) => {
   if (!Object.keys(req.query).length)
     return next({
       log: 'no user defined',
-      status: 418,
+      status: 400,
       message: { err: 'no user defined' },
     });
 
@@ -100,7 +101,7 @@ userController.deletUser = (req, res, next) => {
     .catch((err) => {
       return next({
         log: 'Error in userController.deletUser',
-        status: 418,
+        status: 400,
         message: { err: 'Error in userController.deletUser' },
       });
     });
@@ -116,22 +117,32 @@ userController.selfDestruct = (req, res, next) => {
     .catch((err) => {
       return next({
         log: 'Error in userController.selfDestruct',
-        status: 418,
+        status: 400,
         message: { err: 'Error in userController.selfDestruct' },
       });
     });
 };
 
 userController.login = (req, res, next) => {
-  User.findOne(req.query)
+  const { username, password } = req.query;
+  // fetch(`/user/login?username=${username}&password=${password}`)
+  User.findOne({ username })
     .then((data) => {
-      res.locals.data = data;
-      return next();
+      data.passwordCheck(password, function (err, verifyTrueFalse) {
+        if (err) return next({
+          log: 'Error in passwordCheck',
+          status: 400,
+          message: { err: 'Error in passwordCheck' },
+        });
+        if (verifyTrueFalse) res.locals.data = data;
+        else res.locals.data = null;
+        return next();
+      });
     })
     .catch((err) => {
       return next({
         log: 'Error in userController.login',
-        status: 418,
+        status: 400,
         message: { err: 'Error in userController.login' },
       });
     });

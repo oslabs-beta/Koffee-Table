@@ -75,6 +75,8 @@ a.link.partitionButton,
   width: 70%;
   height: 3vw;
   background-color: #d7af70;
+  margin-left: auto;
+  margin-right: auto;
 }
 .btn:hover {
   opacity: 0.7;
@@ -86,8 +88,6 @@ a.link.partitionButton,
   gap: 10px;
   margin: auto;
   text-align: center;
-  /* display: flex;
-  flex-direction: column; */
   align-items: stretch;
   border: 1px solid gray;
   border-radius: 15px;
@@ -139,9 +139,6 @@ a.link.partitionButton,
 #connectionStatus {
   color: red;
 }
-#connectionSuccess {
-  color: green;
-}
 
 .cluster-overview-table {
   display: flex;
@@ -190,8 +187,10 @@ div#container.MuiPaper-root {
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 350px;
+
 
   border: 1px solid gray;
   border-radius: 15px;
@@ -217,6 +216,7 @@ div#container.MuiPaper-root {
   margin: 10px 0px;
   padding: 5px 10px;
   height: 3vh;
+  width: 300px;
   border-radius: 1vw;
 }
 
@@ -230,13 +230,9 @@ div#container.MuiPaper-root {
   padding: 5px 10px;
   margin: 3px;
   height: 2vh;
-  width: 15vw;
   border-radius: 1vw;
 }
 
-#success {
-  color: green;
-}
 #fail {
   color: red;
 }
@@ -308,9 +304,11 @@ div#container.MuiPaper-root {
   display: grid;
   gap: 75px;
 }
-.btnx {
-  margin: auto;
-}
+
 .message {
   padding: 10px;
+}
+#loginButton{
+  margin-left: auto;
+  margin-right: auto;
 }
