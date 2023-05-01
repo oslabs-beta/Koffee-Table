@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -52,6 +53,15 @@ function PartitionGraph({
   const { topicFromURL } = useParams();
   // console.log(topicFromUrl);\
   const topic = topics.filter((topic) => topic.name === topicFromURL)[0];
+
+  const unmount = () => {
+    clearInterval(intervalId);
+    setTime([0]);
+    setLiveLagTime({});
+    setMessageVelocity({});
+    console.log('disconnected');
+    socket.close();
+  };
 
   useEffect(() => {
     const socket = io('http://localhost:3001');
@@ -157,10 +167,13 @@ function PartitionGraph({
   }, []);
 
   return (
-    <div className="graph-page">
-      <h2 className="topic-name">{topic.name}</h2>
-      <div className="chart-layout">
-        <div className="chart-wrapper">
+    <div className='graph-page'>
+      <Link className='back-to-topics' to='/overview'>
+        ← Back To Topics
+      </Link>
+      <h2 className='topic-name'>{topic.name}</h2>
+      <div className='chart-layout'>
+        <div className='chart-wrapper'>
           <Pie
             data={partitionReplicasData(topic)}
             options={partitionReplicasOptions}

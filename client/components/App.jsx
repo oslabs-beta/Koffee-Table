@@ -25,6 +25,7 @@ function App() {
   const [messageVelocity, setMessageVelocity] = useState({});
   const [time, setTime] = useState([0]);
 
+  console.log('topics: ', topics);
   return (
     <div id="main">
       <Navbar userInfo={userInfo} />
@@ -76,6 +77,7 @@ function App() {
           element={
             <AllClusterOverview
               topics={topics}
+              setTopics={setTopics}
               brokers={brokers}
               offsets={offsets}
               setOffsets={setOffsets}
