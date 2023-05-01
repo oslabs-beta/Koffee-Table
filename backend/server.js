@@ -27,7 +27,7 @@ app.post(
   //cookieController.setCookie
   (req, res) => {
     return res
-      .status(200)
+      .status(201)
       .json({
         topics: res.locals.topics,
         consumer: res.locals.consumer,
@@ -37,11 +37,15 @@ app.post(
 );
 
 app.post('/getOffsets', adminController.getOffsets, (req, res) => {
-  return res.status(200).json(res.locals.offsets);
+  return res.status(201).json(res.locals.offsets);
 });
 
+app.post('/deleteTopic', adminController.deleteTopic, (req, res) => {
+  return res.status(201).json(res.locals.deletedTopic)
+})
+
 app.post('/', producerController.addMsg, (req, res) => {
-  return res.sendStatus(200);
+  return res.sendStatus(201);
 });
 
 if (process.env.NODE_ENV === 'production') {

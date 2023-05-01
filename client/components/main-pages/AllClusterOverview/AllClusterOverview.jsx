@@ -10,6 +10,7 @@ export default function AllClusterOverview({
   setOffsets,
   userInfo,
   setCurrentTopic,
+  setTopics
 }) {
   return (
     <div className="cluster-overview-wrapper">
@@ -20,6 +21,7 @@ export default function AllClusterOverview({
       <h2>Topics</h2>
       <TopicsTable
         topics={topics}
+        setTopics={setTopics}
         offsets={offsets}
         setOffsets={setOffsets}
         userInfo={userInfo}

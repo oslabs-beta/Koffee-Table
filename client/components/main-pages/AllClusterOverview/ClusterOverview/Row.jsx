@@ -11,7 +11,14 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
@@ -21,8 +28,6 @@ const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      //need to dynamically change
-      // ['myapp', 'Joes-Air', '9092']
       clientId: userInfo[0],
       hostName: userInfo[1],
       port: userInfo[2],
@@ -40,6 +45,7 @@ export default function Row({
   setCurrentTopic,
   percent,
   offsets,
+  setTopics,
 }) {
   const [open, setOpen] = React.useState(false);
   const [showWarning, setShowWarning] = React.useState(false);
@@ -47,17 +53,36 @@ export default function Row({
   const handleGarbageClick = () => {
     setShowWarning(true);
   };
-  
+
   const handleConfirmClick = () => {
     setShowWarning(false);
-    // Handle the star click here
-    console.log('Garbage clicked!');
+    //delete the topic from the database
+    //invoke a fetch request to the backend that deletes the topic
+    //and update the state;
+    fetch('/deleteTopic', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        clientId: userInfo[0],
+        hostName: userInfo[1],
+        port: userInfo[2],
+        topic: row.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then((topic) => console.log(topic))
+    setTopics((prevTopics) => {
+      prevTopics.splice(prevTopics.indexOf(row.name), 1);
+      const updatedTopics = [...prevTopics];
+      return updatedTopics;
+    });
   };
-  
+
   const handleCancelClick = () => {
     setShowWarning(false);
   };
-  
 
   return (
     <React.Fragment>
@@ -141,12 +166,21 @@ export default function Row({
       <Dialog open={showWarning} onClose={handleCancelClick}>
         <DialogTitle>Warning</DialogTitle>
         <DialogContent>
-          <DialogContentText>Do you really want to delete <strong>{row.name}</strong>?</DialogContentText>
+          <DialogContentText>
+            Do you really want to delete <strong>{row.name}</strong>?
+          </DialogContentText>
           <DialogContentText>This process is irreversible</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleConfirmClick} style={{ backgroundColor: '#4285F4', color: '#ffffff' }}>Confirm</Button>
-          <Button onClick={handleCancelClick} style={{ color: '#DB4437' }}>Cancel</Button>
+          <Button
+            onClick={handleConfirmClick}
+            style={{ backgroundColor: '#4285F4', color: '#ffffff' }}
+          >
+            Confirm
+          </Button>
+          <Button onClick={handleCancelClick} style={{ color: '#DB4437' }}>
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

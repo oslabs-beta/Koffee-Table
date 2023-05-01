@@ -76,6 +76,7 @@ function App() {
           element={
             <AllClusterOverview
               topics={topics}
+              setTopics={setTopics}
               brokers={brokers}
               offsets={offsets}
               setOffsets={setOffsets}
