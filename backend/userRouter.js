@@ -14,7 +14,7 @@ router.patch('/', userController.findAndUpdate, (req, res) => {
   return res.status(200).json(res.locals.data);
 });
 
-router.post('/', userController.creatUser, (req, res) => {
+router.post('/', userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.data);
 });
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function SignUp() {
   const [username, setUsername] = useState(null);
@@ -7,6 +9,7 @@ function SignUp() {
   const [hostName, sethostName] = useState(null);
   const [port, setPort] = useState(null);
   const [feedback, setFeedback] = useState(['none', 'none', 'none']);
+  const navigate = useNavigate();
 
   const signUp = () => {
     setFeedback(['none', 'none', 'none']);
@@ -14,6 +17,7 @@ function SignUp() {
       setFeedback(['none', 'none', 'block']);
       return;
     }
+    if(!checkPassword(password)) return setFeedback(['block', 'none', 'none'])
 
     fetch('http://localhost:8080/user', {
       method: 'POST',
@@ -30,17 +34,40 @@ function SignUp() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data === null) {
           setFeedback(['none', 'block', 'none']);
           return;
         }
-        if (!data.err) setFeedback(['block', 'none', 'none']);
+        if (!data.err) {
+          navigate('/login');
+        } 
       })
       .catch((err) => {
         console.log('error in Login', err);
       });
   };
+
+
+  const checkPassword = (str) => {
+    console.log(str)
+    if (str.length < 7) return false;
+    
+    let includesNum = false;
+    let includesCap = false;
+    let includeSpecial = false;
+
+    for (let i = 0; i < str.length; i++) {
+
+      if(str[i] % 1 === 0) includesNum = true;
+      else {
+        if(!(97<=str[i].toLowerCase().charCodeAt(0) && str[i].toLowerCase().charCodeAt(0)<=122)) includeSpecial = true;
+      }
+      if(str[i] !== str[i].toLowerCase()) includesCap = true;
+    }
+    console.log(includesNum , includesCap , includeSpecial)
+    if(includesNum && includesCap && includeSpecial) return true;
+    return false;
+  }
 
   return (
     <div id="loginPage">
@@ -48,41 +75,41 @@ function SignUp() {
         <h1 className="login-header">Sign Up</h1>
         <input
           id="usernameField"
-          className="input login signUp"
+          className="input login"
           placeholder="Enter username"
           type="username"
           onKeyUp={(v) => setUsername(v.target.value)}
         />
         <input
           id="passwordField"
-          className="input login signUp"
+          className="input login"
           placeholder="Enter password"
           type="password"
           onKeyUp={(v) => setPassword(v.target.value)}
         />
         <input
           id="clientIDField"
-          className="input signupUserData signUp"
+          className="input signupUserData"
           placeholder="Client ID - optional"
           onKeyUp={(v) => setClientId(v.target.value)}
         />
         <input
           id="hostNameFlied"
-          className="input signupUserData signUp"
+          className="input signupUserData"
           placeholder="Host Name - optional"
           onKeyUp={(v) => sethostName(v.target.value)}
         />
         <input
           id="portField"
-          className="input signupUserData signUp"
+          className="input signupUserData"
           placeholder="Port - optional"
           onKeyUp={(v) => setPort(v.target.value)}
         />
-        <button id="loginButton" className="btn login signUp" onClick={signUp}>
+        <button id="loginButton" className="btn btnx login" onClick={signUp}>
           Login
         </button>
-        <div id="success" className="feedback" style={{ display: feedback[0] }}>
-          User created!
+        <div id="fail" className="feedback" style={{ display: feedback[0] }}>
+          Password must be at least 7 characters and include an uppercase letter, a number, and a special character.
         </div>
         <div id="fail" className="feedback" style={{ display: feedback[1] }}>
           User already exists!

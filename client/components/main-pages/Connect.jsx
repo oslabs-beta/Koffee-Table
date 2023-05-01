@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-
 function Connect(props) {
   const [clientId, setclientId] = useState(null);
   const [hostName, setHostName] = useState(null);
   const [port, setPort] = useState(null);
   const [conStatus, setConStatus] = useState(['none', 'none']);
+
+ 
 
   const {
     setConnected,
@@ -16,6 +17,12 @@ function Connect(props) {
   } = props;
 
   const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
+
+    console.log('this is userinfo', userInfo)
+    console.log("clientIdArg",clientIdArg)
+    console.log("hostNameArg",hostNameArg)
+    console.log("portArg",portArg)
+
     fetch('/getCluster', {
       method: 'POST',
       headers: {
@@ -33,7 +40,7 @@ function Connect(props) {
         //do important stuff here
         //error name in obj maight be a problem
         if (!data.err) {
-          setConStatus(['block', 'none']);
+          setConStatus(['none', 'block']);
           // props.setMetadata(data.topics);
           setBrokers(data.brokers);
 
@@ -41,13 +48,17 @@ function Connect(props) {
           for (let i = 0; i < data.topics.topics.length; i++) {
             topicArray.push(data.topics.topics[i]);
           }
-          if (!userInfo.length) {
-            setUserInfo([clientId, hostName, port]);
+          const array = userInfo
+          const args = [clientIdArg, hostNameArg, portArg]
+          for (let i = 0; i < 3; i++) {
+            array[i] = args[i]
           }
+          setUserInfo(array)
+
           setTopics(topicArray);
           setConnected(true);
         } else {
-          setConStatus(['none', 'block']);
+          setConStatus(['block', 'none']);
           setConnected(false);
         }
       })
