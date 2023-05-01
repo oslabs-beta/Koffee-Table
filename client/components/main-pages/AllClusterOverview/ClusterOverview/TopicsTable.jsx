@@ -14,6 +14,7 @@ export default function TopicsTable({
   userInfo,
   setCurrentTopic,
   topics,
+  setTopics
 }) {
   const totalPartitions = topics.reduce(
     (accumulator, topic) => accumulator + topic.partitions.length,
@@ -35,6 +36,7 @@ export default function TopicsTable({
             <TableCell align="right">
               <b>Under Replicated Partitions</b>
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,6 +51,7 @@ export default function TopicsTable({
               setOffsets={setOffsets}
               userInfo={userInfo}
               setCurrentTopic={setCurrentTopic}
+              setTopics={setTopics}
             />
           ))}
         </TableBody>

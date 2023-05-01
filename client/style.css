@@ -308,7 +308,28 @@ div#container.MuiPaper-root {
 .message {
   padding: 10px;
 }
+
 #loginButton{
   margin-left: auto;
   margin-right: auto;
 }
+
+.back-to-topics{
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black; 
+}
+
+#add-topics{
+  display: flex;
+  justify-content: right;
+}
+
+#add-topics-btn {
+  height: 3rem;
+  width: 12rem;
+  color: black;
+  border-color: black;
+  border-radius: 10px; 
+  background-color: #fad4a2;
+} 
