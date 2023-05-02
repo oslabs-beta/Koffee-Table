@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const URI = 'mongodb+srv://kafka-team:kafka-team@cluster0.aznay8h.mongodb.net/test';
+const URI = 'mongodb+srv://KoffeeTable:hrVYGnzwzprjzp4J@cluster0.0xvkesc.mongodb.net/test';
 const SALT_WORK_FACTOR = 12;
 
 mongoose.connect(URI, {
