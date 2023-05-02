@@ -35,93 +35,94 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
-userController.readUser = (req, res, next) => {
-  if (!Object.keys(req.query).length)
-    return next({
-      log: 'no user defined',
-      status: 400,
-      message: { err: 'no user defined' },
-    });
+// userController.readUser = (req, res, next) => {
+//   if (!Object.keys(req.query).length)
+//     return next({
+//       log: 'no user defined',
+//       status: 400,
+//       message: { err: 'no user defined' },
+//     });
 
-  User.findOne(req.query)
-    .then((data) => {
-      console.log(data);
-      res.locals.data = data;
-      console.log('User found');
-      return next();
-    })
-    .catch((err) => {
-      return next({
-        log: 'Error in userController.readUser',
-        status: 400,
-        message: { err: 'Error in userController.readUser' },
-      });
-    });
-};
+//   User.findOne(req.query)
+//     .then((data) => {
+//       console.log(data);
+//       res.locals.data = data;
+//       console.log('User found');
+//       return next();
+//     })
+//     .catch((err) => {
+//       return next({
+//         log: 'Error in userController.readUser',
+//         status: 400,
+//         message: { err: 'Error in userController.readUser' },
+//       });
+//     });
+// };
 
-userController.findAndUpdate = (req, res, next) => {
-  const { username, password, clientID, hostName, port } = req.body;
+// userController.findAndUpdate = (req, res, next) => {
+//   const { username, password, clientID, hostName, port } = req.body;
 
-  if (!Object.keys(req.query).length)
-    return next({
-      log: 'no user defined',
-      status: 400,
-      message: { err: 'no user defined' },
-    });
+//   if (!Object.keys(req.query).length)
+//     return next({
+//       log: 'no user defined',
+//       status: 400,
+//       message: { err: 'no user defined' },
+//     });
 
-  User.findOneAndUpdate(req.query, { password, clientID, hostName, port })
-    .then((data) => {
-      res.locals.data = data;
-      console.log('User updated');
-      return next();
-    })
+//   User.findOneAndUpdate(req.query, { password, clientID, hostName, port })
+//     .then((data) => {
+//       res.locals.data = data;
+//       console.log('User updated');
+//       return next();
+//     })
 
-    .catch((err) => {
-      return next({
-        log: 'Error in userController.findOneAndUpdate',
-        status: 400,
-        message: { err: 'Error in userController.findOneAndUpdate' },
-      });
-    });
-};
-userController.deletUser = (req, res, next) => {
-  if (!Object.keys(req.query).length)
-    return next({
-      log: 'no user defined',
-      status: 400,
-      message: { err: 'no user defined' },
-    });
+//     .catch((err) => {
+//       return next({
+//         log: 'Error in userController.findOneAndUpdate',
+//         status: 400,
+//         message: { err: 'Error in userController.findOneAndUpdate' },
+//       });
+//     });
+// };
 
-  User.deleteOne(req.query)
-    .then((data) => {
-      res.locals.data = data;
-      console.log('User deleted');
-      return next();
-    })
-    .catch((err) => {
-      return next({
-        log: 'Error in userController.deletUser',
-        status: 400,
-        message: { err: 'Error in userController.deletUser' },
-      });
-    });
-};
+// userController.deletUser = (req, res, next) => {
+//   if (!Object.keys(req.query).length)
+//     return next({
+//       log: 'no user defined',
+//       status: 400,
+//       message: { err: 'no user defined' },
+//     });
 
-userController.selfDestruct = (req, res, next) => {
-  User.deleteMany({})
-    .then((data) => {
-      res.locals.data = data;
-      console.log('databank has been nuked');
-      return next();
-    })
-    .catch((err) => {
-      return next({
-        log: 'Error in userController.selfDestruct',
-        status: 400,
-        message: { err: 'Error in userController.selfDestruct' },
-      });
-    });
-};
+//   User.deleteOne(req.query)
+//     .then((data) => {
+//       res.locals.data = data;
+//       console.log('User deleted');
+//       return next();
+//     })
+//     .catch((err) => {
+//       return next({
+//         log: 'Error in userController.deletUser',
+//         status: 400,
+//         message: { err: 'Error in userController.deletUser' },
+//       });
+//     });
+// };
+
+// userController.selfDestruct = (req, res, next) => {
+//   User.deleteMany({})
+//     .then((data) => {
+//       res.locals.data = data;
+//       console.log('databank has been nuked');
+//       return next();
+//     })
+//     .catch((err) => {
+//       return next({
+//         log: 'Error in userController.selfDestruct',
+//         status: 400,
+//         message: { err: 'Error in userController.selfDestruct' },
+//       });
+//     });
+// };
 
 userController.login = (req, res, next) => {
   const { username, password } = req.query;
@@ -129,11 +130,6 @@ userController.login = (req, res, next) => {
   User.findOne({ username })
     .then((data) => {
       data.passwordCheck(password, function (err, verifyTrueFalse) {
-        if (err) return next({
-          log: 'Error in passwordCheck',
-          status: 400,
-          message: { err: 'Error in passwordCheck' },
-        });
         if (verifyTrueFalse) res.locals.data = data;
         else res.locals.data = null;
         return next();
