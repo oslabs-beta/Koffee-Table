@@ -6,7 +6,7 @@
 KoffeeTable is a containerized Kafka visualization tool which allows developers to connect their running Kafka cluster and visualize both static and live data. There are a vast array of metrics that can be monitored to ensure efficiency of data pipelines using Kafka, however, it can be difficult to know which metrics are important and visualize these metrics in an intuitive way. KoffeeTable highlights 4 important metrics for Kafka cluster topics, including partition replicas, partition offsets, average lag time, and message velocity. It also displays messages in real-time as they are consumed.
 
 # Table of Contents
-- [Setup](#set-up)
+- [Setup](#setup)
 - [Connecting your cluster](#connecting-your-cluster)
 - [Using KoffeeTable](#using-koffeetable)
 - [Helpful documentation](#helpful-documentation)
@@ -15,10 +15,15 @@ KoffeeTable is a containerized Kafka visualization tool which allows developers 
 - [License Information](#license-information)
 - [Contributor Information](#contributor-information)
 
-# Set up
-In order to use KoffeeTable, you will first need to be running your Kafka cluster in a Docker container. Then, run the image on DockerHub:
+# Setup
+In order to use KoffeeTable, you will first need to be running your Kafka cluster in a Docker container. Then, in a terminal, run the KoffeeTable Docker image:
 <br />
-`docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer`
+- If you're using an M1 Mac: `docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer:dev`
+- Otherwise, run: `docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer:dev-amd64`
+
+Note: if you'd like to connect your MongoDB database, you can pass in your connection string as an environment variable into the command:
+<br />
+`docker run -p 3000:3000 -p 3001:3001 --env <YOUR ENV VARIABLE>=<YOUR MONGODB URI> koffeetable/kafka-visualizer:dev`
 
 # Connecting your cluster
 1. Navigate to `localhost:3000` to view the application.
