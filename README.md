@@ -16,14 +16,12 @@ KoffeeTable is a containerized Kafka visualization tool which allows developers 
 - [Contributor Information](#contributor-information)
 
 # Set up
-In order to use KoffeeTable, you will first need to be running your Kafka cluster in a Docker container.
-1. Pull the KoffeeTable image from DockerHub: 
-`docker image pull koffeetable`
-3. Run the image:
-`docker run koffeetable`
+In order to use KoffeeTable, you will first need to be running your Kafka cluster in a Docker container. Then, in a terminal, run the Docker image:
+<br />
+`docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer`
 
 # Connecting your cluster
-1. Navigate to port 3000 to view the application.
+1. Navigate to `localhost:3000` to view the application.
 2. Click on "Connect" to connect your Kafka cluster by entering its client ID, host name, and port name.
 <img width="800" alt="connect" src="https://user-images.githubusercontent.com/9859351/235729811-2dc16aaf-30c4-435c-9fa0-d58cbf7ed46e.png">
 3. Optionally, you can also click "Login" to either login or sign up with your connection credentials to have these, along with your username and password, saved.
