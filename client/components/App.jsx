@@ -9,6 +9,7 @@ import PartitionGraph from './main-pages/AllClusterOverview/ClusterOverview/Part
 import AllClusterOverview from './main-pages/AllClusterOverview/AllClusterOverview.jsx';
 import Login from './main-pages/userLogin/Login.jsx';
 import SignUp from './main-pages/userLogin/signUp.jsx';
+import Main from './main-pages/Main.jsx'
 import '../style.css';
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
     <div id='main'>
       <Navbar userInfo={userInfo} />
       <Routes>
+        <Route 
+        path='/'
+        element={<Main />}
+        />
         <Route
           path='/connect'
           element={

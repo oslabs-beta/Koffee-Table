@@ -40,7 +40,8 @@
   flex-direction: column;
   height: 99vh;
   padding-top: 1vh;
-  width: 300px;
+  width: 15vw;
+  min-width: 200px;
   background-color: rgb(30, 30, 30);
   position: sticky;
   top: 0px;
@@ -333,3 +334,17 @@ div#container.MuiPaper-root {
   border-radius: 10px; 
   background-color: #fad4a2;
 } 
+#homepage {
+  display: flex;
+  justify-content: space-around;
+  background-color: black;
+  background: url('https://cdn.leonardo.ai/users/6f7f7329-9dd5-4b6e-a528-2b6573bf3ec4/generations/60fd455c-eb65-4e29-b186-86649a4ee8df/Leonardo_Diffusion_screen_covered_with_coffee_beans_2.jpg');
+  background-size: cover;
+}
+
+#pic{
+  width: 85vw;
+  height: 100vh;
+  opacity: 0.8;
+  color: black;
+}
