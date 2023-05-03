@@ -8,6 +8,10 @@ RUN npm install
 
 COPY . . 
 
-EXPOSE 8080
+RUN npm run build
+
+EXPOSE 3000
+
+EXPOSE 3001
 
 CMD ["npm", "start"]

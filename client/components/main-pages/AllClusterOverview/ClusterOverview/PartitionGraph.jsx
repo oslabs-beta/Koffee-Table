@@ -156,13 +156,13 @@ function PartitionGraph({
   }, []);
 
   return (
-    <div className='graph-page'>
-      <Link className='back-to-topics' to='/overview'>
+    <div className="graph-page">
+      <Link className="back-to-topics" to="/overview">
         ← Back To Topics
       </Link>
-      <h2 className='topic-name'>{topic.name}</h2>
-      <div className='chart-layout'>
-        <div className='chart-wrapper'>
+      <h2 className="topic-name">{topic.name}</h2>
+      <div className="chart-layout">
+        <div className="chart-wrapper">
           <Pie
             data={partitionReplicasData(topic)}
             options={partitionReplicasOptions}

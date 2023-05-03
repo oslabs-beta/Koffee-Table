@@ -14,9 +14,8 @@ const consumerController = {};
 // global variables
 let consumer;
 
-
 //modular consumer connection and subscription
- async function connectConsumer(topic, userInfo){
+async function connectConsumer(topic, userInfo) {
   //connect and subscribe to kafka cluster
   const kafka = new Kafka({
     clientId: userInfo[0],
@@ -36,7 +35,7 @@ let consumer;
 consumerController.readMessages = async (consumer) => {
   try {
     // --------------------------------- //
-     //run consumer and broadcast messages
+    //run consumer and broadcast messages
     await consumer.run({
       eachMessage: async (result) => {
         io.emit(
@@ -87,8 +86,8 @@ io.on('connection', async (socket) => {
   //on socket disconnect, disconnect the consumer
   socket.on('disconnect', async () => {
     await consumer.disconnect();
-    console.log('consumer disconnected')
-  })
+    console.log('consumer disconnected');
+  });
 });
 
 module.exports = consumerController;
