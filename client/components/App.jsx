@@ -12,26 +12,23 @@ import SignUp from './main-pages/userLogin/signUp.jsx';
 import '../style.css';
 
 function App() {
-  // ML: connect function that connects to consumers and admin following the connect click
   const [connected, setConnected] = useState(false);
   const [topics, setTopics] = useState([]);
   const [currentTopic, setCurrentTopic] = useState();
   const [messages, setMessages] = useState({});
   const [brokers, setBrokers] = useState(null);
   const [offsets, setOffsets] = useState([]);
-  // userInfo: [clientId, hostName, port] -- change to object for Jonas :)
   const [userInfo, setUserInfo] = useState([]);
   const [liveLagTime, setLiveLagTime] = useState({});
   const [messageVelocity, setMessageVelocity] = useState({});
   const [time, setTime] = useState([0]);
 
-  console.log('topics: ', topics);
   return (
-    <div id="main">
+    <div id='main'>
       <Navbar userInfo={userInfo} />
       <Routes>
         <Route
-          path="/connect"
+          path='/connect'
           element={
             <Connect
               setConnected={setConnected}
@@ -43,28 +40,27 @@ function App() {
             />
           }
         />
-        <Route path="/login" element={<Login setUserInfo={setUserInfo} />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path='/login' element={<Login setUserInfo={setUserInfo} />} />
+        <Route path='/signUp' element={<SignUp />} />
         <Route
-          path="/displayPartition"
+          path='/displayPartition'
           element={
             <BasicClusterInfo
-              setTopics={setTopics}
               topics={topics}
               setBrokers={setBrokers}
               setUserInfo={setUserInfo}
               setCurrentTopic={setCurrentTopic}
+              connected={connected}
             />
           }
         />
 
-        <Route path="/test" element={<Test />} />
+        <Route path='/test' element={<Test />} />
 
         <Route
-          path="/messages"
+          path='/messages'
           element={
             <Messages
-              topics={topics}
               messages={messages}
               setMessages={setMessages}
               userInfo={userInfo}
@@ -73,7 +69,7 @@ function App() {
           }
         />
         <Route
-          path="/overview"
+          path='/overview'
           element={
             <AllClusterOverview
               topics={topics}
@@ -87,7 +83,7 @@ function App() {
           }
         />
         <Route
-          path="/overview/:topicFromURL"
+          path='/overview/:topicFromURL'
           element={
             <PartitionGraph
               topics={topics}

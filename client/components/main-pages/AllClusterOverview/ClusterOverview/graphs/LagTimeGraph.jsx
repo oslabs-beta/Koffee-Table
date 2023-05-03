@@ -2,13 +2,7 @@ import { Line } from 'react-chartjs-2';
 import React from 'react';
 
 export default function LagTimeGraph({ liveLagTime, time }) {
-  // console.log('liveLagTime: ', liveLagTime);
-  /* liveLagTime: 
-        {
-            0: [4, 5, 4] 
-            1: [6.33, 3, 2]
-        }, 
-    */
+
 
   const colors = [
     'rgba(255, 99, 132)',
@@ -37,8 +31,7 @@ export default function LagTimeGraph({ liveLagTime, time }) {
     return datasets;
   }
 
-  // populate new object with values for each partition
-  // {0: [4, 5], 1: [6.33, 4]}
+  
 
   const data = {
     // x-axis labels
@@ -63,10 +56,6 @@ export default function LagTimeGraph({ liveLagTime, time }) {
         suggestedMax: 12,
         title: {
           display: true,
-          // ticks: {
-          //   min: 10,
-          //   max: 40,
-          // },
           text: 'Lag Time (ms)',
         },
       },

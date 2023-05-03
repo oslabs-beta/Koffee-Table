@@ -13,15 +13,15 @@ import {
   LineElement,
   PointElement,
 } from 'chart.js';
-import { Pie, Bar, Line } from 'react-chartjs-2';
+import { Pie, Bar } from 'react-chartjs-2';
 import {
   partitionReplicasData,
   partitionReplicasOptions,
-} from '../../../../static-chart-data/partitionReplicas';
+} from './static-chart-data/partitionReplicas';
 import {
   partitionOffsetsData,
   partitionOffsetsOptions,
-} from '../../../../static-chart-data/partitionOffsets';
+} from './static-chart-data/partitionOffsets';
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
 import MessageVelocity from './graphs/MessageVelocity.jsx';
@@ -51,17 +51,7 @@ function PartitionGraph({
   topics,
 }) {
   const { topicFromURL } = useParams();
-  // console.log(topicFromUrl);\
   const topic = topics.filter((topic) => topic.name === topicFromURL)[0];
-
-  const unmount = () => {
-    clearInterval(intervalId);
-    setTime([0]);
-    setLiveLagTime({});
-    setMessageVelocity({});
-    console.log('disconnected');
-    socket.close();
-  };
 
   useEffect(() => {
     const socket = io('http://localhost:3001');

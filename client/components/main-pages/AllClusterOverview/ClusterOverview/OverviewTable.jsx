@@ -11,8 +11,8 @@ function createData(category, value) {
 }
 
 export default function OverviewTable({ topics, brokers }) {
-  // const { topics } = metadata;
-
+  
+  //calculates total number of partitions over all topics
   const totalPartitions = topics.reduce(
     (accumulator, topic) => accumulator + topic.partitions.length,
     0
@@ -21,7 +21,6 @@ export default function OverviewTable({ topics, brokers }) {
   const rows = [
     createData('Total Topics', topics.length),
     createData('Total Partitions', totalPartitions),
-    createData('Total Under-Replicated Partitions', 0),
   ];
 
   return (

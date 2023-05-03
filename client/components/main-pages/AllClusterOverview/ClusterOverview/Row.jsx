@@ -56,9 +56,6 @@ export default function Row({
 
   const handleConfirmClick = () => {
     setShowWarning(false);
-    //delete the topic from the database
-    //invoke a fetch request to the backend that deletes the topic
-    //and update the state;
     fetch('/deleteTopic', {
       method: 'POST',
       headers: {

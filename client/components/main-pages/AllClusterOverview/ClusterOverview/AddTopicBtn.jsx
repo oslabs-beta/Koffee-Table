@@ -14,13 +14,6 @@ export default function AddTopicBtn({ setTopics, userInfo }) {
   const [partitionNum, setPartitionNum] = useState('');
   const [error, setError] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,10 +52,10 @@ export default function AddTopicBtn({ setTopics, userInfo }) {
 
   return (
     <div id='add-topics'>
-      <Button variant='outlined' id='add-topics-btn' onClick={handleClickOpen}>
+      <Button variant='outlined' id='add-topics-btn' onClick={() => setOpen(true)}>
         + Add a New Topic
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Enter a topic name</DialogTitle>
         <DialogContent>
           <DialogContentText>

@@ -2,20 +2,21 @@ const { Kafka } = require('kafkajs');
 
 const adminController = {};
 
+//get metadate on initial connect
 adminController.connectAdmin = async (req, res, next) => {
   const { clientId, port, hostName, groupId } = req.body;
   const kafka = new Kafka({
-    clientId: clientId, // "my-app"
-    brokers: [`${hostName}:${port}`], // [Joes-Air:9092]
+    clientId: clientId, 
+    brokers: [`${hostName}:${port}`], 
   });
   const admin = kafka.admin();
   admin
     .connect()
     .then(async () => {
+      //fetches topic metadata shaped { topics: [ topicMetadata: {name, partition: [partitionErrorCode, partitionId, leader, replicas, isr]}] }
       const topics = await admin.fetchTopicMetadata();
-      // const partitions = await admin.fetchOffsets({groupId})
-      // console.log('partitions: ', partitions)
-      const brokers = await admin.describeCluster({ groupId: 'myapp' });
+      //returns list of brokers 
+      const brokers = await admin.describeCluster({ groupId: clientId });
       res.locals.brokers = brokers;
       res.locals.topics = topics;
       await admin.disconnect();
@@ -26,11 +27,8 @@ adminController.connectAdmin = async (req, res, next) => {
     });
 };
 
+//get total number of messages for each partition
 adminController.getOffsets = async (req, res, next) => {
-  // const kafka = new Kafka({
-  //   clientId: req.cookies.clientId,
-  //   brokers: [`${req.cookies.hostName}:${req.cookies.port}`],
-  // });
   const { clientId, port, hostName, topic } = req.body;
   const kafka = new Kafka({
     clientId: clientId,
@@ -45,6 +43,7 @@ adminController.getOffsets = async (req, res, next) => {
   return next();
 };
 
+//delete a topic on client cluster based on deleteTopic route
 adminController.deleteTopic = async (req, res, next) => {
   const { clientId, port, hostName, topic } = req.body;
   const kafka = new Kafka({
@@ -63,6 +62,7 @@ adminController.deleteTopic = async (req, res, next) => {
   return next();
 };
 
+//create a topic on client cluster based on createTopic route
 adminController.createTopic = async (req, res, next) => {
   const { clientId, port, hostName, topic, partitionNum } = req.body;
   const kafka = new Kafka({
@@ -80,6 +80,8 @@ adminController.createTopic = async (req, res, next) => {
       },
     ],
   });
+  
+  //grab all topics metadata to rerender on front end
   const topics = await admin.fetchTopicMetadata();
   res.locals.updatedTopics = topics
   await admin.disconnect();

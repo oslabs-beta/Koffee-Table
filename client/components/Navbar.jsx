@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../imgs/logo.png';
 
-function Navbar(props) {
+function Navbar({userInfo}) {
   return (
     <div className="navBar">
       <Link className="link partitionButton" id="nav-home" to="/">
         <img src={logo} alt="logo" className="logo-nav" />
       </Link>
 
-      {!props.userInfo[3] ? (
+      {/* no longer renders option to login if user is already logged in - userInfo[3] is username*/}
+      {!userInfo[3] ? (
         <Link className="link partitionButton" to="/login">
           Login
         </Link>
       ) : (
-        <p className="link linkMessage">Welcome, {props.userInfo[3]}!</p>
+        <p className="link linkMessage">Welcome, {userInfo[3]}!</p>
       )}
 
       <Link className="link" to="/connect">
@@ -28,10 +29,10 @@ function Navbar(props) {
       <Link className="link" to="/displayPartition">
         Live Messages
       </Link>
-
-      <Link className="link" to="/test">
+        
+      {/* <Link className="link" to="/test">
         Test
-      </Link>
+      </Link> */}
     </div>
   );
 }

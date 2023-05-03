@@ -8,17 +8,14 @@ const userRouter = require('./userRouter')
 const app = express();
 app.use(express.json());
 
-
+// -------entering code ----------------------- //
+//routes all requests to user
 app.use('/user', userRouter);
 
-
-
-//once we connect, save hostname and port as a cookie
+//on topic selection, connect to topic
 app.post(
   '/getCluster',
   adminController.connectAdmin,
-  // consumerController.connectConsumer, 
-  //cookieController.setCookie
   (req, res) => {
     return res
       .status(201)
@@ -29,23 +26,26 @@ app.post(
       });
   }
 );
-
+//get messages per partition -- change to get req queries/params
 app.post('/getOffsets', adminController.getOffsets, (req, res) => {
   return res.status(201).json(res.locals.offsets);
 });
 
+//create a topic on client cluster
 app.post('/createTopic', adminController.createTopic, (req, res) => {
   return res.status(201).json(res.locals.updatedTopics)
 })
 
+//deletes a topic on client cluster
 app.post('/deleteTopic', adminController.deleteTopic, (req, res) => {
   return res.status(201).json(res.locals.deletedTopic)
 })
-
-app.post('/', producerController.addMsg, (req, res) => {
+//create message for test tool
+app.post('/test', producerController.addMsg, (req, res) => {
   return res.sendStatus(201);
 });
 
+//serve main page in production mode
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
@@ -58,13 +58,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-
-//serve main page of application for dev mode
+// maintain page on refresh (React router)
 app.get('/*', (req, res) => { 
-  // res.sendFile(path.resolve(__dirname, '../client/index.html'));
-  res.redirect('/'); //delete this in production and revert to line above
+  res.redirect('/'); 
 });
 
+//global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',

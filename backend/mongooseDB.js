@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const URI = 'mongodb+srv://KoffeeTable:hrVYGnzwzprjzp4J@cluster0.0xvkesc.mongodb.net/test';
 const SALT_WORK_FACTOR = 12;
 
+//connect to database
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -14,6 +15,7 @@ mongoose.connect(URI, {
 
 const Schema = mongoose.Schema;
 
+//establish user schema
 const userSchema = new Schema({
   username: {type: String, required: true},
   password: {type: String, required: true},
@@ -22,6 +24,8 @@ const userSchema = new Schema({
   port: {type: Number, required: false},
 })
 
+
+//hash password on user creation before it is saved in database
 userSchema.pre('save', function(next){
   const user = this;
   bcrypt.genSalt(SALT_WORK_FACTOR, function(saltError, salt) {
@@ -42,14 +46,13 @@ userSchema.pre('save', function(next){
   })
 })
 
+//method to compare password on login
 userSchema.methods.passwordCheck = function(input, cb) {
   bcrypt.compare(input, this.password, function(err, result){
     if (err) return cb(err);
     return cb(null, result);
   })
 }
-
-
 
 const User = mongoose.model('users', userSchema);
 

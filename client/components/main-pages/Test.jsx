@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import { io } from 'socket.io-client';
+
 
 function Test() {
-  // const socket = io('http://localhost:3001');
-  // socket.on('connect', () => {
-  //   console.log(`You connected with id: ${socket.id}`);
-  //   socket.emit('test-event', 'finally all g');
-  // });
 
   let listen = false;
 
@@ -218,7 +212,7 @@ function Test() {
     //   socket.emit('test-event', input2);
     // });
 
-    fetch('/', {
+    fetch('/test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ input: input }),

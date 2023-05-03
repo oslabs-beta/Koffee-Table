@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function BasicClusterInfo(props) {
-  const { setTopics, topics, setCurrentTopic } = props;
-
-  let connected = false;
+function BasicClusterInfo({ connected, topics, setCurrentTopic }) {
   const renderTopics = [];
-  if (topics.length === 0) {
+  if (!connected) {
     renderTopics.push(<p className="topicLink">Not Connected</p>);
   } else {
-    connected = true;
     for (let i = 0; i < topics.length; i++) {
-      // console.log(
-      //   'here topics: ',
-      //   topics,
-      //   ' and here is topics[i]: ',
-      //   topics[i]
-      // );
       renderTopics.push(
         <Link
           className="topicLink"

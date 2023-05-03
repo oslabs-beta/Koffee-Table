@@ -1,28 +1,19 @@
 import React, { useState } from 'react';
-function Connect(props) {
+function Connect({setConnected,
+  connected,
+  userInfo,
+  setUserInfo,
+  setBrokers,
+  setTopics}) {
+
+  //state for keeping track of input field and feedback message display
   const [clientId, setclientId] = useState(null);
   const [hostName, setHostName] = useState(null);
   const [port, setPort] = useState(null);
-  const [conStatus, setConStatus] = useState(['none', 'none']);
-
- 
-
-  const {
-    setConnected,
-    connected,
-    userInfo,
-    setUserInfo,
-    setBrokers,
-    setTopics,
-  } = props;
+  const [conStatus, setConStatus] = useState('none');
 
   const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
-
-    console.log('this is userinfo', userInfo)
-    console.log("clientIdArg",clientIdArg)
-    console.log("hostNameArg",hostNameArg)
-    console.log("portArg",portArg)
-
+    setConStatus('none')
     fetch('/getCluster', {
       method: 'POST',
       headers: {
@@ -36,29 +27,24 @@ function Connect(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('this is data', data);
-        //do important stuff here
-        //error name in obj maight be a problem
+        //check to make sure an error object is not sent back
         if (!data.err) {
-          setConStatus(['none', 'block']);
-          // props.setMetadata(data.topics);
           setBrokers(data.brokers);
-
-          let topicArray = [];
-          for (let i = 0; i < data.topics.topics.length; i++) {
-            topicArray.push(data.topics.topics[i]);
-          }
+          
+          //populate topics state
+          setTopics(data.topics.topics);
+          
+          //populate user info without touching username
           const array = userInfo
           const args = [clientIdArg, hostNameArg, portArg]
           for (let i = 0; i < 3; i++) {
             array[i] = args[i]
           }
           setUserInfo(array)
-
-          setTopics(topicArray);
           setConnected(true);
         } else {
-          setConStatus(['block', 'none']);
+          //set state of feedback message (connection failed) which will be used to change the CSS on line 100 
+          setConStatus('block');
           setConnected(false);
         }
       })
@@ -94,7 +80,7 @@ function Connect(props) {
           >
             Submit
           </button>
-          {/* checks if user info is in state */}
+          {/* checks if user info is defined in state */}
           {userInfo.length ? (
             <button
               className="btn btnx sendUserClusterButton"
@@ -105,11 +91,8 @@ function Connect(props) {
               Connect with User Information
             </button>
           ) : null}
-          <p id="connectionStatus" style={{ display: conStatus[0] }}>
+          <p id="connectionStatus" style={{ display: conStatus }}>
             Connection Failed
-          </p>
-          <p id="connectionSuccess" style={{ display: conStatus[1] }}>
-            Connected!
           </p>
         </div>
       ) : (
