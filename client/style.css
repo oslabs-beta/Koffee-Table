@@ -1,29 +1,350 @@
 /* Front End Draft 1 */
-.wrapper{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
+* {
+  margin: 0px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.navBar{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 300px;
-    background-color: rgb(30, 30, 30);
-    margin-left: -10px;
-    margin-top: -10px;
+
+#main {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  background: #fed8b1;
+  /* background: radial-gradient(
+    circle,
+    rgba(221, 132, 78, 1) 0%,
+    rgba(129, 99, 85, 0.8519782913165266) 100%
+  ); */
 }
-.title{
-    text-align: center
+
+.connect {
+  width: 30%;
+  margin: auto;
 }
-.button{
-    margin-top: 35px;
-    width: 250px;
-    height: 45px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
-    border: none;
+
+.logo {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
-.button:hover{
-    opacity: .7;
+
+.logo-nav {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: column;
+  height: 99vh;
+  padding-top: 1vh;
+  width: 15vw;
+  min-width: 200px;
+  background-color: rgb(30, 30, 30);
+  position: sticky;
+  top: 0px;
+  bottom: auto;
+}
+
+#nav-home {
+  margin-top: 0px;
+}
+
+#title {
+  text-align: center;
+  margin: 20px;
+}
+.link {
+  text-align: center;
+  margin-top: 40px;
+
+  text-decoration: none;
+  color: white;
+}
+.linkMessage {
+  color: #d7af70;
+}
+
+.ConnectToCluster {
+  text-align: center;
+}
+.btn {
+  border-radius: 15px;
+  border: none;
+  width: 70%;
+  height: 3vw;
+  background-color: #d7af70;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn:hover {
+  opacity: 0.7;
+}
+
+.connectCluster {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto;
+  text-align: center;
+  align-items: stretch;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px 2px gray;
+  min-width: 200px;
+}
+
+.clusterWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: auto;
+  text-align: center;
+  align-items: stretch;
+  padding: 30px;
+  min-width: 200px;
+}
+
+.cluster-overview-wrapper {
+  margin: 30px;
+}
+
+.input {
+  padding: 0 5px;
+  border-radius: 15px;
+  border: solid 1px gray;
+  height: 50px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.submit-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topics {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#connectionStatus {
+  color: red;
+}
+
+.cluster-overview-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+div#container.MuiPaper-root {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  background-color: whitesmoke;
+}
+
+.overview {
+  background-color: #edbfc0;
+}
+
+.graph-page {
+  margin: 40px;
+}
+
+.topic-name {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.chart-layout {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chart-wrapper {
+  width: 30vw;
+  height: 30vh;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* loginPage Stuff */
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 350px;
+
+
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px 2px gray;
+  min-width: 200px;
+}
+
+#loginPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/80cbc72f-e016-4d2a-842a-0127db05e041/Vintage_Style_Photography_A_beautiful_background_for_a_website_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.login {
+  margin: 10px 0px;
+  padding: 5px 10px;
+  height: 3vh;
+  width: 300px;
+  border-radius: 1vw;
+}
+
+.login-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.signupUserData {
+  margin: 10px;
+  padding: 5px 10px;
+  margin: 3px;
+  height: 2vh;
+  border-radius: 1vw;
+}
+
+#fail {
+  color: red;
+}
+
+/* messages - topic stuff */
+.topicsWrapper {
+  text-align: center;
+  margin: 20px;
+  margin: auto;
+}
+.topicsWrapper::-webkit-scrollbar {
+  display: none;
+}
+.topicLink {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+.topic {
+  margin-top: 20px;
+  border: 1px black solid;
+  background-color: #d7af70;
+  border-radius: 15px;
+  width: 300px;
+}
+
+.topic:hover {
+  opacity: 0.7;
+}
+
+#partitionWrapper {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.partitionContainer {
+  background-color: #eddcbf;
+  width: 500px;
+  height: 500px;
+  margin: 15px;
+  border-radius: 40px;
+  overflow-y: scroll;
+}
+
+.partitionContainer::-webkit-scrollbar {
+  display: none;
+}
+
+#container {
+  background-color: #eddcbf;
+}
+.clusterWrapper {
+  margin: 0;
+  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/4d2b9a0c-773c-4326-83ff-3e33a084f2f0/Vintage_Style_Photography_A_beautiful_background_that_has_wood_0.jpg')
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#testTool {
+  margin: auto;
+  text-align: center;
+  display: grid;
+  gap: 75px;
+}
+
+.message {
+  padding: 10px;
+}
+
+#loginButton{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back-to-topics{
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black; 
+}
+
+#add-topics{
+  display: flex;
+  justify-content: right;
+}
+
+#add-topics-btn {
+  height: 3rem;
+  width: 12rem;
+  color: black;
+  border-color: black;
+  border-radius: 10px; 
+  background-color: #fad4a2;
+} 
+#homepage {
+  display: flex;
+  justify-content: space-around;
+  background-color: black;
+  background: url('https://cdn.leonardo.ai/users/6f7f7329-9dd5-4b6e-a528-2b6573bf3ec4/generations/60fd455c-eb65-4e29-b186-86649a4ee8df/Leonardo_Diffusion_screen_covered_with_coffee_beans_2.jpg');
+  background-size: cover;
+}
+
+#pic{
+  width: 85vw;
+  height: 100vh;
+  opacity: 0.8;
+  color: black;
 }

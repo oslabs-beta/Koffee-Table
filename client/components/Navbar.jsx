@@ -1,21 +1,38 @@
-import React, { useState, useEffect } from 'react';
-// import PartitionGraph from './PartitionGraph.jsx';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../imgs/logo.png';
 
-function Navbar() {
-  const connecter = () => {
-    //this is where we run the connect function that the other team has built
-    console.log('trying to connect...');
-  };
-
+function Navbar({userInfo}) {
   return (
-    <div className='wrapper'>
-      <div className='navBar'>
-        <button className='button connectButton' onClick={connecter}>
-          Connect to Kafka Cluster
-        </button>
-        <button className='button partitionButton'>Display Partitions</button>
-      </div>
-      <h1 className='title'>The Kafka Visualizer</h1>
+    <div className="navBar">
+      <Link className="link partitionButton" id="nav-home" to="/">
+        <img src={logo} alt="logo" className="logo-nav" />
+      </Link>
+
+      {/* no longer renders option to login if user is already logged in - userInfo[3] is username*/}
+      {!userInfo[3] ? (
+        <Link className="link partitionButton" to="/login">
+          Login
+        </Link>
+      ) : (
+        <p className="link linkMessage">Welcome, {userInfo[3]}!</p>
+      )}
+
+      <Link className="link" to="/connect">
+        Connect
+      </Link>
+
+      <Link className="link" to="/overview">
+        Kafka Cluster Overview
+      </Link>
+
+      <Link className="link" to="/displayPartition">
+        Live Messages
+      </Link>
+        
+      {/* <Link className="link" to="/test">
+        Test
+      </Link> */}
     </div>
   );
 }
