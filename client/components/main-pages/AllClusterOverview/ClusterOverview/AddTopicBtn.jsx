@@ -40,7 +40,6 @@ export default function AddTopicBtn({ setTopics, userInfo }) {
     })
       .then((res) => res.json())
       .then((updatedTopics) => {
-        console.log('updated Topics:', updatedTopics)
         let topicArray = [];
         for (let i = 0; i < updatedTopics.topics.length; i++) {
           topicArray.push(updatedTopics.topics[i]);

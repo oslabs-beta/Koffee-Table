@@ -15,8 +15,8 @@ mongoose
     useUnifiedTopology: true,
     dbName: 'Cluster0',
   })
-  .then(() => console.log('connected to mongooseDb'))
-  .catch((err) => console.log('error in connection to mongooseDB', err));
+  .then(() => console.log('connected to db'))
+  .catch((err) => console.log('error in connection to db', err));
 
 const Schema = mongoose.Schema;
 

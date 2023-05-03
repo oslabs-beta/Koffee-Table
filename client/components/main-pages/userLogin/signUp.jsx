@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 function SignUp() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -17,7 +16,7 @@ function SignUp() {
       setFeedback(['none', 'none', 'block']);
       return;
     }
-    if(!checkPassword(password)) return setFeedback(['block', 'none', 'none'])
+    if (!checkPassword(password)) return setFeedback(['block', 'none', 'none']);
 
     fetch('http://localhost:8080/user', {
       method: 'POST',
@@ -40,34 +39,36 @@ function SignUp() {
         }
         if (!data.err) {
           navigate('/login');
-        } 
+        }
       })
       .catch((err) => {
         console.log('error in Login', err);
       });
   };
 
-
   const checkPassword = (str) => {
-    console.log(str)
     if (str.length < 7) return false;
-    
+
     let includesNum = false;
     let includesCap = false;
     let includeSpecial = false;
 
     for (let i = 0; i < str.length; i++) {
-
-      if(str[i] % 1 === 0) includesNum = true;
+      if (str[i] % 1 === 0) includesNum = true;
       else {
-        if(!(97<=str[i].toLowerCase().charCodeAt(0) && str[i].toLowerCase().charCodeAt(0)<=122)) includeSpecial = true;
+        if (
+          !(
+            97 <= str[i].toLowerCase().charCodeAt(0) &&
+            str[i].toLowerCase().charCodeAt(0) <= 122
+          )
+        )
+          includeSpecial = true;
       }
-      if(str[i] !== str[i].toLowerCase()) includesCap = true;
+      if (str[i] !== str[i].toLowerCase()) includesCap = true;
     }
-    console.log(includesNum , includesCap , includeSpecial)
-    if(includesNum && includesCap && includeSpecial) return true;
+    if (includesNum && includesCap && includeSpecial) return true;
     return false;
-  }
+  };
 
   return (
     <div id="loginPage">
@@ -109,7 +110,8 @@ function SignUp() {
           Login
         </button>
         <div id="fail" className="feedback" style={{ display: feedback[0] }}>
-          Password must be at least 7 characters and include an uppercase letter, a number, and a special character.
+          Password must be at least 7 characters and include an uppercase
+          letter, a number, and a special character.
         </div>
         <div id="fail" className="feedback" style={{ display: feedback[1] }}>
           User already exists!

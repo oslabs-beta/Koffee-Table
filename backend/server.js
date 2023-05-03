@@ -1,9 +1,7 @@
 const express = require('express');
 const path = require('path');
-const producerController = require('../kafka/producer');
 const adminController = require('./controllers/adminController');
-const consumerController = require('./controllers/consumerController');
-const userRouter = require('./userRouter')
+const userRouter = require('./userRouter');
 
 const app = express();
 app.use(express.json());
@@ -13,19 +11,13 @@ app.use(express.json());
 app.use('/user', userRouter);
 
 //on topic selection, connect to topic
-app.post(
-  '/getCluster',
-  adminController.connectAdmin,
-  (req, res) => {
-    return res
-      .status(201)
-      .json({
-        topics: res.locals.topics,
-        consumer: res.locals.consumer,
-        brokers: res.locals.brokers,
-      });
-  }
-);
+app.post('/getCluster', adminController.connectAdmin, (req, res) => {
+  return res.status(201).json({
+    topics: res.locals.topics,
+    consumer: res.locals.consumer,
+    brokers: res.locals.brokers,
+  });
+});
 //get messages per partition -- change to get req queries/params
 app.post('/getOffsets', adminController.getOffsets, (req, res) => {
   return res.status(201).json(res.locals.offsets);
@@ -33,16 +25,12 @@ app.post('/getOffsets', adminController.getOffsets, (req, res) => {
 
 //create a topic on client cluster
 app.post('/createTopic', adminController.createTopic, (req, res) => {
-  return res.status(201).json(res.locals.updatedTopics)
-})
+  return res.status(201).json(res.locals.updatedTopics);
+});
 
 //deletes a topic on client cluster
 app.post('/deleteTopic', adminController.deleteTopic, (req, res) => {
-  return res.status(201).json(res.locals.deletedTopic)
-})
-//create message for test tool
-app.post('/test', producerController.addMsg, (req, res) => {
-  return res.sendStatus(201);
+  return res.status(201).json(res.locals.deletedTopic);
 });
 
 //serve main page in production mode
@@ -59,8 +47,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // maintain page on refresh (React router)
-app.get('/*', (req, res) => { 
-  res.redirect('/'); 
+app.get('/*', (req, res) => {
+  res.redirect('/');
 });
 
 //global error handler

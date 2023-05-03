@@ -17,7 +17,6 @@ let consumer;
 
 //modular consumer connection and subscription
  async function connectConsumer(topic, userInfo){
-  console.log('this is current topic', topic)
   //connect and subscribe to kafka cluster
   const kafka = new Kafka({
     clientId: userInfo[0],
@@ -40,9 +39,6 @@ consumerController.readMessages = async (consumer) => {
      //run consumer and broadcast messages
     await consumer.run({
       eachMessage: async (result) => {
-        console.log('this is result partition', result.partition);
-        console.log('result: ', result);
-
         io.emit(
           'broadcasting',
           result.message.value.toString(),
@@ -76,8 +72,6 @@ consumerController.lagTime = async (consumer, currentTopic) => {
 // --------------------------------------- //
 //receive connection from front end
 io.on('connection', async (socket) => {
-  console.log('here is socket.id: ', socket.id);
-
   //receive topic and user info from MESSAGES component
   socket.on('info-messages', async (result) => {
     consumer = await connectConsumer(result.topic, result.userInfo);

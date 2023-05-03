@@ -8,14 +8,12 @@ function Messages(props) {
   useEffect(() => {
     const socket = io('http://localhost:3001');
     socket.on('connect', () => {
-      console.log(`You connected with id: ${socket.id}`);
       socket.emit('info-messages', {
         topic: currentTopic,
         userInfo: userInfo,
       });
     });
     socket.on('broadcasting', (message, partition) => {
-      console.log('MESSAGE RECEIVED', message, 'on partition', partition);
       setMessages((prevState) => {
         const newObject = { ...prevState }; // shallow copy of the state object
         const topicMessages = newObject[partition] || []; // get the messages array for the topic or create a new one

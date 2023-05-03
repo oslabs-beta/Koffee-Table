@@ -56,7 +56,6 @@ function PartitionGraph({
   useEffect(() => {
     const socket = io('http://localhost:3001');
     socket.on('connect', () => {
-      console.log(`PartitionGraph: You connected with id: ${socket.id}`);
       socket.emit('info-graph', {
         topic: currentTopic,
         userInfo: userInfo,
