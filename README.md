@@ -18,12 +18,12 @@ KoffeeTable is a containerized Kafka visualization tool which allows developers 
 # Setup
 In order to use KoffeeTable, you will first need to be running your Kafka cluster in a Docker container. Then, in a terminal, run the KoffeeTable Docker image:
 <br />
-- If you're using an M1 Mac: `docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer:dev`
+- If you're using a Mac with Apple silicon: `docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer:dev`
 - Otherwise, run: `docker run -p 3000:3000 -p 3001:3001 koffeetable/kafka-visualizer:dev-amd64`
 
 Note: if you'd like to connect your MongoDB database, you can pass in your connection string as an environment variable into the command:
 <br />
-`docker run -p 3000:3000 -p 3001:3001 --env <YOUR ENV VARIABLE>=<YOUR MONGODB URI> koffeetable/kafka-visualizer:dev`
+`docker run -p 3000:3000 -p 3001:3001 --env URI=<YOUR MONGODB URI> koffeetable/kafka-visualizer:dev`
 
 # Connecting your cluster
 1. Navigate to `localhost:3000` to view the application.
