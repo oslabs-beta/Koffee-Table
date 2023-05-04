@@ -19,7 +19,7 @@ function SignUp() {
     }
     if(!checkPassword(password)) return setFeedback(['block', 'none', 'none'])
 
-    fetch('http://localhost:8080/user', {
+    fetch('/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
