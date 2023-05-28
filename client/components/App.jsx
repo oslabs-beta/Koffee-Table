@@ -35,8 +35,6 @@ function App() {
             path='/connect'
             element={
               <Connect
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
                 setConnected={setConnected}
                 connected={connected}
                 setBrokers={setBrokers}
