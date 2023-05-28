@@ -9,8 +9,9 @@ import PartitionGraph from './main-pages/AllClusterOverview/ClusterOverview/Part
 import AllClusterOverview from './main-pages/AllClusterOverview/AllClusterOverview.jsx';
 import Login from './main-pages/userLogin/Login.jsx';
 import SignUp from './main-pages/userLogin/signUp.jsx';
-import Main from './main-pages/Main.jsx'
+import Main from './main-pages/Main.jsx';
 import '../style.css';
+import { UserContext } from './UserContext.jsx';
 
 function App() {
   const [connected, setConnected] = useState(false);
@@ -27,84 +28,83 @@ function App() {
   return (
     <div id='main'>
       <Navbar userInfo={userInfo} />
-      <Routes>
-        <Route 
-        path='/'
-        element={<Main />}
-        />
-        <Route
-          path='/connect'
-          element={
-            <Connect
-              setConnected={setConnected}
-              connected={connected}
-              userInfo={userInfo}
-              setUserInfo={setUserInfo}
-              setBrokers={setBrokers}
-              setTopics={setTopics}
-            />
-          }
-        />
-        <Route path='/login' element={<Login setUserInfo={setUserInfo} />} />
-        <Route path='/signUp' element={<SignUp />} />
-        <Route
-          path='/displayPartition'
-          element={
-            <BasicClusterInfo
-              topics={topics}
-              setBrokers={setBrokers}
-              setUserInfo={setUserInfo}
-              setCurrentTopic={setCurrentTopic}
-              connected={connected}
-            />
-          }
-        />
+      <UserContext.Provider value={{ userInfo, setUserInfo }}>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route
+            path='/connect'
+            element={
+              <Connect
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                setConnected={setConnected}
+                connected={connected}
+                setBrokers={setBrokers}
+                setTopics={setTopics}
+              />
+            }
+          />
+          <Route path='/login' element={<Login setUserInfo={setUserInfo} />} />
+          <Route path='/signUp' element={<SignUp />} />
+          <Route
+            path='/displayPartition'
+            element={
+              <BasicClusterInfo
+                topics={topics}
+                setBrokers={setBrokers}
+                setUserInfo={setUserInfo}
+                setCurrentTopic={setCurrentTopic}
+                connected={connected}
+              />
+            }
+          />
 
-        <Route path='/test' element={<Test />} />
+          <Route path='/test' element={<Test />} />
 
-        <Route
-          path='/messages'
-          element={
-            <Messages
-              messages={messages}
-              setMessages={setMessages}
-              userInfo={userInfo}
-              currentTopic={currentTopic}
-            />
-          }
-        />
-        <Route
-          path='/overview'
-          element={
-            <AllClusterOverview
-              topics={topics}
-              setTopics={setTopics}
-              brokers={brokers}
-              offsets={offsets}
-              setOffsets={setOffsets}
-              userInfo={userInfo}
-              setCurrentTopic={setCurrentTopic}
-            />
-          }
-        />
-        <Route
-          path='/overview/:topicFromURL'
-          element={
-            <PartitionGraph
-              topics={topics}
-              offsets={offsets}
-              currentTopic={currentTopic}
-              userInfo={userInfo}
-              liveLagTime={liveLagTime}
-              setLiveLagTime={setLiveLagTime}
-              setMessageVelocity={setMessageVelocity}
-              messageVelocity={messageVelocity}
-              time={time}
-              setTime={setTime}
-            />
-          }
-        />
-      </Routes>
+          <Route
+            path='/messages'
+            element={
+              <Messages
+                messages={messages}
+                setMessages={setMessages}
+                userInfo={userInfo}
+                currentTopic={currentTopic}
+              />
+            }
+          />
+          <Route
+            path='/overview'
+            element={
+              <AllClusterOverview
+                topics={topics}
+                setTopics={setTopics}
+                brokers={brokers}
+                offsets={offsets}
+                setOffsets={setOffsets}
+                userInfo={userInfo}
+                setCurrentTopic={setCurrentTopic}
+              />
+            }
+          />
+          <Route
+            path='/overview/:topicFromURL'
+            element={
+              <PartitionGraph
+                topics={topics}
+                offsets={offsets}
+                currentTopic={currentTopic}
+                userInfo={userInfo}
+                liveLagTime={liveLagTime}
+                setLiveLagTime={setLiveLagTime}
+                setMessageVelocity={setMessageVelocity}
+                messageVelocity={messageVelocity}
+                time={time}
+                setTime={setTime}
+              />
+            }
+          />
+        </Routes>
+      </UserContext.Provider>
     </div>
   );
 }
