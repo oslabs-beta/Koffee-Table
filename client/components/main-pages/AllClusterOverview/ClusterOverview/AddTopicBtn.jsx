@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../../App.jsx';
 import {
   Button,
   Dialog,
@@ -8,12 +9,12 @@ import {
   TextField,
 } from '@mui/material';
 
-export default function AddTopicBtn({ setTopics, userInfo }) {
+export default function AddTopicBtn() {
+  const { setTopics, userInfo } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [topicName, setTopicName] = useState('');
   const [partitionNum, setPartitionNum] = useState('');
   const [error, setError] = useState('');
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,19 +41,23 @@ export default function AddTopicBtn({ setTopics, userInfo }) {
     })
       .then((res) => res.json())
       .then((updatedTopics) => {
-        console.log('updated Topics:', updatedTopics)
+        console.log('updated Topics:', updatedTopics);
         let topicArray = [];
         for (let i = 0; i < updatedTopics.topics.length; i++) {
           topicArray.push(updatedTopics.topics[i]);
         }
         setTopics(topicArray);
         setOpen(false);
-      })
+      });
   };
 
   return (
     <div id='add-topics'>
-      <Button variant='outlined' id='add-topics-btn' onClick={() => setOpen(true)}>
+      <Button
+        variant='outlined'
+        id='add-topics-btn'
+        onClick={() => setOpen(true)}
+      >
         + Add a New Topic
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)}>

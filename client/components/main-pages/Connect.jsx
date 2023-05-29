@@ -1,16 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../UserContext.jsx';
+import { UserContext } from '../App.jsx';
 
 function Connect({
   setConnected,
-  // userInfo,
-  // setUserInfo,
   connected,
   setBrokers,
   setTopics,
+  userInfo,
+  setUserInfo,
 }) {
-  const { userInfo, setUserInfo } = useContext(UserContext);
-
   //state for keeping track of input field and feedback message display
   const [clientId, setclientId] = useState(null);
   const [hostName, setHostName] = useState(null);

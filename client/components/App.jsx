@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Connect from './main-pages/Connect.jsx';
 import Navbar from './Navbar.jsx';
@@ -11,7 +11,8 @@ import Login from './main-pages/userLogin/Login.jsx';
 import SignUp from './main-pages/userLogin/signUp.jsx';
 import Main from './main-pages/Main.jsx';
 import '../style.css';
-import { UserContext } from './UserContext.jsx';
+
+export const UserContext = createContext();
 
 function App() {
   const [connected, setConnected] = useState(false);
@@ -28,7 +29,17 @@ function App() {
   return (
     <div id='main'>
       <Navbar userInfo={userInfo} />
-      <UserContext.Provider value={{ userInfo, setUserInfo }}>
+      <UserContext.Provider
+        value={{
+          topics,
+          setTopics,
+          brokers,
+          offsets,
+          setOffsets,
+          userInfo,
+          setCurrentTopic,
+        }}
+      >
         <Routes>
           <Route path='/' element={<Main />} />
           <Route
@@ -36,6 +47,8 @@ function App() {
             element={
               <Connect
                 setConnected={setConnected}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
                 connected={connected}
                 setBrokers={setBrokers}
                 setTopics={setTopics}
@@ -74,13 +87,13 @@ function App() {
             path='/overview'
             element={
               <AllClusterOverview
-                topics={topics}
-                setTopics={setTopics}
-                brokers={brokers}
-                offsets={offsets}
-                setOffsets={setOffsets}
-                userInfo={userInfo}
-                setCurrentTopic={setCurrentTopic}
+                // topics={topics}
+                // setTopics={setTopics}
+                // brokers={brokers}
+                // offsets={offsets}
+                // setOffsets={setOffsets}
+                // userInfo={userInfo}
+                // setCurrentTopic={setCurrentTopic}
               />
             }
           />

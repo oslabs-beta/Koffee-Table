@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { UserContext } from '../../../App.jsx';
 
 function createData(category, value) {
   return { category, value };
 }
 
-export default function OverviewTable({ topics, brokers }) {
-  
+export default function OverviewTable() {
+  const { topics } = useContext(UserContext);
+
   //calculates total number of partitions over all topics
   const totalPartitions = topics.reduce(
     (accumulator, topic) => accumulator + topic.partitions.length,
