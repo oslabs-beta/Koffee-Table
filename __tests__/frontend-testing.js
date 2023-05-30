@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Connect from '../client/components/Connect';
+import Connect from '../client/components/main-pages/Connect';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import Login from '../client/components/userLogin/Login';
 import Signup from '../client/components/userLogin/signUp';
-import Test from '../client/components/Test';
+import Test from '../client/components/main-pages/Test';
 import BasicClusterInfo from '../client/components/BasicClusterInfo';
 
 describe('correctly renders App', () => {
   describe('correctly render Connect', () => {
-    beforeEach(() => render(<Connect userInfo={[]} />));
+    beforeEach(() => render(<Connect userInfo={[]} />));R
 
     test('render correct number of input fields in Connect', async () => {
       const inputs = await screen.getAllByRole('textbox');
