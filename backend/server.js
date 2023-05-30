@@ -75,4 +75,4 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(3000, () => console.log('listening to 3000'));
+module.exports = app.listen(3000, () => console.log('listening to 3000'));

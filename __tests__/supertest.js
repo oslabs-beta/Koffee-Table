@@ -1,11 +1,11 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../backend/server');
-const partitionGraph = require('../client/components/PartitionGraph');
+// const partitionGraph = require('../client/components/main-pages/PartitionGraph');
 
-const { createServer } = require('http');
-const { Server } = require('socket.io');
-const Client = require('socket.io-client');
+// const { createServer } = require('http');
+// const { Server } = require('socket.io');
+// const Client = require('socket.io-client');
 
 describe('Route integration', () => {
   describe('/', () => {
