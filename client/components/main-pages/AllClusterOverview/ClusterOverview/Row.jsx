@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -20,6 +20,7 @@ import {
   Button,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../../App.jsx';
 
 const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
   fetch('/getOffsets', {
@@ -38,15 +39,9 @@ const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
     .then((offsets) => setOffsets(offsets));
 };
 
-export default function Row({
-  userInfo,
-  row,
-  setOffsets,
-  setCurrentTopic,
-  percent,
-  offsets,
-  setTopics,
-}) {
+export default function Row({ row, percent, offsets }) {
+  const { setOffsets, userInfo, setCurrentTopic, setTopics } =
+    useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const [showWarning, setShowWarning] = React.useState(false);
 
