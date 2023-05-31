@@ -1,7 +1,4 @@
 const request = require('supertest');
-const axios = require('axios');
-// const { graphqlHTTP } = require('express-graphql');
-// const { TopicMetadata, PartitionType, RootQueryType, schema } = require('../backend/server')
 const app = require('../backend/server');
 // const partitionGraph = require('../client/components/main-pages/PartitionGraph');
 

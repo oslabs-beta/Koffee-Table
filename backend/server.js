@@ -3,81 +3,14 @@ const path = require('path');
 const producerController = require('../kafka/producer');
 const adminController = require('./controllers/adminController');
 const userRouter = require('./userRouter');
-const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLInt,
-  GraphQLNonNull,
-} = require('graphql');
+const schema = require('./graphql-schemas')
 const { graphqlHTTP } = require('express-graphql');
 const app = express();
 app.use(express.json());
-const { Kafka } = require('kafkajs');
 
 // -------entering code ----------------------- //
 //routes all requests to user
 app.use('/user', userRouter);
-
-export const TopicMetadata = new GraphQLObjectType({
-  name: 'TopicMetadata',
-  description: 'List of all the topics from a Kafka cluster',
-  fields: () => ({
-    name: { type: GraphQLNonNull(GraphQLString) },
-    partitions: { type: new GraphQLList(PartitionType) },
-  }),
-});
-
-export const PartitionType = new GraphQLObjectType({
-  name: 'PartitionMetadata',
-  description: 'List of partition metadata from a Kafka Topic',
-  fields: () => ({
-    partitionErrorCode: { type: GraphQLInt },
-    partitionId: { type: GraphQLInt },
-    leader: { type: GraphQLInt },
-    offlineReplicas: { type: GraphQLList(GraphQLString) },
-    isr: { type: GraphQLList(GraphQLInt) },
-    replicas: { type: GraphQLList(GraphQLInt) },
-  }),
-});
-
-export const RootQueryType = new GraphQLObjectType({
-  name: 'Query',
-  description: 'Root Query',
-  fields: () => ({
-    topics: {
-      type: GraphQLList(TopicMetadata),
-      description: 'List of All Topics',
-      args: {
-        clientId: { type: GraphQLString },
-        port: { type: GraphQLInt },
-        hostName: { type: GraphQLString },
-      },
-      resolve: async (parent, args) => {
-        try {
-          const kafka = new Kafka({
-            clientId: args.clientId,
-            brokers: [`${args.hostName}:${args.port}`],
-          });
-          const admin = kafka.admin();
-          await admin.connect();
-          const metadata = await admin.fetchTopicMetadata();
-          await admin.disconnect();
-          return metadata.topics;
-        } catch (error) {
-          console.error(error);
-          throw error;
-        }
-      },
-    },
-  }),
-});
-
-// Construct a schema, using GraphQL schema language
-export const schema = new GraphQLSchema({
-  query: RootQueryType,
-});
 
 app.use(
   '/graphql',
