@@ -4,7 +4,7 @@ const adminController = {};
 
 //get metadate on initial connect
 adminController.connectAdmin = async (req, res, next) => {
-  const { clientId, port, hostName, groupId } = req.body;
+  const { clientId, port, hostName } = req.body;
   const kafka = new Kafka({
     clientId: clientId, 
     brokers: [`${hostName}:${port}`], 
@@ -34,7 +34,6 @@ adminController.getOffsets = async (req, res, next) => {
     clientId: clientId,
     brokers: [`${hostName}:${port}`],
   });
-
   const admin = kafka.admin();
   await admin.connect();
   const offsets = await admin.fetchTopicOffsets(topic);

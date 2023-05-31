@@ -2,30 +2,98 @@ const express = require('express');
 const path = require('path');
 const producerController = require('../kafka/producer');
 const adminController = require('./controllers/adminController');
-const consumerController = require('./controllers/consumerController');
-const userRouter = require('./userRouter')
-
+const userRouter = require('./userRouter');
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLList,
+  GraphQLInt,
+  GraphQLNonNull,
+} = require('graphql');
+const { graphqlHTTP } = require('express-graphql');
 const app = express();
 app.use(express.json());
+const { Kafka } = require('kafkajs');
 
 // -------entering code ----------------------- //
 //routes all requests to user
 app.use('/user', userRouter);
 
-//on topic selection, connect to topic
-app.post(
-  '/getCluster',
-  adminController.connectAdmin,
-  (req, res) => {
-    return res
-      .status(201)
-      .json({
-        topics: res.locals.topics,
-        consumer: res.locals.consumer,
-        brokers: res.locals.brokers,
-      });
-  }
+const TopicMetadata = new GraphQLObjectType({
+  name: 'TopicMetadata',
+  description: 'List of all the topics from a Kafka cluster',
+  fields: () => ({
+    name: { type: GraphQLNonNull(GraphQLString) },
+    partitions: { type: new GraphQLList(PartitionType) },
+  }),
+});
+
+const PartitionType = new GraphQLObjectType({
+  name: 'PartitionMetadata',
+  description: 'List of partition metadata from a Kafka Topic',
+  fields: () => ({
+    partitionErrorCode: { type: GraphQLInt },
+    partitionId: { type: GraphQLInt },
+    leader: { type: GraphQLInt },
+    offlineReplicas: { type: GraphQLList(GraphQLString) },
+    isr: { type: GraphQLList(GraphQLInt) },
+    replicas: { type: GraphQLList(GraphQLInt) },
+  }),
+});
+
+const RootQueryType = new GraphQLObjectType({
+  name: 'Query',
+  description: 'Root Query',
+  fields: () => ({
+    topics: {
+      type: GraphQLList(TopicMetadata),
+      description: 'List of All Topics',
+      args: {
+        clientId: { type: GraphQLString },
+        port: { type: GraphQLInt },
+        hostName: { type: GraphQLString },
+      },
+      resolve: async (parent, args) => {
+        try {
+          const kafka = new Kafka({
+            clientId: args.clientId,
+            brokers: [`${args.hostName}:${args.port}`],
+          });
+          const admin = kafka.admin();
+          await admin.connect();
+          const metadata = await admin.fetchTopicMetadata();
+          await admin.disconnect();
+          return metadata.topics;
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      },
+    },
+  }),
+});
+
+// Construct a schema, using GraphQL schema language
+const schema = new GraphQLSchema({
+  query: RootQueryType,
+});
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true,
+  })
 );
+
+//on topic selection, connect to topic
+app.post('/getCluster', adminController.connectAdmin, (req, res) => {
+  return res.status(201).json({
+    topics: res.locals.topics,
+    brokers: res.locals.brokers,
+  });
+});
 //get messages per partition -- change to get req queries/params
 app.post('/getOffsets', adminController.getOffsets, (req, res) => {
   return res.status(201).json(res.locals.offsets);
@@ -33,13 +101,13 @@ app.post('/getOffsets', adminController.getOffsets, (req, res) => {
 
 //create a topic on client cluster
 app.post('/createTopic', adminController.createTopic, (req, res) => {
-  return res.status(201).json(res.locals.updatedTopics)
-})
+  return res.status(201).json(res.locals.updatedTopics);
+});
 
 //deletes a topic on client cluster
 app.post('/deleteTopic', adminController.deleteTopic, (req, res) => {
-  return res.status(201).json(res.locals.deletedTopic)
-})
+  return res.status(201).json(res.locals.deletedTopic);
+});
 //create message for test tool
 app.post('/test', producerController.addMsg, (req, res) => {
   return res.sendStatus(201);
@@ -59,8 +127,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // maintain page on refresh (React router)
-app.get('/*', (req, res) => { 
-  res.redirect('/'); 
+app.get('/*', (req, res) => {
+  // res.redirect('/');
+  res.sendStatus(200); //delete this in production and revert to line above
 });
 
 //global error handler

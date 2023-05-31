@@ -39,6 +39,8 @@
     "chart.js": "^4.2.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.3.0",
     "jest-environment-jsdom": "^29.5.0",
     "kafkajs": "^2.2.4",
     "mobx-react": "^7.6.0",
