@@ -20,7 +20,7 @@ const { Kafka } = require('kafkajs');
 //routes all requests to user
 app.use('/user', userRouter);
 
-const TopicMetadata = new GraphQLObjectType({
+export const TopicMetadata = new GraphQLObjectType({
   name: 'TopicMetadata',
   description: 'List of all the topics from a Kafka cluster',
   fields: () => ({
@@ -29,7 +29,7 @@ const TopicMetadata = new GraphQLObjectType({
   }),
 });
 
-const PartitionType = new GraphQLObjectType({
+export const PartitionType = new GraphQLObjectType({
   name: 'PartitionMetadata',
   description: 'List of partition metadata from a Kafka Topic',
   fields: () => ({
@@ -42,7 +42,7 @@ const PartitionType = new GraphQLObjectType({
   }),
 });
 
-const RootQueryType = new GraphQLObjectType({
+export const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
   fields: () => ({
@@ -75,7 +75,7 @@ const RootQueryType = new GraphQLObjectType({
 });
 
 // Construct a schema, using GraphQL schema language
-const schema = new GraphQLSchema({
+export const schema = new GraphQLSchema({
   query: RootQueryType,
 });
 

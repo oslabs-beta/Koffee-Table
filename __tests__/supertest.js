@@ -1,4 +1,7 @@
 const request = require('supertest');
+const axios = require('axios');
+// const { graphqlHTTP } = require('express-graphql');
+// const { TopicMetadata, PartitionType, RootQueryType, schema } = require('../backend/server')
 const app = require('../backend/server');
 // const partitionGraph = require('../client/components/main-pages/PartitionGraph');
 
@@ -49,60 +52,88 @@ describe('Route integration', () => {
     let response;
     let topic = generateString(6);
     beforeEach(async () => {
-      response = await(request(app).post('/getCluster').send({
+      response = await request(app).post('/getCluster').send({
         clientId: 'myapp',
         port: 9092,
         hostName: 'Matt-XPS',
         topic: topic,
-        partitionNum: 5
-      }))
-    })
+        partitionNum: 5,
+      });
+    });
 
-    test('a new cluster is created with a 201 status code', async() => {
+    test('a new cluster is created with a 201 status code', async () => {
       expect(response.statusCode).toEqual(201);
-    })
-  })
+    });
+  });
 });
 
-  // describe('Creates and deletes a topic', async () => {
-  //   let groupId, consumer, admin
-  //   let topic = generateString(6);
-  //   beforeEach(() => {})
+describe('GraphQL', () => {
+  let topicNames = JSON.stringify({
+    data: {
+      topics: [
+        { name: 'testTopic' },
+        { name: 'TestTopic' },
+        { name: '__consumer_offsets' },
+      ],
+    },
+  });
+  test('Fetch topics', async () => {
+    const response = await request(app)
+      .post('/graphql')
+      .send({
+        query: `
+        query { 
+          topics(clientId:"myapp", hostName:"Matt-XPS", port:9092) {
+            name,
+          }
+        }
+      `,
+      });
 
-  //   test('creates a topic and return the list of updated topics', async() => {
-  //     response = await request(app).post('/createTopic').send({
-  //       clientId: 'myapp',
-  //       port: 9092,
-  //       hostName: 'Matt-XPS',
-  //       topic: topic,
-  //       partitionNum: 5
-  //     })
-  //   })
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toEqual(topicNames);
+  });
+});
 
-  // })
+// describe('Creates and deletes a topic', async () => {
+//   let groupId, consumer, admin
+//   let topic = generateString(6);
+//   beforeEach(() => {})
 
-  // describe('POST', () => {
-  //   beforeAll(async () => {
-  //     //create a topic
-  //     response = await request(app).post('/createTopic').send({
-  //       clientId: 'myapp',
-  //       port: 9092,
-  //       hostName: 'Matt-XPS',
-  //       topic: generateString(6),
-  //       partitionNum: 5
-  //     });
-  //   });
+//   test('creates a topic and return the list of updated topics', async() => {
+//     response = await request(app).post('/createTopic').send({
+//       clientId: 'myapp',
+//       port: 9092,
+//       hostName: 'Matt-XPS',
+//       topic: topic,
+//       partitionNum: 5
+//     })
+//   })
 
-  //   afterAll(async () => {
-  //     // Closing the DB connection allows Jest to exit successfully.
-  //     await request(app).post('/deleteTopic').send({
-  //       clientId: 'myapp',
-  //       port: 9092,
-  //       hostName: 'Matt-XPS',
-  //       topic: 'newTopic',
-  //     });
-  //     app.close();
-  //   });
+// })
+
+// describe('POST', () => {
+//   beforeAll(async () => {
+//     //create a topic
+//     response = await request(app).post('/createTopic').send({
+//       clientId: 'myapp',
+//       port: 9092,
+//       hostName: 'Matt-XPS',
+//       topic: generateString(6),
+//       partitionNum: 5
+//     });
+//   });
+
+//   afterAll(async () => {
+//     // Closing the DB connection allows Jest to exit successfully.
+//     await request(app).post('/deleteTopic').send({
+//       clientId: 'myapp',
+//       port: 9092,
+//       hostName: 'Matt-XPS',
+//       topic: 'newTopic',
+//     });
+//     app.close();
+//   });
 
 //     describe('/getOffsets', () => {
 //       beforeAll((done) => {
