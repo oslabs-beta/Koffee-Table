@@ -8,6 +8,17 @@ const {
     GraphQLNonNull,
 } = require('graphql');
 
+const OffsetsData = new GraphQLObjectType({
+  name: 'OffsetMetaData',
+  description: 'Offset data for a topic',
+  fields: () => ({
+    partition: { type: GraphQLInt },
+    offset: {type: GraphQLString },
+    high: {type: GraphQLString },
+    low: {type: GraphQLString },
+  })
+})
+
 const TopicMetadata = new GraphQLObjectType({
     name: 'TopicMetadata',
     description: 'List of all the topics from a Kafka cluster',
@@ -97,13 +108,39 @@ const TopicMetadata = new GraphQLObjectType({
             await admin.connect();
             const brokers = await admin.describeCluster({ groupId: args.clientId });
             await admin.disconnect();
-            console.log(brokers)
             return brokers;
           } catch (error) {
             console.error(error);
             throw error;
           }
         },
+      },
+      offsets: {
+        type: GraphQLList(OffsetsData),
+        description: "List of Offset Metadata for A Topic",
+        args: {
+          clientId: { type: GraphQLString },
+          port: { type: GraphQLInt },
+          hostName: { type: GraphQLString },
+          topic: { type: GraphQLString }
+        },
+        resolve: async(parent, args) => {
+          try {
+            const kafka = new Kafka({
+              clientId: args.clientId,
+              brokers: [`${args.hostName}:${args.port}`],
+            });
+            const admin = kafka.admin();
+            await admin.connect();
+            const offsets = await admin.fetchTopicOffsets(args.topic);
+            await admin.disconnect();
+            return offsets;
+          }
+          catch (error) {
+            console.error(error);
+            throw error;
+          }
+        }
       }
     }),
   });

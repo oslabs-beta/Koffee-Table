@@ -72,6 +72,26 @@ describe('GraphQL', () => {
         { name: 'TestTopic' },
         { name: '__consumer_offsets' },
       ],
+      "brokers": {
+        "brokers": [
+          {
+            "nodeId": 2,
+            "host": "MATT-XPS",
+            "port": 9093
+          },
+          {
+            "nodeId": 3,
+            "host": "MATT-XPS",
+            "port": 9094
+          },
+          {
+            "nodeId": 1,
+            "host": "MATT-XPS",
+            "port": 9092
+          }
+        ],
+        "controller": 3
+      }
     },
   });
   test('Fetch topics', async () => {
@@ -82,6 +102,14 @@ describe('GraphQL', () => {
         query { 
           topics(clientId:"myapp", hostName:"Matt-XPS", port:9092) {
             name,
+          }
+          brokers(clientId:"myapp", hostName:"Matt-XPS", port:9092) {
+            brokers {
+              nodeId,
+              host,
+              port
+            }
+            controller
           }
         }
       `,
