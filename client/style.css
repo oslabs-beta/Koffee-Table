@@ -292,8 +292,8 @@ div#container.MuiPaper-root {
 }
 .clusterWrapper {
   margin: 0;
-  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/4d2b9a0c-773c-4326-83ff-3e33a084f2f0/Vintage_Style_Photography_A_beautiful_background_that_has_wood_0.jpg')
-    no-repeat center center fixed;
+  /* background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/4d2b9a0c-773c-4326-83ff-3e33a084f2f0/Vintage_Style_Photography_A_beautiful_background_that_has_wood_0.jpg')
+    no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -327,13 +327,11 @@ div#container.MuiPaper-root {
 }
 
 #add-topics-btn {
-  height: 3rem;
-  width: 12rem;
   color: black;
-  border-color: black;
-  border-radius: 10px; 
-  background-color: #fad4a2;
+  border-color: lightgray; 
+  background-color: whitesmoke;
 } 
+
 #homepage {
   display: flex;
   justify-content: space-around;

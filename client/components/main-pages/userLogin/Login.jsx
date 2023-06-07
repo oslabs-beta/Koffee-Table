@@ -9,7 +9,6 @@ function Login({ setUserInfo }) {
   const [password, setPassword] = useState(null);
   const [feedback, setFeedback] = useState(['none', 'none']);
 
-
   const login = () => {
     setFeedback(['none', 'none']);
 
@@ -18,7 +17,8 @@ function Login({ setUserInfo }) {
       .then((data) => {
         if (!data) setFeedback(['none', 'block']);
         else {
-          setUserInfo([data.clientID, data.hostName, data.port, username]);
+          const { clientId, hostName, port } = data;
+          setUserInfo({ clientId, hostName, port, username });
           setFeedback(['block', 'none']);
           navigate('/connect');
         }

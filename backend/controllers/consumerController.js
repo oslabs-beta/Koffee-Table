@@ -20,8 +20,8 @@ let consumer;
   console.log('this is current topic', topic)
   //connect and subscribe to kafka cluster
   const kafka = new Kafka({
-    clientId: userInfo[0],
-    brokers: [`${userInfo[1]}:${userInfo[2]}`],
+    clientId: userInfo.clientId,
+    brokers: [`${userInfo.hostName}:${userInfo.port}`],
   });
   const consumer = await kafka.consumer({ groupId: 'test1' });
   await consumer.connect();

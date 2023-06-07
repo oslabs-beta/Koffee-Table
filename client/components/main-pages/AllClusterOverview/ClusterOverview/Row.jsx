@@ -29,9 +29,9 @@ const getOffsetsOnLink = (topic, userInfo, setOffsets) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      clientId: userInfo[0],
-      hostName: userInfo[1],
-      port: userInfo[2],
+      clientId: userInfo.clientId,
+      hostName: userInfo.hostName,
+      port: userInfo.port,
       topic: topic,
     }),
   })
@@ -57,9 +57,9 @@ export default function Row({ row, percent, offsets }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientId: userInfo[0],
-        hostName: userInfo[1],
-        port: userInfo[2],
+        clientId: userInfo.clientId,
+        hostName: userInfo.hostName,
+        port: userInfo.port,
         topic: row.name,
       }),
     })

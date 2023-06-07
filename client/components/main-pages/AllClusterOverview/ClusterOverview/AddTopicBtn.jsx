@@ -32,9 +32,9 @@ export default function AddTopicBtn() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientId: userInfo[0],
-        hostName: userInfo[1],
-        port: userInfo[2],
+        clientId: userInfo.clientId,
+        hostName: userInfo.hostName,
+        port: userInfo.port,
         topic: topicName,
         partitionNum: partitionNum,
       }),

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 
-
 function Test() {
-
   let listen = false;
 
   const button1 = () => {

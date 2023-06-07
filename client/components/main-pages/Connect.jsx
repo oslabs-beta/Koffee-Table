@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../App.jsx';
 
 function Connect({
   setConnected,
@@ -38,15 +37,14 @@ function Connect({
           setTopics(data.topics.topics);
 
           //populate user info without touching username
-          const array = userInfo;
-          const args = [clientIdArg, hostNameArg, portArg];
-          for (let i = 0; i < 3; i++) {
-            array[i] = args[i];
-          }
-          setUserInfo(array);
+          setUserInfo({
+            clientId,
+            hostName,
+            port,
+          });
           setConnected(true);
         } else {
-          //set state of feedback message (connection failed) which will be used to change the CSS on line 100
+          //set state of feedback message (connection failed)
           setConStatus('block');
           setConnected(false);
         }
@@ -58,27 +56,27 @@ function Connect({
   };
 
   return (
-    <div className='clusterWrapper'>
+    <div className="clusterWrapper">
       {!connected ? (
-        <div className='connectCluster'>
+        <div className="connectCluster">
           <h1>Connect to Kafka Cluster</h1>
           <input
-            placeholder='Client ID'
-            className=' input ClientId'
+            placeholder="Client ID"
+            className=" input ClientId"
             onKeyUp={(v) => setclientId(v.target.value)}
           ></input>
           <input
-            placeholder='Host Name'
-            className=' input hostName'
+            placeholder="Host Name"
+            className=" input hostName"
             onKeyUp={(v) => setHostName(v.target.value)}
           ></input>
           <input
-            placeholder='Port'
-            className=' input Port'
+            placeholder="Port"
+            className=" input Port"
             onKeyUp={(v) => setPort(v.target.value)}
           ></input>
           <button
-            className='btn btnx sendClusterButton'
+            className="btn btnx sendClusterButton"
             onClick={() => sendClusterData(clientId, hostName, port)}
           >
             Submit
@@ -86,20 +84,24 @@ function Connect({
           {/* checks if user info is defined in state */}
           {userInfo.length ? (
             <button
-              className='btn btnx sendUserClusterButton'
+              className="btn btnx sendUserClusterButton"
               onClick={() =>
-                sendClusterData(userInfo[0], userInfo[1], userInfo[2])
+                sendClusterData(
+                  userInfo.clientId,
+                  userInfo.hostName,
+                  userInfo.port
+                )
               }
             >
               Connect with User Information
             </button>
           ) : null}
-          <p id='connectionStatus' style={{ display: conStatus }}>
+          <p id="connectionStatus" style={{ display: conStatus }}>
             Connection Failed
           </p>
         </div>
       ) : (
-        <div className='form-wrapper' id='connectionSuccess'>
+        <div className="form-wrapper" id="connectionSuccess">
           Connected
         </div>
       )}

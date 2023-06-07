@@ -10,7 +10,7 @@ import BasicClusterInfo from '../client/components/main-pages/BasicClusterInfo/B
 
 describe('correctly renders App', () => {
   describe('correctly render Connect', () => {
-    beforeEach(() => render(<Connect userInfo={[]} />));
+    beforeEach(() => render(<Connect userInfo={{}} />));
 
     test('render correct number of input fields in Connect', async () => {
       const inputs = await screen.getAllByRole('textbox');
