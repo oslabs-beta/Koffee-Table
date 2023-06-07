@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Connect from '../client/components/Connect';
+import Connect from '../client/components/main-pages/Connect';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import Login from '../client/components/userLogin/Login';
-import Signup from '../client/components/userLogin/signUp';
-import Test from '../client/components/Test';
-import BasicClusterInfo from '../client/components/BasicClusterInfo';
+import Login from '../client/components/main-pages/userLogin/Login';
+import Signup from '../client/components/main-pages/userLogin/signUp';
+import Test from '../client/components/main-pages/Test';
+import BasicClusterInfo from '../client/components/main-pages/BasicClusterInfo/BasicClusterInfo';
 
 describe('correctly renders App', () => {
   describe('correctly render Connect', () => {
@@ -65,7 +65,13 @@ describe('correctly renders App', () => {
   });
 
   describe('correctly render Signup', () => {
-    beforeEach(() => render(<Signup />));
+    beforeEach(() =>
+      render(
+        <MemoryRouter>
+          <Signup />
+        </MemoryRouter>
+      )
+    );
 
     test('correctly renders input fields in Signup', async () => {
       // check username exists
