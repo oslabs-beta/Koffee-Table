@@ -9,7 +9,7 @@ const kafka = new Kafka({
   brokers: ['Joes-Air:9092'],
 });
 
-const topic = 'test-topic3';
+const topic = 'test-topic6';
 const producer = kafka.producer();
 
 const getRandomNumber = () => Math.round(Math.random(10) * 100);

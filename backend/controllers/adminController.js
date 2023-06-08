@@ -2,7 +2,7 @@ const { Kafka } = require('kafkajs');
 
 const adminController = {};
 
-//get metadate on initial connect
+//get cluster metadata on initial connect
 adminController.connectAdmin = async (req, res, next) => {
   const { clientId, port, hostName, groupId } = req.body;
   const kafka = new Kafka({
