@@ -206,8 +206,8 @@ div#container.MuiPaper-root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/80cbc72f-e016-4d2a-842a-0127db05e041/Vintage_Style_Photography_A_beautiful_background_for_a_website_0.jpg')
-    no-repeat center center fixed;
+  /* background: url('https://cdn.leonardo.ai/users/bc7d7179-a53a-4e3c-be93-c91a2128ab7c/generations/80cbc72f-e016-4d2a-842a-0127db05e041/Vintage_Style_Photography_A_beautiful_background_for_a_website_0.jpg')
+    no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -339,7 +339,7 @@ div#container.MuiPaper-root {
   display: flex;
   justify-content: space-around;
   background-color: black;
-  background: url('https://cdn.leonardo.ai/users/6f7f7329-9dd5-4b6e-a528-2b6573bf3ec4/generations/60fd455c-eb65-4e29-b186-86649a4ee8df/Leonardo_Diffusion_screen_covered_with_coffee_beans_2.jpg');
+  /* background: url('https://cdn.leonardo.ai/users/6f7f7329-9dd5-4b6e-a528-2b6573bf3ec4/generations/60fd455c-eb65-4e29-b186-86649a4ee8df/Leonardo_Diffusion_screen_covered_with_coffee_beans_2.jpg'); */
   background-size: cover;
 }
 
