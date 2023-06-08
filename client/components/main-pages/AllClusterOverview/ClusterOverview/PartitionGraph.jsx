@@ -25,6 +25,11 @@ import {
 import { io } from 'socket.io-client';
 import LagTimeGraph from './graphs/LagTimeGraph.jsx';
 import MessageVelocity from './graphs/MessageVelocity.jsx';
+import {
+  calcLagTimeAverages,
+  calcMessageVelocity,
+  populateLiveMetricArrays,
+} from '../../../../utils/metricsCalculations';
 
 ChartJS.register(
   ArcElement,
@@ -69,77 +74,48 @@ function PartitionGraph({
 
     socket.on('message-received', (partition, lagTime) => {
       //handle abnormal lagtimes from initial connection
-      if (lagTime > 100) {
-        lagTime = 0;
-      }
-      if (!lagTimesPartitions[partition]) {
+      // if (lagTime > 100) {
+      //   lagTime = 0;
+      // }
+      // build out object for lagtimes per partition {0: [], 1: [3, 6, 7], 2: }
+      if (!lagTimesPartitions[partition])
         lagTimesPartitions[partition] = [lagTime];
-      } else {
-        lagTimesPartitions[partition].push(lagTime);
-      }
+      else lagTimesPartitions[partition].push(lagTime);
     });
 
-    // ---------------------------------------------------- //
     // interval every 3 seconds to update lag time and velocity
     const intervalId = setInterval(() => {
-      //average lagtimepartition arrays after 3 seconds
-      for (const key in lagTimesPartitions) {
-        let average = 0;
-        let array = lagTimesPartitions[key];
-        array.forEach((element) => {
-          average += element;
-        });
-        console.log('average', average);
-        average = average / lagTimesPartitions[key].length;
-        lagTimeAverages[key] = average;
-        currentMessageVelocity[key] = lagTimesPartitions[key].length;
-      }
+      let lagTimeAveragesInterval = lagTimeAverages;
+      let currentMessageVelocityInterval = currentMessageVelocity;
 
-      //loop to add 0 values to partitions with no messages in the current interval
+      // calculate averages and velocity
+      calcLagTimeAverages(lagTimeAverages, lagTimesPartitions);
+      calcMessageVelocity(currentMessageVelocity, lagTimesPartitions);
+
+      //add undefined to partitions with no messages in the current interval
       for (let i = 0; i < currentTopic.partitions.length; i++) {
         if (!lagTimeAverages[i]) lagTimeAverages[i] = undefined;
         if (!currentMessageVelocity[i]) currentMessageVelocity[i] = undefined;
       }
 
-      //set state for lag time
-      let temp = lagTimeAverages;
-      setLiveLagTime((prevState) => {
-        const newObject = { ...prevState };
-        for (let partition in temp) {
-          let array = newObject[partition] || [];
-          let updateArray = [...array, temp[partition]];
-          if (updateArray.length > 10) {
-            updateArray.shift();
-          }
-          newObject[partition] = updateArray;
-        }
-        return newObject;
-      });
+      //set state for lag time and velocity
+      setLiveLagTime((prevState) =>
+        populateLiveMetricArrays(prevState, lagTimeAveragesInterval)
+      );
+      setMessageVelocity((prevState) =>
+        populateLiveMetricArrays(prevState, currentMessageVelocityInterval)
+      );
 
-      //set state for velocity
-      let temp2 = currentMessageVelocity;
-      setMessageVelocity((prevState) => {
-        const newObject = { ...prevState };
-        for (const key in temp2) {
-          let array = newObject[key] || [];
-          let updateArray = [...array, temp2[key]];
-          if (updateArray.length > 10) {
-            updateArray.shift();
-          }
-          newObject[key] = updateArray;
-        }
-        return newObject;
-      });
-
+      // set current time interval from start
       setTime((prevState) => {
-        let array = [...prevState, prevState[prevState.length - 1] + 3];
-        if (array.length > 10) {
-          array.shift();
+        let times = [...prevState, prevState[prevState.length - 1] + 3];
+        if (times.length > 10) {
+          times.shift();
         }
-        return array;
+        return times;
       });
 
-      //reset lag objects
+      // reset metrics at end of interval
       lagTimesPartitions = {};
       lagTimeAverages = {};
       currentMessageVelocity = {};
@@ -147,7 +123,7 @@ function PartitionGraph({
     // ------------------------------------------ //
 
     return () => {
-      //reset
+      // reset state and close socket connection
       clearInterval(intervalId);
       setTime([0]);
       setLiveLagTime({});
