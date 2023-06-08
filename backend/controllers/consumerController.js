@@ -4,7 +4,11 @@ const { Kafka } = require('kafkajs');
 //establish io as a global variable and list possible origin ports on frontend
 const io = require('socket.io')(3001, {
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:8080'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:8080',
+      'http://localhost:8081',
+    ],
   },
 });
 // -------------------------------------- //
@@ -14,10 +18,9 @@ const consumerController = {};
 // global variables
 let consumer;
 
-
 //modular consumer connection and subscription
- async function connectConsumer(topic, userInfo){
-  console.log('this is current topic', topic)
+async function connectConsumer(topic, userInfo) {
+  console.log('this is current topic', topic);
   //connect and subscribe to kafka cluster
   const kafka = new Kafka({
     clientId: userInfo.clientId,
@@ -37,7 +40,7 @@ let consumer;
 consumerController.readMessages = async (consumer) => {
   try {
     // --------------------------------- //
-     //run consumer and broadcast messages
+    //run consumer and broadcast messages
     await consumer.run({
       eachMessage: async (result) => {
         console.log('this is result partition', result.partition);
@@ -93,8 +96,8 @@ io.on('connection', async (socket) => {
   //on socket disconnect, disconnect the consumer
   socket.on('disconnect', async () => {
     await consumer.disconnect();
-    console.log('consumer disconnected')
-  })
+    console.log('consumer disconnected');
+  });
 });
 
 module.exports = consumerController;
