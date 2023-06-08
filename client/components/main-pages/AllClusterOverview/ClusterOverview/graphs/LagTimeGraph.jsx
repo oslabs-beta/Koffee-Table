@@ -2,8 +2,6 @@ import { Line } from 'react-chartjs-2';
 import React from 'react';
 
 export default function LagTimeGraph({ liveLagTime, time }) {
-
-
   const colors = [
     'rgba(255, 99, 132)',
     'rgba(54, 162, 235)',
@@ -30,8 +28,6 @@ export default function LagTimeGraph({ liveLagTime, time }) {
     // return array of objects
     return datasets;
   }
-
-  
 
   const data = {
     // x-axis labels
