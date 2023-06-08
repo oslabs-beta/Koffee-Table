@@ -14,7 +14,7 @@ function Connect({
   const [port, setPort] = useState(null);
   const [conStatus, setConStatus] = useState('none');
 
-  const sendClusterData = (clientIdArg, hostNameArg, portArg) => {
+  const sendClusterData = (clientId, hostName, port) => {
     setConStatus('none');
     fetch('/getCluster', {
       method: 'POST',
@@ -22,9 +22,9 @@ function Connect({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientId: clientIdArg,
-        hostName: hostNameArg,
-        port: portArg,
+        clientId: clientId,
+        hostName: hostName,
+        port: port,
       }),
     })
       .then((response) => response.json())
@@ -62,17 +62,17 @@ function Connect({
           <h1>Connect to Kafka Cluster</h1>
           <input
             placeholder="Client ID"
-            className=" input ClientId"
+            className="input ClientId"
             onKeyUp={(v) => setclientId(v.target.value)}
           ></input>
           <input
             placeholder="Host Name"
-            className=" input hostName"
+            className="input hostName"
             onKeyUp={(v) => setHostName(v.target.value)}
           ></input>
           <input
             placeholder="Port"
-            className=" input Port"
+            className="input Port"
             onKeyUp={(v) => setPort(v.target.value)}
           ></input>
           <button
